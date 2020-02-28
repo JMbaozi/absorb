@@ -24,7 +24,7 @@ def get_movies():
 movies = get_movies()
 print(movies)
 
-#将movies列表写入 豆瓣TOP250.txt
+#将movies列表写入 豆瓣电影TOP250.txt
 number = 1      #排名
 file = open('E:\\blog\\program\\豆瓣TOP250.txt','w')
 for each in movies:
