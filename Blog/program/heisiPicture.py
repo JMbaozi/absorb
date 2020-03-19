@@ -25,7 +25,6 @@ url = 'https://www.sw4.net/heisi'
 
 post_href = []#博客链接
 img_url = []#图片url
-img_content = []#图片二进制信息
 dirname = 'heisiPicture'
 
 #获取链接
