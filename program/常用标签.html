@@ -3,6 +3,23 @@
     <head>
         <meta charset="utf-8" />
         <title>常用标签</title>
+        <style type="text/css">
+            #content1{
+                height: 500px;
+                background: skyblue;
+            }
+            #content2{
+                height: 500px;
+                background: yellow;
+            }
+            #content3{
+                height: 500px;
+                background: pink;
+            }
+            baozi{
+                background: skyblue;
+            }
+        </style>
     </head>
     <body>
         <!--标题标签-->
@@ -38,5 +55,59 @@
             <li>新闻4</li>
             <li>新闻5</li>
         </ol>
+
+        <!--链接标签-->
+        <a href="https://jmbaozi.top"> 包子丶</a>
+        <a href="https://www.jmbaozi.top">JMbaozi</a>
+        <a href="index.html">index</a>
+        <!--页面内标签跳转-->
+        <a href="#content1">标签1</a>
+        <a href="#content2">标签2</a>
+        <a href="#content3">标签3</a>
+        <p id="content1">标签1</p>
+        <p id="content2">标签2</p>
+        <p id="content3">标签3</p>
+        
+        <!--容器标签-->
+        <div id="div1">
+            <h1>容器1</h1>
+            <img src="https://cdn.jsdelivr.net/gh/JMbaozi/Blogimg/Pictures/89a835f6790c30c5725086b86b602060.png">
+            <p>图片1</p>
+        </div>
+        <div id="div2">
+            <h1>容器2</h1>
+            <img src="https://cdn.jsdelivr.net/gh/JMbaozi/Blogimg/Pictures/3ce807c0c64dac135b05b16458a2fd17.png">
+            <p>图片2</p>
+        </div>
+
+        <!--自定义标签-->
+        <!--样式style可以自己修改-->
+        <baozi>包子丶</baozi>
+
+        <!--表单标签-->
+        <!--
+            action:表单数据提交的地址
+            method:提交的方法,有get、post(默认为get)    
+            <input>:
+                type:类型
+                name:名称
+                placeholder:预置文字
+                id:ID号
+                value:值
+        -->
+        <form action="" method="post">
+            <input type="text" name="username" placeholder="账号" id="" value="">
+            <input type="password" name="password" placeholder="密码" id="" value="">
+            <input type="submit" value="登入">
+        </form>
+        <form action="" methon="get">
+            <input type="text" name="username" placeholder="账号" id="" value="">
+            <input type="password" name="password" placeholder="密码" id="" value="">
+            <input type="submit" value="登入">
+        </form>
+        <form action="https://www.baidu.com/s" method="get">
+            <input type="text" name="wd" placeholder="请输入搜索内容" id="" value="">
+            <input type="submit" value="搜索">
+        </form>
     </body>
 </html>
