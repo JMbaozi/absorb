@@ -1,0 +1,12 @@
+a{
+    text-decoration: none;
+    font-size: 20px;
+    color: cornflowerblue;
+}
+a:hover{
+    text-decoration: underline;
+    font-size: 25px;
+}
+#a1{
+    color: deepskyblue;
+}
