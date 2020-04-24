@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #d1{
+            width: 600px;
+            height: 200px;
+            /* 字体大小 */
+            font-size: 50px;
+            /* 字体 */
+            font-family: 楷体;
+            /* 字体粗细：100-900 */
+            font-weight: 500;
+            /* 颜色 */
+            color: cornflowerblue;
+            /* 字体布局 ,默认向左，left、center、right*/
+            text-align: center;
+            /* 行高 */
+            line-height: 200px;
+        }
+        #d2{
+            width: 600px;
+            height: 200px;
+            font-size: 50px;
+            text-align: center;
+            color: cornflowerblue;
+            /* 文字阴影: 水平偏移距离，垂直偏移距离，模糊度，阴影的颜色 */
+            text-shadow: 10px 5px 5px cornflowerblue;
+        }
+        #d3{
+            width: 600px;
+            height: 200px;
+            font-size: 50px;
+            text-align: center;
+            color: #ffffff;
+            /* 文字阴影: 水平偏移距离，垂直偏移距离，模糊度，阴影的颜色 */
+            text-shadow: 0px 0px 10px black;
+        }
+        #d4{
+            width: 600px;
+            height: 200px;
+            font-size: 50px;
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 0px 0px 20px yellow,0px 0px 10px orangered,0px 0px 10px orange;
+        }
+        #d5{
+            width: 600px;
+            height: 200px;
+            font-size: 50px;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 2px 2px 5px cornflowerblue,3px 3px 0px skyblue,4px 4px 0px skyblue,5px 5px 0px skyblue;
+        }
+        #d6{
+            width: 600px;
+            height: 200px;
+            font-size: 50px;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 2px 2px 5px cornflowerblue,3px 3px 0px skyblue,4px 4px 0px skyblue,5px 5px 0px skyblue;
+            /* 动画 */
+            animation: donghua 3s infinite alternate;
+        }
+        @keyframes donghua{
+            from{
+                text-shadow: 2px 2px 20px cornflowerblue,3px 3px 20px skyblue,4px 4px 20px skyblue,5px 5px 20px skyblue;
+            }
+            to{
+                text-shadow: 2px 2px 5px cornflowerblue,3px 3px 5px skyblue,4px 4px 5px skyblue,5px 5px 5px skyblue;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="d1">
+        <p>helloworld</p>
+    </div>
+    <div id="d2">
+        <p>helloworld</p>
+    </div>
+    <div id="d3">
+        <p>helloworld</p>
+    </div>
+    <div id="d4">
+        <p>helloworld</p>
+    </div>
+    <div id="d5">
+        <p>helloworld</p>
+    </div>
+    <div id="d6">
+        <p>helloworld</p>
+    </div>
+</body>
+</html>
