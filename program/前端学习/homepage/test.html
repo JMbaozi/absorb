@@ -11,11 +11,21 @@
             <button onclick="test()" >点我</button>
         </div>
     </center>
+    <div id="demo"></div>
 </body>
 <script>
+    var result = new Array()
     function test(){
-        document.write("test")
+        for(var i=1;i<10;i++){
+            for(var j=i;j<10;j++){
+                result.push(i+"x"+j+"="+i*j)
+                if(j==9){
+                    result.push("<br>")
+                }
+            }
+        }
+        var x = document.getElementById("demo")
+        x.innerHTML = result
     }
-    document.write("test1")
 </script>
 </html>
