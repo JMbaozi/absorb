@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>常用标签</title>
+        <style type="text/css">
+            #content1{
+                height: 500px;
+                background: skyblue;
+            }
+            #content2{
+                height: 500px;
+                background: yellow;
+            }
+            #content3{
+                height: 500px;
+                background: pink;
+            }
+            baozi{
+                background: skyblue;
+            }
+        </style>
+    </head>
+    <body>
+        <!--标题标签-->
+        <h1>h1标签：标题</h1>
+        <h2>h2标签</h2>
+        <h3>h3标签</h3>
+        <h4>h4标签</h4>
+        <h5>h5标签</h5>
+        <h6>h6标签</h6>
+
+        <!--段落标签-->
+        <p>陆地应用：主要包括车辆导航、应急反应、大气物理观测、地球物理资源勘探、工程测量、变形监测、地壳运动监测、 市政规划控制等；</p>
+        <p>海洋应用：括远洋船最佳航程航线测定、船只实时调度与导航、海洋救援、海洋探宝、水文地质测量以及海洋平台定位、海平面升降监测等；</p>
+
+        <!--图片标签-->
+        <img src="https://cdn.jsdelivr.net/gh/JMbaozi/Blogimg/Pictures/87e25bda286bd77ea4d4c63ba73216e8.jpg">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585833233957&di=7bb386eb85e09733481ce20f37cabcbb&imgtype=0&src=http%3A%2F%2Fwww.17qq.com%2Fimg_qqtouxiang%2F58169500.jpeg">
+
+        <!--列表标签-->
+        <!--无序列表 快捷写法：ul>li{新闻$}*5-->
+        <ul>
+            <li>新闻1</li>
+            <li>新闻2</li>
+            <li>新闻3</li>
+            <li>新闻4</li>
+            <li>新闻5</li>
+        </ul>
+        <!--有序列表 快捷写法：ol>li*5-->
+        <ol>
+            <li>新闻1</li>
+            <li>新闻2</li>
+            <li>新闻3</li>
+            <li>新闻4</li>
+            <li>新闻5</li>
+        </ol>
+
+        <!--链接标签-->
+        <a href="https://jmbaozi.top"> 包子丶</a>
+        <a href="https://www.jmbaozi.top">JMbaozi</a>
+        <a href="index.html">index</a>
+        <!--页面内标签跳转-->
+        <a href="#content1">标签1</a>
+        <a href="#content2">标签2</a>
+        <a href="#content3">标签3</a>
+        <p id="content1">标签1</p>
+        <p id="content2">标签2</p>
+        <p id="content3">标签3</p>
+        
+        <!--容器标签-->
+        <div id="div1">
+            <h1>容器1</h1>
+            <img src="https://cdn.jsdelivr.net/gh/JMbaozi/Blogimg/Pictures/89a835f6790c30c5725086b86b602060.png">
+            <p>图片1</p>
+        </div>
+        <div id="div2">
+            <h1>容器2</h1>
+            <img src="https://cdn.jsdelivr.net/gh/JMbaozi/Blogimg/Pictures/3ce807c0c64dac135b05b16458a2fd17.png">
+            <p>图片2</p>
+        </div>
+
+        <!--自定义标签-->
+        <!--样式style可以自己修改-->
+        <baozi>包子丶</baozi>
+
+        <!--表单标签-->
+        <!--
+            action:表单数据提交的地址
+            method:提交的方法,有get、post(默认为get)    
+            <input>:
+                type:类型
+                name:名称
+                placeholder:预置文字
+                id:ID号
+                value:值
+        -->
+        <form action="" method="post">
+            <input type="text" name="username" placeholder="账号" id="" value="">
+            <input type="password" name="password" placeholder="密码" id="" value="">
+            <input type="submit" value="登入">
+        </form>
+        <form action="" methon="get">
+            <input type="text" name="username" placeholder="账号" id="" value="">
+            <input type="password" name="password" placeholder="密码" id="" value="">
+            <input type="submit" value="登入">
+        </form>
+        <form action="https://www.baidu.com/s" method="get">
+            <input type="text" name="wd" placeholder="请输入搜索内容" id="" value="">
+            <input type="submit" value="搜索">
+        </form>
+    </body>
+</html>

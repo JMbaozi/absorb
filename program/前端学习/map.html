@@ -1,0 +1,41 @@
+<!DOCTYPE html> 
+<html>
+<head> 
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <title>Hello, World</title> 
+    <style type="text/css"> 
+        html{height:100%} 
+        body{height:100%;margin:0px;padding:0px} 
+        #container{height:100%} 
+    </style> 
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=6Xfh7Gd1CYItnNTegU1PrUHB7UmARAMi"></script>
+</head> 
+<body>
+    <div id="container"></div>
+    <script type="text/javascript">
+        var map = new BMapGL.Map("container");
+        // 创建地图实例 
+        var point = new BMapGL.Point(120.129,36.009);
+        // 创建点坐标 
+        map.centerAndZoom(point, 15);
+        // 初始化地图，设置中心点坐标和地图级别 
+        map.setMapStyleV2({     
+        styleId: '097f0ab8ca35e1c1a0c6745a20c507ea'
+        });
+        map.enableScrollWheelZoom(true);
+        //map.addEventListener("click",function(e){
+        //	alert("坐标："+e.point.lng + "," + e.point.lat);
+        //});
+        mp.centerAndZoom(point, 14);
+        mp.enableScrollWheelZoom();
+        mp.enableInertialDragging();
+        mp.enableContinuousZoom();
+        var size = new BMap.Size(10, 20);
+        mp.addControl(new BMap.CityListControl({
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            offset: size,
+        }));
+    </script> 
+</body> 
+</html>

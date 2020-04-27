@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>滤镜</title>
+        <style>
+            img{
+                width: 1000px;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+            img:hover{
+                /*鼠标指向图片时滤镜取消*/
+                -webkit-filter: none;
+                /*切换时间为 3s*/
+                transition: all 3s;
+            }
+            .img1{
+                /*原图*/
+            }
+            .img2{
+                /*h灰度
+                 *grayscale:设置灰度，1是100%，0是0%
+                 */
+                -webkit-filter: grayscale(1);                
+            }
+            .img3{
+                /*亮度
+                 *brightness:亮度，默认值为1；<1：暗；>1:亮
+                 */
+                -webkit-filter: brightness(0);/*关灯效果*/
+            }
+            .img4{
+                /*褐色
+                 *sepia:1为100%褐色,0为正常
+                 */
+                -webkit-filter: sepia(1);
+            }
+            .img5{
+                /*模糊度
+                 *blur:单位像素模糊
+                 */
+                -webkit-filter: blur(3px);
+            }
+            .img6{
+                /*对比度
+                 *contrast:正常值为1；<1对比度下降；>1对比度上升
+                 */
+                -webkit-filter: contrast(2);
+            }
+            .img7{
+                /*饱和度
+                 *saturate:正常值为1；<1饱和度下降；>1饱和度上升
+                 */
+                -webkit-filter: saturate(2);
+            }       
+            .img8{
+                /*胶片底色
+                 *invert:最大值值为1，最小值为0
+                 */
+                -webkit-filter: invert(1);
+            }      
+            .img9{
+                /*色相旋转
+                 *hue-rotate:0°~360°
+                 */
+                -webkit-filter: hue-rotate(90deg);
+            }
+            .img10{
+                -webkit-filter: brightness(2) grayscale(1);
+            }
+            .img10:hover{
+                -webkit-filter: brightness(1) grayscale(0) saturate(2);
+                transition: all 3s;                
+            }
+        </style>
+    </head>
+    <body>
+        <img class="img1" src="img/bizhi.png" alt="原图">
+        <img class="img2" src="img/bizhi.png" alt="灰度">
+        <img class="img3" src="img/bizhi.png" alt="亮度">
+        <img class="img4" src="img/bizhi.png" alt="褐色">
+        <img class="img5" src="img/bizhi.png" alt="模糊度">
+        <img class="img6" src="img/bizhi.png" alt="对比度">
+        <img class="img7" src="img/bizhi.png" alt="饱和度">
+        <img class="img8" src="img/bizhi.png" alt="胶片底色">
+        <img class="img9" src="img/bizhi.png" alt="色相旋转">
+        <img class="img10" src="img/bizhi.png" alt="多种滤镜结合">
+    </body>
+</html>
