@@ -40,6 +40,7 @@
         <div id="d3">
             <button onclick="mulTable()">点我查看九九乘法表</button>
         </div>
+        <div id="result"></div>
     </center>
 </body>
 <script>
@@ -82,14 +83,21 @@
     }
     //九九乘法表
     function mulTable(){
+        var result = new Array()
         for(var i=1;i<10;i++){
             for(var j=i;j<10;j++){
-                document.write(i+"x"+j+"="+i*j+"；")
+                result.push(i+"x"+j+"="+i*j+"；")
                 if(j==9){
-                    document.write("<br>")
+                    result.push("<br>")
                 }
             }
         }
+        var c = ""
+        for(var i =0;i<result.length;++i){
+            c += result[i]
+        }
+        var x = document.getElementById("result")
+        x.innerHTML = c
     }
 </script>
 </html>
