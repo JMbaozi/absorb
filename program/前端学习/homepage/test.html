@@ -14,13 +14,13 @@
     <div id="demo"></div>
 </body>
 <script>
-    var result = new Array()
     function test(){
+        var result = ""
         for(var i=1;i<10;i++){
             for(var j=i;j<10;j++){
-                result.push(i+"x"+j+"="+i*j)
+                result += (i+"x"+j+"="+i*j+"；")
                 if(j==9){
-                    result.push("<br>")
+                    result += ("<br>")
                 }
             }
         }
