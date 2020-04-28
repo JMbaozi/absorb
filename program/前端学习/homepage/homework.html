@@ -83,21 +83,17 @@
     }
     //九九乘法表
     function mulTable(){
-        var result = new Array()
+        var result = ""
         for(var i=1;i<10;i++){
             for(var j=i;j<10;j++){
-                result.push(i+"x"+j+"="+i*j+"；")
+                result += (i+"x"+j+"="+i*j+"；")
                 if(j==9){
-                    result.push("<br>")
+                    result += ("<br>")
                 }
             }
         }
-        var c = ""
-        for(var i =0;i<result.length;++i){
-            c += result[i]
-        }
         var x = document.getElementById("result")
-        x.innerHTML = c
+        x.innerHTML = result
     }
 </script>
 </html>
