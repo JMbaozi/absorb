@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #img1{
+            width: 800px;
+            /* 过渡效果，综合性过渡效果设置 */
+            transition: width 2s;
+            /* 设置具有过渡效果的属性 ，可设置多个值或所有all*/
+            transition-property: width;
+            /* 过渡的时间长度 */
+            transition-duration: 2s;
+            /* 过渡动画变化的速度 
+            ease(默认值):慢快慢(曲线)
+            linear:线性速度变化
+            ease-in:逐渐加快
+            ease-out:逐渐变慢
+            可以通过浏览器进行调节获取贝塞尔曲线参数值
+            */
+            transition-timing-function: ease;
+            /* 设置延迟事件 */
+            transition-delay: 1s;
+        }
+        #img1:hover{
+            width: 1000px;
+        }
+        #d1{
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            transition-property: width,background;
+            transition-duration: 2s,3s;
+        }
+        #d1:hover{
+            width: 600px;
+            background: turquoise;
+        }
+        #d2{
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            margin: 20px auto;
+            /* 阴影 */
+            box-shadow: 0 0 0px #cccccc;
+            transition: all 0.5s ease;
+        }
+        #d2:hover{
+            box-shadow: 5px 20px 20px #999999;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <img src="img/bizhi.png" id="img1">
+        <div id="d1"></div>
+        <div id="d2"></div>
+    </center>
+</body>
+</html>
