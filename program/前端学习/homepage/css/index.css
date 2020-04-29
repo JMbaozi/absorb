@@ -46,3 +46,7 @@ p{
     text-decoration: none;
     color: cornflowerblue;
 }
+html{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

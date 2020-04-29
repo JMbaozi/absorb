@@ -16,6 +16,24 @@
         #d3{
             margin: 100px;
         }
+        button{
+            width: 140px;
+            height: 80px;
+            background-color: #ffffff;
+            border: 1px solid transparent;
+            border-color: turquoise;
+            cursor:pointer;
+            transition: all 0.5s ease;
+        }
+        button:hover{
+            background: turquoise;
+            box-shadow:5px 20px 20px #999999;
+        }
+        #pic{
+            left: 100px;
+            top: 100px;
+            position: absolute;
+        }
     </style>
 </head>
 <body background="img/doodles.png">
@@ -32,16 +50,18 @@
     </div>
     <center>
         <div id="d1">
-            <button onclick="judgeClass()" >点我判断成绩等级</button>
+            <button onclick="judgeClass()" >判断成绩等级</button>
         </div>
         <div id="d2">
-            <button onclick="isEmail()" >点我判断邮箱是否规范</button>
+            <button onclick="isEmail()" >判断邮箱是否规范</button>
         </div>
         <div id="d3">
-            <button onclick="mulTable()">点我查看九九乘法表</button>
+            <button onclick="mulTable()">查看九九乘法表</button>
         </div>
         <div id="result"></div>
     </center>
+    <!-- 可拖动图标 -->  
+    <img src="https://game.gtimg.cn/images/lol/v3/logo-public.png" id="pic">
 </body>
 <script>
     //成绩分级
@@ -94,6 +114,29 @@
         }
         var x = document.getElementById("result")
         x.innerHTML = result
+    }
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+        var pic = document.getElementById("pic");
+        pic.onmousedown = function(event){
+            // console.log(1);
+            /*再次点击时使得图标任然在那个位置，鼠标可以点击到图标上*/
+            var ol = event.clientX - pic.offsetLeft;
+            var ot = event.clientY - pic.offsetTop;
+            /*鼠标点击*/
+            document.onmousemove = function (event) {
+                var left = event.clientX - ol;
+                var top = event.clientY - ot;
+                pic.style.left = left+"px";/*赋值*/
+                pic.style.top = top+"px";
+            }
+            /*鼠标松开*/
+            document.onmouseup = function(event){
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
     }
 </script>
 </html>

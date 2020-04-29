@@ -1,31 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
-</head>
-<body background="img/doodles.png">
-    <center>
-        <div id="d1">
-            <button onclick="test()" >点我</button>
-        </div>
-    </center>
-    <div id="demo"></div>
-</body>
-<script>
-    function test(){
-        var result = ""
-        for(var i=1;i<10;i++){
-            for(var j=i;j<10;j++){
-                result += (i+"x"+j+"="+i*j+"；")
-                if(j==9){
-                    result += ("<br>")
+    <style type="text/css">
+        #box1 {
+            width: 50px;
+            height: 50px;
+            background: lightcoral;
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var box1 = document.getElementById("box1");
+            box1.onmousedown = function (event) {
+                // console.log(1);
+                /*再次点击时使得图标任然在那个位置，鼠标可以点击到图标上*/
+                var ol = event.clientX - box1.offsetLeft;
+                var ot = event.clientY - box1.offsetTop;
+                /*鼠标点击*/
+                document.onmousemove = function (event) {
+                    var left = event.clientX - ol;
+                    var top = event.clientY - ot;
+                    box1.style.left = left+"px";/*赋值*/
+                    box1.style.top = top+"px";
+                }
+                /*鼠标松开*/
+                document.onmouseup = function (event) {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
                 }
             }
         }
-        var x = document.getElementById("demo")
-        x.innerHTML = result
-    }
-</script>
+    </script>
+</head>
+<body style="height: 1000px;width: 2000px;">
+    <div id="box1"></div>
+</body>
 </html>
