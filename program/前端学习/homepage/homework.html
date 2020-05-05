@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/homework.css">
     <style>
@@ -15,6 +16,9 @@
         }
         #d3{
             margin: 100px;
+        }
+        #d4{
+            margin: 10px;
         }
         button{
             width: 140px;
@@ -62,6 +66,71 @@
             <button onclick="mulTable()">查看九九乘法表</button>
         </div>
         <div id="result"></div>
+        <div id="d4">
+            <button onclick="changeColor()">jQuery实现逐行变色</button>
+        </div>
+        <div id="d5">
+            <table border="1">
+                <tr>
+                    <th >书名</th>
+                    <th >作者</th>
+                    <th >价格</th>
+                    <th >出版日期</th>
+                </tr>
+                <tr>
+                    <td id="shuming"></td>
+                    <td id="author"></td>
+                    <td id="price"></td>
+                    <td id="year"></td>
+                </tr>
+                <tr>
+                    <td id="shuming1"></td>
+                    <td id="author1"></td>
+                    <td id="price1"></td>
+                    <td id="year1"></td>
+                </tr>
+                <tr>
+                    <td id="shuming2"></td>
+                    <td id="author2"></td>
+                    <td id="price2"></td>
+                    <td id="year2"></td>
+                </tr>
+                <tr>
+                    <td id="shuming3"></td>
+                    <td >
+                        <span id="author3"></span>,</br>
+                        <span id="author4"></span>,</br>
+                        <span id="author5"></span>,</br>
+                        <span id="author6"></span>,</br>
+                        <span id="author7"></span>
+                    </td>
+                    <td id="price3"></td>
+                    <td id="year3"></td>
+                </tr>
+              </table>
+              <br>
+              <table border="1">
+               <tr>
+                  <th >书名</th>
+                  <th >作者</th>
+                  <th >价格</th>
+                  <th >出版日期</th>
+                </tr>
+                <tr>
+                  <td >
+                      <select id="selectbook" onchange="choosedata()" >
+                          <option value ="1" id="shumingx1" ></option>
+                          <option value ="2" id="shumingx2" ></option>
+                          <option value ="3" id="shumingx3" ></option>
+                          <option value ="4" id="shumingx4" ></option>
+                      </select>
+                  </td>
+                  <td id="authorx"></td>
+                  <td id="pricex"></td>
+                  <td id="yearx"></td>
+                </tr>  
+              </table>
+        </div>
     </center>
     <!-- 可拖动图标 -->  
     <img src="https://game.gtimg.cn/images/lol/v3/logo-public.png" id="pic">
@@ -118,6 +187,11 @@
         var x = document.getElementById("result")
         x.innerHTML = result
     }
+    //jquery实现逐行变色
+    function changeColor(){
+        $("table tr").css("background","turquoise");
+        $("table tr:even").css("background","skyblue");
+    }
 </script>
 <script type="text/javascript">
     window.onload = function () {
@@ -142,4 +216,152 @@
         }
     }
 </script>
+<script type="text/javascript"> 
+    function loadXML(xmlFile) {
+        var xmlDoc;
+        if (window.ActiveXObject) {
+            xmlDoc = new ActiveXObject('Microsoft.XMLDOM');//IE浏览器
+            xmlDoc.async = false;
+            xmlDoc.load(xmlFile);
+        }
+        else if (isFirefox = navigator.userAgent.indexOf("Firefox") > 0) { //火狐浏览器
+            //else if (document.implementation && document.implementation.createDocument) {//这里主要是对谷歌浏览器进行处理
+            xmlDoc = document.implementation.createDocument('', '', null);
+            xmlDoc.load(xmlFile);
+        }
+        else { //谷歌浏览器
+            var xmlhttp = new window.XMLHttpRequest();
+            xmlhttp.open("GET", xmlFile, false);
+            xmlhttp.send(null);
+            if (xmlhttp.readyState == 4) {
+                xmlDoc = xmlhttp.responseXML.documentElement;
+            }
+        }
+
+        return xmlDoc;
+    }
+
+    // 首先对xml对象进行判断
+    var checkXMLDocObj = function (xmlFile) {
+        var xmlDoc = loadXML(xmlFile);
+        if (xmlDoc == null) {
+            alert('您的浏览器不支持xml文件读取,于是本页面禁止您的操作,推荐使用IE5.0以上可以解决此问题!');
+            window.location.href = '../err.html';
+
+        }
+        return xmlDoc;
+    }
+
+    var xmlDoc = checkXMLDocObj('/homepage/books.xml');//读取到xml文件中的数据
+
+
+    if (isFirefox = navigator.userAgent.indexOf("Firefox") > 0) { //火狐浏览器
+        setTimeout(function () {
+            loadxml();
+        }, 500);
+    } else {
+        loadxml();
+    }
+   
+    function choose(dom) {
+        return document.getElementById(dom);
+    }//选择dom
+  
+    function loadxml() {
+        //第一个表
+        document.getElementById("shuming").innerHTML = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        document.getElementById("author").innerHTML = xmlDoc.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+        document.getElementById("price").innerHTML = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
+        document.getElementById("year").innerHTML = xmlDoc.getElementsByTagName("year")[0].childNodes[0].nodeValue;
+
+        document.getElementById("shuming1").innerHTML = xmlDoc.getElementsByTagName("title")[1].childNodes[0].nodeValue;
+        document.getElementById("author1").innerHTML = xmlDoc.getElementsByTagName("author")[1].childNodes[0].nodeValue;
+        document.getElementById("price1").innerHTML = xmlDoc.getElementsByTagName("price")[1].childNodes[0].nodeValue;
+        document.getElementById("year1").innerHTML = xmlDoc.getElementsByTagName("year")[1].childNodes[0].nodeValue;
+
+        document.getElementById("shuming2").innerHTML = xmlDoc.getElementsByTagName("title")[2].childNodes[0].nodeValue;
+        document.getElementById("author2").innerHTML = xmlDoc.getElementsByTagName("author")[2].childNodes[0].nodeValue;
+        document.getElementById("price2").innerHTML = xmlDoc.getElementsByTagName("price")[2].childNodes[0].nodeValue;
+        document.getElementById("year2").innerHTML = xmlDoc.getElementsByTagName("year")[2].childNodes[0].nodeValue;
+
+        document.getElementById("shuming3").innerHTML = xmlDoc.getElementsByTagName("title")[3].childNodes[0].nodeValue;
+        document.getElementById("author3").innerHTML = xmlDoc.getElementsByTagName("author")[3].childNodes[0].nodeValue;
+        document.getElementById("author4").innerHTML = xmlDoc.getElementsByTagName("author")[4].childNodes[0].nodeValue;
+        document.getElementById("author5").innerHTML = xmlDoc.getElementsByTagName("author")[5].childNodes[0].nodeValue;
+        document.getElementById("author6").innerHTML = xmlDoc.getElementsByTagName("author")[6].childNodes[0].nodeValue;
+        document.getElementById("author7").innerHTML = xmlDoc.getElementsByTagName("author")[7].childNodes[0].nodeValue;
+        document.getElementById("price3").innerHTML = xmlDoc.getElementsByTagName("price")[3].childNodes[0].nodeValue;
+        document.getElementById("year3").innerHTML = xmlDoc.getElementsByTagName("year")[3].childNodes[0].nodeValue;
+
+ 
+        //第二个表select
+ 
+        var select = document.getElementById("selectbook");
+        document.getElementById("shumingx1").innerHTML = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        document.getElementById("shumingx4").innerHTML = xmlDoc.getElementsByTagName("title")[3].childNodes[0].nodeValue;
+
+        document.getElementById("shumingx2").innerHTML = xmlDoc.getElementsByTagName("title")[1].childNodes[0].nodeValue;
+        document.getElementById("shumingx3").innerHTML = xmlDoc.getElementsByTagName("title")[2].childNodes[0].nodeValue;
+
+        choose("authorx").innerHTML = xmlDoc.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+        choose("pricex").innerHTML = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
+        choose("yearx").innerHTML = xmlDoc.getElementsByTagName("year")[0].childNodes[0].nodeValue;
+        //初始化
+    }
+
+        // document.getElementById("shumingx1").onclick = function () {
+            function choose1 () {
+             choose("authorx").innerHTML = xmlDoc.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+             choose("pricex").innerHTML = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
+             choose("yearx").innerHTML = xmlDoc.getElementsByTagName("year")[0].childNodes[0].nodeValue;
+             document.getElementById("shumingx1").innerHTML = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+         }
+
+      
+          
+       
+
+    //document.getElementById("shumingx2").onclick = function () {
+            function choose2() {
+             choose("authorx").innerHTML = xmlDoc.getElementsByTagName("author")[1].childNodes[0].nodeValue;
+             choose("pricex").innerHTML = xmlDoc.getElementsByTagName("price")[1].childNodes[0].nodeValue;
+             choose("yearx").innerHTML = xmlDoc.getElementsByTagName("year")[1].childNodes[0].nodeValue;
+             document.getElementById("shumingx2").innerHTML = xmlDoc.getElementsByTagName("title")[1].childNodes[0].nodeValue;
+         }
+
+         //document.getElementById("shumingx3").onclick = function () {
+            function choose3() {
+             choose("authorx").innerHTML = xmlDoc.getElementsByTagName("author")[2].childNodes[0].nodeValue;
+             choose("pricex").innerHTML = xmlDoc.getElementsByTagName("price")[2].childNodes[0].nodeValue;
+             choose("yearx").innerHTML = xmlDoc.getElementsByTagName("year")[2].childNodes[0].nodeValue;
+             document.getElementById("shumingx3").innerHTML = xmlDoc.getElementsByTagName("title")[2].childNodes[0].nodeValue;
+         }
+
+    //document.getElementById("shumingx4").onclick = function () {
+            function choose4() {
+             choose("authorx").innerHTML = xmlDoc.getElementsByTagName("author")[3].childNodes[0].nodeValue;
+             choose("pricex").innerHTML = xmlDoc.getElementsByTagName("price")[3].childNodes[0].nodeValue;
+             choose("yearx").innerHTML = xmlDoc.getElementsByTagName("year")[3].childNodes[0].nodeValue;
+             document.getElementById("shumingx4").innerHTML = xmlDoc.getElementsByTagName("title")[3].childNodes[0].nodeValue;
+            }
+
+
+            function choosedata() {
+                var value = document.getElementById("selectbook").value;
+                if (value == "1")
+                {
+                    choose1();
+                } else if (value == "2")
+                {
+                    choose2();
+                }else if (value == "3")
+                {
+                    choose3();
+                } else if (value == "4")
+                {
+                    choose4();
+                }
+
+            }
+</script>    
 </html>
