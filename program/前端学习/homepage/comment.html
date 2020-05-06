@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <link rel="stylesheet" href="css/header.css">
+    <title>留言板</title>
+    <style>
+        #vcomments{
+            margin: 0 auto;
+            width: 700px;
+            list-style-type: none;
+            padding: auto;
+            border: 1px solid #f0f0f0;
+        }
+        #h1{
+            margin: 100px;
+            font-family: 微软雅黑;
+            color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <center> 
+            <ul>
+                <li><a href="/homepage">首页</a></li>
+                <li><a href="https://jmbaozi.top/">博客</a></li>
+                <li><a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=Hnx-cWR3fWx6XnhxZnN-d3IwfXFz">邮箱</a></li>
+                <li><a href="wallpaper.html">壁纸</a></li>
+                <li><a href="video.html">视频</a></li>
+                <li><a href="comment.html">留言板</a></li>   
+            </ul>
+        </center>      
+    </div>
+    <div style="position: absolute;left: 135px;top:150px;">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=299625&auto=0&height=66"></iframe>
+    </div>
+    <center>
+        <h1 id="h1">留言板</h1>
+    </center>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            app_id: 'bE5uulX1rjlMYfvX3bkYxRcp-gzGzoHsz',
+            app_key: 'UyMjj3WbzaiLcFB13sICVpnW',
+            placeholder:'我是输入框，点我留言(*^_^*)',
+            visitor: true,
+            avatar:'wavatar' // (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
+        });
+    </script>
+</body>
+</html>
