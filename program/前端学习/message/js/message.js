@@ -1,6 +1,4 @@
 // 初始化
-var APP_ID = 'bE5uulX1rjlMYfvX3bkYxRcp-gzGzoHsz';
-var APP_KEY = 'UyMjj3WbzaiLcFB13sICVpnW';
 AV.init({
     appId: APP_ID,
     appKey: APP_KEY
