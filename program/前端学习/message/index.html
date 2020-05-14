@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdn1.lncld.net/static/js/3.5.0/av-min.js"></script>
+    <link rel="stylesheet" href="css/message.css">
+</head>
+<body background="img/memphis-colorful.png">
+    <section class="message">
+        <center>
+            <h2 id="title">留言板</h2>
+        </center>
+        <form id="postMessageForm" style="width: 700px; margin: 50px auto;">
+            <input placeholder="昵称" type="text" name="name">
+            <input placeholder="邮箱" type="text" name="email">
+            <input placeholder="个人网站" type="text" name="site">
+            <br>
+            <textarea id="content" placeholder="欢迎留言(oﾟvﾟ)ノ" name="content"></textarea>
+            <br>
+            <input id="submit" type="submit" value="提交">
+        </form>
+    </section>
+    <div class="messagediv">
+        <div id="messageList"></div>
+    </div>
+</body>
+<script src="js/message.js"></script>
+</html>

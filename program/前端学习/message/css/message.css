@@ -1,0 +1,39 @@
+#title{
+    top: 50px;
+    font-size: 33px;
+    color: skyblue;
+}
+.messagediv{
+    text-align: center;
+}
+.messagediv p{
+    list-style: none;
+    font-size: 30px;
+    color: skyblue;
+    border: 1px solid transparent;
+    border-color: slategray;
+}
+#content{
+    width: 630px;
+    height: 300px;
+    font-size: 15px;
+}
+#submit{
+    width: 80px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-color: turquoise;
+    cursor:pointer;
+    transition: all 0.5s ease;
+}
+#submit:hover{
+    background: turquoise;
+    box-shadow:5px 20px 20px #999999;
+}
+#submit:focus{
+    outline: none;
+}
+#header input{
+    width: 200px;
+}
