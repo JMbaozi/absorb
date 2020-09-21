@@ -1,4 +1,5 @@
 #教程地址：https://github.com/JMbaozi/Python-100-Days/blob/master/Day01-15/15.图像和办公文档处理.md
+#Pillow官方文档：https://pillow-cn.readthedocs.io/zh_CN/latest/index.html
 from PIL import Image
 
 image = Image.open('img/PillowCrop/成果.jpg')
@@ -10,7 +11,8 @@ image = Image.open('img/PillowCrop/成果.jpg')
 # image.format,image.size,image.mode
 
 #裁剪图像
-# Image.crop(left, up, right, below)
+# Image.crop(left, up, right, below)left：与左边界的距离 up：与上边界的距离 right：还是与左边界的距离 below：还是与上边界的距离
+# [(left,up),(right,below)]分别为左上角和右下角的坐标
 # 矩形选区有一个4元元组定义，分别表示左、上、右、下的坐标。这个库以左上角为坐标原点，单位是px，
 # 所以以下代码复制了一个 900x900 pixels 的矩形选区。这个选区现在可以被处理并且粘贴到原图。
 # rect = 100,100,1000,1000
