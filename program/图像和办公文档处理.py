@@ -1,6 +1,8 @@
 #教程地址：https://github.com/JMbaozi/Python-100-Days/blob/master/Day01-15/15.图像和办公文档处理.md
 #Pillow官方文档：https://pillow-cn.readthedocs.io/zh_CN/latest/index.html
+
 from PIL import Image
+import os,sys
 
 image = Image.open('img/PillowCrop/成果.jpg')
 
@@ -19,8 +21,8 @@ image = Image.open('img/PillowCrop/成果.jpg')
 # image.crop(rect).show()
 
 #裁剪九宫格
-imgSize = image.size
-#size(weight,height)=(2922,3992)
+"""
+imgSize = image.size    #size(weight,height)=(2922,3992)
 imgWeight = int(imgSize[0] // 3)
 imgHeight = int(imgSize[1] // 3)
 
@@ -29,5 +31,16 @@ for i in range(3):
         box = (imgWeight*j,imgHeight*i,imgWeight*(j+1),imgHeight*(i+1))
         result = image.crop(box)
         result.save("img/PillowCrop/{}{}.jpg".format(i,j))
+"""
+
+#修改图片格式
+#f,e = os.path.splitext(image) #error
+f,e = os.path.splitext('img/PillowCrop/成果.jpg')
+outimg = f + '.png'
+if image != outimg:
+    try:
+        image.save(outimg)
+    except IOError:
+        print("Don't convert",image)
 
 # image.show()
