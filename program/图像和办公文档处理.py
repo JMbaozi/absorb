@@ -34,14 +34,16 @@ for i in range(3):
 """
 
 #修改图片格式
-# #f,e = os.path.splitext(image) #error
-# f,e = os.path.splitext('img/PillowCrop/成果.jpg')
-# outimg = f + '.png'
-# if image != outimg:
-#     try:
-#         image.save(outimg)
-#     except IOError:
-#         print("Don't convert",image)
+"""
+#f,e = os.path.splitext(image) #error
+f,e = os.path.splitext('img/PillowCrop/成果.jpg')
+outimg = f + '.png'
+if image != outimg:
+    try:
+        image.save(outimg)
+    except IOError:
+        print("Don't convert",image)
+"""
 
 # image.show()
 # print(image.format)
