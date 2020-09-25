@@ -45,6 +45,31 @@ if image != outimg:
         print("Don't convert",image)
 """
 
+#创建图片缩略图
+"""
+size = (333,333)
+
+outimg = os.path.splitext('img/PillowCrop/成果.jpg')[0]+"_thumbnail.jpg"
+image.thumbnail(size)
+image.save(outimg,"JPEG")
+"""
+
+#复制粘贴到图片
+"""
+imgSize = image.size
+imgWeight = int(imgSize[0] // 3)
+imgHeight = int(imgSize[1] // 3)
+crop_size = (imgWeight*1,imgHeight*1,imgWeight*3,imgHeight*2)
+img_crop = image.crop(crop_size)
+#img_crop.show()
+img_paste = Image.new('RGB',imgSize)
+#img_paste.show()
+img_paste.paste(img_crop,(imgWeight*1,imgHeight*1))
+#img_paste.show()
+img_paste.save('img/PillowCrop/复制粘贴.jpg')
+"""
+
+
 # image.show()
 # print(image.format)
 # print(type(image.format))
