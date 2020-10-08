@@ -13,9 +13,7 @@ def connect_mysql():
     # print("data:",data)
     db.close()
 
-
 #插入操作
-
 def insert_record():
     db = pymysql.connect("localhost","root","baozi","data_school")
     cursor = db.cursor()
