@@ -72,9 +72,25 @@ def delete_record():
         print("删除失败")
     db.close()
 
+#创建新表
+def create_table():
+    db = pymysql.connect("localhost","root","baozi","data_school")
+    cursor = db.cursor()
+    sql = """
+        create table st_addr(
+            id int unsigned auto_increment,
+            number int(10) not null,
+            address varchar(100) not null,
+            primary key(id)
+            )ENGINE=InnoDB DEFAULT CHARSET=UTF8"""
+    cursor.execute(sql)
+    print("创建新表成功")
+    db.close()
+
 if __name__ == "__main__":
     # connect_mysql()
     # insert_record()
     # select_record()
     # update_record()
-    delete_record()
+    # delete_record()
+    create_table()
