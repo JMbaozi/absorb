@@ -72,7 +72,7 @@ def delete_record():
         print("删除失败")
     db.close()
 
-#创建新表
+#创建新表(学生地址)
 def create_table():
     db = pymysql.connect("localhost","root","baozi","data_school")
     cursor = db.cursor()
