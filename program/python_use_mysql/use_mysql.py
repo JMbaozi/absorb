@@ -58,8 +58,23 @@ def update_record():
         print("更新失败")
     db.close()
 
+#删除操作
+def delete_record():
+    db = pymysql.connect("localhost","root","baozi","data_school")
+    cursor = db.cursor()
+    sql = "delete from class_data where name='{}'".format("test")
+    try:
+        cursor.execute(sql)
+        db.commit()
+        print("删除成功")
+    except err:
+        db.rollback()
+        print("删除失败")
+    db.close()
+
 if __name__ == "__main__":
     # connect_mysql()
     # insert_record()
     # select_record()
-    update_record()
+    # update_record()
+    delete_record()
