@@ -1,3 +1,4 @@
+from os import name
 import pymysql
 from pymysql import cursors
 from pymysql import err
@@ -87,10 +88,31 @@ def create_table():
     print("创建新表成功")
     db.close()
 
+#查询两张表
+def query_tables(num):
+    db = pymysql.connect("localhost","root","baozi","data_school")
+    cursor = db.cursor()
+    sql = "select a.number,a.name,b.address from class_data a "\
+        "join st_addr b on a.number=b.number and a.number={}".format(num)
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        for r in results:
+            number = r[0]
+            name = r[1]
+            address = r[2]
+            print(f"学号为{num}的学生信息：number = {number},name = {name},address = {address}")
+        print("查询完毕")
+    except err:
+        print("查询失败")
+    db.close()
+
+
 if __name__ == "__main__":
     # connect_mysql()
     # insert_record()
     # select_record()
     # update_record()
     # delete_record()
-    create_table()
+    # create_table()
+    query_tables(1004)

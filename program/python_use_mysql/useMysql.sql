@@ -9,6 +9,9 @@ create table `test_data`(
     `name` varchar(50)
 );
 
+INSERT INTO test_data(id,name)
+VALUES(1001,"艾希");
+
 CREATE TABLE `class_data`(
     `id` INT UNSIGNED auto_increment,
     `number` int(10) not null,
@@ -52,3 +55,11 @@ DELETE FROM class_data where id = 5;
 INSERT INTO class_data(number,name,class_name)
 VALUES(1004,"赵六","Python");
 
+INSERT INTO st_addr(number,address)
+VALUES
+(1001,"艾欧尼亚"),
+(1002,"弗雷尔卓德"),
+(1003,"德玛西亚"),(1004,"祖安");
+
+SELECT * FROM class_data,st_addr where class_data.number=st_addr.number;
+SELECT a.number,a.name,b.address FROM class_data a join st_addr b on a.number=b.number and a.number=1002;
