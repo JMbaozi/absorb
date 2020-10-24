@@ -71,8 +71,41 @@ df = pd.DataFrame({'col1':list('abcde'),'col2':range(5,10),'col3':[1.3,2.5,3.6,4
 # print(df.select_dtypes(include=['number']))
 # print(df.select_dtypes(include=['float']))
 # 将Series转换为DataFrame
-s = df.mean()
-s.name = 'to_DataFranme'
-print(s)
-print(s.to_frame())
-print(s.to_frame().T)#使用T符号可以转置
+# s = df.mean()
+# s.name = 'to_DataFranme'
+# print(s)
+# print(s.to_frame())
+# print(s.to_frame().T)#使用T符号可以转置
+
+#### 常用基本函数
+df = pd.read_csv('data/table.csv')
+# print(df)
+# print(df.head())
+# print(df.tail())
+# print(df.head(7))
+# print(df['Physics'].unique())#显示所有的唯一值
+# print(df['Physics'].count())#返回非缺失值元素个数
+# print(df['Physics'].value_counts())#返回每个元素有多少个
+# print(df.info())#返回有哪些列、有多少非缺失值、每列的类型
+# print(df.describe())#默认统计数值型数据的各个统计量
+# print(df.describe(percentiles=[.05, .25, .75, .95]))#可以自行选择分位数
+# print(df['Physics'].describe())#对于非数值型也可以用describe函数
+# print(df['Math'].idxmax())#idxmax函数返回最大值所在索引，在某些情况下特别适用，idxmin功能类似
+# print(df['Math'].idxmin())
+# print(df['Math'].nlargest(3))#nlargest函数返回前几个大的元素值，nsmallest功能类似
+# print(df['Math'].nsmallest(3))
+# print(df['Math'].head())
+# print(df['Math'].clip(33,80).head())#clip是对超过或者低于某些值的数进行截断
+# print(df['Address'].head())
+# print(df['Address'].replace(['street_1','street_2'],['one','two']).head())#replace是对某些值进行替换
+# print(df.replace({'Address':{'street_1':'one','street_2':'two'}}).head())#通过字典，可以直接在表中修改
+# print(df['Math'].apply(lambda x:str(x)+'!').head()) #可以使用lambda表达式，也可以使用函数
+# print(df.apply(lambda x:x.apply(lambda x:str(x)+'!')).head()) #这是一个稍显复杂的例子，有利于理解apply的功能
+
+#### 排序
+# 索引排序
+# print(df.set_index('Math').head())##set_index函数可以设置索引
+# print(df.set_index('Math').sort_index().head())#可以设置ascending参数，默认为升序，True
+# 值排序
+# print(df.sort_values(by='Class').head())
+# print(df.sort_values(by=['Address','Height']).head())#多个值排序，即先对第一层排，在第一层相同的情况下对第二层排序
