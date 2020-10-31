@@ -16,6 +16,7 @@ class Application(Frame):
         super().__init__(master)
         self.x = 0
         self.y = 0
+        self.unbindkey = 1# 判断是否解绑左键
         self.fgcolor = 'black'
         self.lastdraw = 0
         self.start_flag = False
@@ -54,9 +55,14 @@ class Application(Frame):
         Points_x.clear()
         Points_y.clear()
     
-    # 接触左键绑定
-    def UnbindLeft(self,event):
-        root.unbind("<Button-1>")
+    # 解除左键绑定
+    def unbindLeft(self,event):
+        if(self.unbindkey == 1):
+            root.unbind("<Button-1>")
+            self.unbindkey = 0
+        else:
+            root.bind("<Button-1>",self.getPoints)
+            self.unbindkey = 1
 
     # 计算面积
     def GetShapeArea(self):
@@ -117,6 +123,7 @@ class Application(Frame):
     # 显示重心
     def ShowShapeCG(self):
         x,y = self.GetShapeCG()
+        print("图形重心：(%f,%f)"%(x,y))
         result = "图形重心：(" + str(x) + ',' + str(y) + ')\n'
         self.text_result.insert('insert',result)
 
@@ -136,7 +143,7 @@ class Application(Frame):
     # 准备绘制多边形
     def drawShape(self):
         root.bind("<Button-1>",self.getPoints)
-        root.bind("<Button-2>",self.UnbindLeft)
+        root.bind("<Button-2>",self.unbindLeft)
         root.bind("<Button-3>",self.StartDrawShape)    
 
     # 测试
