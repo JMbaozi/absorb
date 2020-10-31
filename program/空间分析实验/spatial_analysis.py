@@ -61,7 +61,7 @@ class Application(Frame):
             root.unbind("<Button-1>")
             self.unbindkey = 0
         else:
-            root.bind("<Button-1>",self.getPoints)
+            root.bind("<Button-1>",self.getPoints)# 恢复左键绑定
             self.unbindkey = 1
 
     # 计算面积
