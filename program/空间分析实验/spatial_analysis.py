@@ -1,6 +1,5 @@
-
-from tkinter import *
 import math
+from tkinter import Button, Canvas, Frame, Menu, Text, Tk
 
 win_width = 640
 win_height = 480
