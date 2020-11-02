@@ -156,17 +156,17 @@ class Application(Frame):
         Points_x.append(self.p_x)# 将临时坐标x值列表存入总列表
         Points_y.append(self.p_y)# 将临时坐标y值列表存入总列表
         # self.p.clear()# 清空临时列表(IndexError: tuple index out of range,不能放在前面，原因未知。现在清空，上一句函数的Points也会被清空。)
-        ##################################
-        # 测试显示数据
-        # print(Points[self.shapeNum-1])
-        # print(Points_x[self.shapeNum-1])
-        # print(Points_y[self.shapeNum-1])
-        ##################################
         self.drawpad.create_polygon(Points[self.shapeNum-1],fill="",outline="black")
         # 不要使用clear()方法清空，会导致将总列表的数值也清空，原因可能是函数进程未结束时append(self.p)会与self.p一直关联。
         self.p = [] # 清空临时列表
         self.p_x = []# 清空临时列表
         self.p_y = []# 清空临时列表
+        ##################################
+        # 测试显示数据
+        # print(Points[self.shapeNum-1])
+        # print(Points_x[self.shapeNum-1])
+        # print(Points_y[self.shapeNum-1])
+        ##################################        
 
     # 准备绘制多边形
     def drawShape(self):
