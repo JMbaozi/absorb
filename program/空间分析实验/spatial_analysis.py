@@ -4,7 +4,7 @@ from tkinter import Button, Canvas, Frame, Menu, Text, Tk
 win_width = 640
 win_height = 480
 bgcolor = 'white'
-Points = []# 点左边
+Points = []# 点坐标
 Points_x = []# 点左标x值
 Points_y = []# 点坐标y值
 test = [200,10,240,30,120,100,140,120]
