@@ -16,6 +16,10 @@ class Application(Frame):
         self.x = 0
         self.y = 0
         self.unbindkey = 1# 判断是否解绑左键
+        self.shapeNum = 0# 所画图形的个数
+        self.p = []# 图形临时坐标值列表
+        self.p_x = []# 图形临时坐标x值列表
+        self.p_y = []# 图形临时坐标y值列表
         self.fgcolor = 'black'
         self.lastdraw = 0
         self.start_flag = False
@@ -53,6 +57,11 @@ class Application(Frame):
         Points.clear()
         Points_x.clear()
         Points_y.clear()
+        self.unbindkey = 1
+        self.shapeNum = 0
+        self.p.clear()
+        self.p_x.clear()
+        self.p_y.clear()
     
     # 解除左键绑定
     def unbindLeft(self,event):
@@ -64,39 +73,43 @@ class Application(Frame):
             self.unbindkey = 1
 
     # 计算面积
-    def GetShapeArea(self):
+    def GetShapeArea(self,points_x,points_y):
         area = 0.0
-        for i in range(len(Points_x)):
-            if i + 1 <= len(Points_x) - 1:
-                area += Points_x[i] * Points_y[i + 1] - Points_x[i + 1] * Points_y[i]
-            elif i + 1 > len(Points_x) - 1:
-                area += Points_x[i] * Points_y[0] - Points_x[0] * Points_y[i]
+        for i in range(len(points_x)):
+            if i + 1 <= len(points_x) - 1:
+                area += points_x[i] * points_y[i + 1] - points_x[i + 1] * points_y[i]
+            elif i + 1 > len(points_x) - 1:
+                area += points_x[i] * points_y[0] - points_x[0] * points_y[i]
         area = area/2.0
         return abs(area)
     # 显示面积
     def ShowShapeArea(self):
-        area = self.GetShapeArea()
-        print("图形面积: ",abs(area))
-        result = "图形面积：" + str(abs(area)) + '\n'
-        self.text_result.insert('insert',result)        
+        for i in range(self.shapeNum):
+            area = self.GetShapeArea(Points_x[i],Points_y[i])
+            print("图形%d面积: %f" % (i+1,abs(area)))
+            result = "图形" + str(i+1) + "面积：" + str(abs(area)) + '\n'
+            print(Points_x[i])
+            print(Points_y[i])
+            self.text_result.insert('insert',result)        
 
     # 计算周长
-    def GetShapeLength(self):
+    def GetShapeLength(self,points_x,points_y):
         length = 0
-        for i in range(len(Points_x)):
-            if i<len(Points_x):
-                L = math.sqrt((Points_x[i]-Points_x[i-1])*(Points_x[i]-Points_x[i-1])+(Points_y[i]-Points_y[i-1])*(Points_y[i]-Points_y[i-1]))
+        for i in range(len(points_x)):
+            if i<len(points_x):
+                L = math.sqrt((points_x[i]-points_x[i-1])*(points_x[i]-points_x[i-1])+(points_y[i]-points_y[i-1])*(points_y[i]-points_y[i-1]))
                 length += L
-            elif i==len(Points_x):
-                L = math.sqrt((Points_x[0]-Points_x[i-1])*(Points_x[0]-Points_x[i-1])+(Points_y[0]-Points_y[i-1])*(Points_y[0]-Points_y[i-1]))
+            elif i==len(points_x):
+                L = math.sqrt((points_x[0]-points_x[i-1])*(points_x[0]-points_x[i-1])+(points_y[0]-points_y[i-1])*(points_y[0]-points_y[i-1]))
                 length += L
         return abs(length)
     # 显示周长
     def ShowShapeLength(self):
-        length = self.GetShapeLength()
-        print("图形周长: ",abs(length))
-        result = "图形周长：" + str(abs(length)) + '\n'
-        self.text_result.insert('insert',result)
+        for i in range(self.shapeNum):        
+            length = self.GetShapeLength(Points_x[i],Points_y[i])
+            print("图形%d周长: %f" % (i+1,abs(length)))
+            result = "图形" + str(i+1) + "周长：" + str(abs(length)) + '\n'
+            self.text_result.insert('insert',result)
 
     
     # 计算重心
@@ -128,16 +141,33 @@ class Application(Frame):
 
     # 得到鼠标左键坐标
     def getPoints(self,event):
-        Points.append(event.x)
-        Points.append(event.y)    
-        Points_x.append(event.x)
-        Points_y.append(event.y)    
+        self.p.append(event.x)
+        self.p.append(event.y)
+        self.p_x.append(event.x)
+        self.p_y.append(event.y)
+        # Points_x.append(event.x)
+        # Points_y.append(event.y)    
         print(event.x,event.y)
         # return Points
     
     # 开始绘制多边形
     def StartDrawShape(self,event):
-        self.drawpad.create_polygon(Points,fill="",outline="black")
+        self.shapeNum += 1
+        Points.append(self.p)# 将临时坐标值列表存入总列表
+        Points_x.append(self.p_x)# 将临时坐标x值列表存入总列表
+        Points_y.append(self.p_y)# 将临时坐标y值列表存入总列表
+        # self.p.clear()# 清空临时列表(IndexError: tuple index out of range,不能放在前面，原因未知。现在清空，上一句函数的Points也会被清空。)
+        ##################################
+        # 测试显示数据
+        # print(Points[self.shapeNum-1])
+        # print(Points_x[self.shapeNum-1])
+        # print(Points_y[self.shapeNum-1])
+        ##################################
+        self.drawpad.create_polygon(Points[self.shapeNum-1],fill="",outline="black")
+        # 不要使用clear()方法清空，会导致将总列表的数值也清空，原因可能是函数进程未结束时append(self.p)会与self.p一直关联。
+        self.p = [] # 清空临时列表
+        self.p_x = []# 清空临时列表
+        self.p_y = []# 清空临时列表
 
     # 准备绘制多边形
     def drawShape(self):
@@ -151,7 +181,7 @@ class Application(Frame):
 
 if __name__ == '__main__':
     root = Tk()
-    root.title('窗口')
+    root.title('地理空间分析')
     root.geometry('600x520+200+200')# 底部按钮栏
     app = Application(master=root)
     root.mainloop()
