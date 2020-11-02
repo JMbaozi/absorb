@@ -109,7 +109,6 @@ class Application(Frame):
             result = "图形" + str(i+1) + "周长：" + str(abs(length)) + '\n'
             self.text_result.insert('insert',result)
 
-    
     # 计算重心
     def GetShapeCG(self,points_x=[],points_y=[]):
         area = self.GetShapeArea(points_x,points_y)
