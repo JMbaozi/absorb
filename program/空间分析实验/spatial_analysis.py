@@ -73,7 +73,7 @@ class Application(Frame):
             self.unbindkey = 1
 
     # 计算面积
-    def GetShapeArea(self,points_x,points_y):
+    def GetShapeArea(self,points_x=[],points_y=[]):
         area = 0.0
         for i in range(len(points_x)):
             if i + 1 <= len(points_x) - 1:
@@ -88,12 +88,10 @@ class Application(Frame):
             area = self.GetShapeArea(Points_x[i],Points_y[i])
             print("图形%d面积: %f" % (i+1,abs(area)))
             result = "图形" + str(i+1) + "面积：" + str(abs(area)) + '\n'
-            print(Points_x[i])
-            print(Points_y[i])
             self.text_result.insert('insert',result)        
 
     # 计算周长
-    def GetShapeLength(self,points_x,points_y):
+    def GetShapeLength(self,points_x=[],points_y=[]):
         length = 0
         for i in range(len(points_x)):
             if i<len(points_x):
@@ -113,18 +111,18 @@ class Application(Frame):
 
     
     # 计算重心
-    def GetShapeCG(self):
-        area = self.GetShapeArea()
+    def GetShapeCG(self,points_x=[],points_y=[]):
+        area = self.GetShapeArea(points_x,points_y)
         x, y = 0.0, 0.0 #重心点坐标
-        for i in range(len(Points_x)):
-            lat = Points_x[i]  # weidu
-            lng = Points_y[i]  # jingdu
+        for i in range(len(points_x)):
+            lat = points_x[i]  # weidu
+            lng = points_y[i]  # jingdu
             if i == 0:
-                lat1 = Points_x[-1]
-                lng1 = Points_y[-1]
+                lat1 = points_x[-1]
+                lng1 = points_y[-1]
             else:
-                lat1 = Points_x[i - 1]
-                lng1 = Points_y[i - 1]
+                lat1 = points_x[i - 1]
+                lng1 = points_y[i - 1]
             fg = (lat * lng1 - lng * lat1) / 2.0
             area += fg
             x += fg * (lat + lat1) / 3.0
@@ -134,10 +132,11 @@ class Application(Frame):
         return x,y       
     # 显示重心
     def ShowShapeCG(self):
-        x,y = self.GetShapeCG()
-        print("图形重心：(%f,%f)"%(x,y))
-        result = "图形重心：(" + str(x) + ',' + str(y) + ')\n'
-        self.text_result.insert('insert',result)
+        for i in range(self.shapeNum):
+            x,y = self.GetShapeCG(Points_x[i],Points_y[i])
+            print("图形%d重心：(%f,%f)"%(i+1,x,y))
+            result = "图形" + str(i+1) + "重心：(" + str(x) + ',' + str(y) + ')\n'
+            self.text_result.insert('insert',result)
 
     # 得到鼠标左键坐标
     def getPoints(self,event):
