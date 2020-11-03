@@ -36,8 +36,6 @@ class Application(Frame):
         self.p_y_oval = []# 椭圆图形临时坐标y值列表
         ################################################
         self.fgcolor = 'black'
-        self.lastdraw = 0
-        self.start_flag = False
         self.master = master
         self.pack()
         self.createWidget()
@@ -97,13 +95,29 @@ class Application(Frame):
         self.p_x_oval.clear()
         self.p_y_oval.clear()
     
-    # 解除左键绑定
-    def unbindLeft(self,event):
+    # 解除多边形左键绑定
+    def ShapeUnbindLeft(self,event):
         if(self.unbindkey == 1):
             root.unbind("<Button-1>")
             self.unbindkey = 0
         else:
             root.bind("<Button-1>",self.ShapeGetPoints)# 恢复左键绑定
+            self.unbindkey = 1
+    # 解除直线左键绑定
+    def LineUnbindLeft(self,event):
+        if(self.unbindkey == 1):
+            root.unbind("<Button-1>")
+            self.unbindkey = 0
+        else:
+            root.bind("<Button-1>",self.LineGetPoints)# 恢复左键绑定
+            self.unbindkey = 1
+    # 解除椭圆左键绑定
+    def OvalUnbindLeft(self,event):
+        if(self.unbindkey == 1):
+            root.unbind("<Button-1>")
+            self.unbindkey = 0
+        else:
+            root.bind("<Button-1>",self.OvalGetPoints)# 恢复左键绑定
             self.unbindkey = 1
 
     # 计算面积
@@ -211,8 +225,8 @@ class Application(Frame):
     # 准备绘制多边形
     def drawShape(self):
         root.bind("<Button-1>",self.ShapeGetPoints)
-        root.bind("<Button-2>",self.unbindLeft)
-        root.bind("<Button-3>",self.StartDrawShape)    
+        root.bind("<Button-2>",self.ShapeUnbindLeft)
+        root.bind("<Button-3>",self.StartDrawShape)
 
     # 开始绘制直线
     def StartDrawLine(self,event):
@@ -229,7 +243,7 @@ class Application(Frame):
     # 准备绘制直线
     def drawLine(self):
         root.bind("<Button-1>",self.LineGetPoints)
-        root.bind("<Button-2>",self.unbindLeft)
+        root.bind("<Button-2>",self.LineUnbindLeft)
         root.bind("<Button-3>",self.StartDrawLine)  
 
     # 开始绘制椭圆
@@ -238,7 +252,7 @@ class Application(Frame):
         self.Points_oval.append(self.p_oval)# 将临时坐标值列表存入总列表
         self.Points_x_oval.append(self.p_x_oval)# 将临时坐标x值列表存入总列表
         self.Points_y_oval.append(self.p_y_oval)# 将临时坐标y值列表存入总列表   
-        self.drawpad.create_oval(self.Points_oval[self.ovalNum-1],fill="red",outline="black")
+        self.drawpad.create_oval(self.Points_oval[self.ovalNum-1],fill="",outline="blue")
         self.p_oval = [] # 清空临时列表
         self.p_x_oval = []# 清空临时列表
         self.p_y_oval = []# 清空临时列表
@@ -246,7 +260,7 @@ class Application(Frame):
     # 准备绘制椭圆
     def drawOval(self):
         root.bind("<Button-1>",self.OvalGetPoints)
-        root.bind("<Button-2>",self.unbindLeft)
+        root.bind("<Button-2>",self.OvalUnbindLeft)
         root.bind("<Button-3>",self.StartDrawOval) 
 
     # 测试
