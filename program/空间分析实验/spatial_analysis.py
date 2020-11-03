@@ -4,22 +4,37 @@ from tkinter import Button, Canvas, Frame, Menu, Text, Tk
 win_width = 640
 win_height = 480
 bgcolor = 'white'
-Points = []# 点坐标
-Points_x = []# 点左标x值
-Points_y = []# 点坐标y值
 test = [200,10,240,30,120,100,140,120]
-
 
 class Application(Frame):
     def __init__(self,master=None):
         super().__init__(master)
-        self.x = 0
-        self.y = 0
+        ################################################
         self.unbindkey = 1# 判断是否解绑左键
-        self.shapeNum = 0# 所画图形的个数
-        self.p = []# 图形临时坐标值列表
-        self.p_x = []# 图形临时坐标x值列表
-        self.p_y = []# 图形临时坐标y值列表
+        self.shapeNum = 0# 所画多边形的个数
+        self.lineNum = 0# 所画直线的个数
+        self.ovalNum = 0# 所画椭圆的个数
+        ################################################
+        self.Points_shape = []# 多边形点坐标
+        self.Points_x_shape = []# 多边形点左标x值
+        self.Points_y_shape = []# 多边形点坐标y值
+        self.Points_line = []# 直线点坐标
+        self.Points_x_line = []# 直线点左标x值
+        self.Points_y_line = []# 直线点坐标y值
+        self.Points_oval = []# 椭圆点坐标
+        self.Points_x_oval = []# 椭圆点左标x值
+        self.Points_y_oval = []# 椭圆点坐标y值
+        ################################################
+        self.p_shape = []# 多边形图形临时坐标值列表
+        self.p_x_shape = []# 多边形图形临时坐标x值列表
+        self.p_y_shape = []# 多边形图形临时坐标y值列表
+        self.p_line = []# 直线图形临时坐标值列表
+        self.p_x_line = []# 直线多边形图形临时坐标x值列表
+        self.p_y_line = []# 直线多边形图形临时坐标y值列表
+        self.p_oval = []# 椭圆图形临时坐标值列表
+        self.p_x_oval = []# 椭圆图形临时坐标x值列表
+        self.p_y_oval = []# 椭圆图形临时坐标y值列表
+        ################################################
         self.fgcolor = 'black'
         self.lastdraw = 0
         self.start_flag = False
@@ -35,6 +50,8 @@ class Application(Frame):
         self.menubar = Menu(root)
         self.filemenu = Menu(self.menubar,tearoff=False)
         self.filemenu.add_command(label="任意多边形",command=self.drawShape)
+        self.filemenu.add_command(label="直线",command=self.drawLine)
+        self.filemenu.add_command(label="椭圆",command=self.drawOval)
         self.filemenu.add_command(label="test",command=self.drawTest)
         self.filemenu.add_separator()
         self.menubar.add_cascade(label="图形",menu=self.filemenu)
@@ -54,14 +71,31 @@ class Application(Frame):
     # 清空面板和数据
     def Clear(self):
         self.drawpad.delete('all')
-        Points.clear()
-        Points_x.clear()
-        Points_y.clear()
+        ##############################
+        self.Points_shape.clear()
+        self.Points_x_shape.clear()
+        self.Points_y_shape.clear()
+        self.Points_line.clear()
+        self.Points_x_line.clear()
+        self.Points_y_line.clear()
+        self.Points_oval.clear()
+        self.Points_x_oval.clear()
+        self.Points_y_oval.clear()
+        ##############################
         self.unbindkey = 1
         self.shapeNum = 0
-        self.p.clear()
-        self.p_x.clear()
-        self.p_y.clear()
+        self.lineNum = 0
+        self.ovalNum = 0
+        ##############################
+        self.p_shape.clear()
+        self.p_x_shape.clear()
+        self.p_y_shape.clear()
+        self.p_line.clear()
+        self.p_x_line.clear()
+        self.p_y_line.clear()
+        self.p_oval.clear()
+        self.p_x_oval.clear()
+        self.p_y_oval.clear()
     
     # 解除左键绑定
     def unbindLeft(self,event):
@@ -69,7 +103,7 @@ class Application(Frame):
             root.unbind("<Button-1>")
             self.unbindkey = 0
         else:
-            root.bind("<Button-1>",self.getPoints)# 恢复左键绑定
+            root.bind("<Button-1>",self.ShapeGetPoints)# 恢复左键绑定
             self.unbindkey = 1
 
     # 计算面积
@@ -85,7 +119,7 @@ class Application(Frame):
     # 显示面积
     def ShowShapeArea(self):
         for i in range(self.shapeNum):
-            area = self.GetShapeArea(Points_x[i],Points_y[i])
+            area = self.GetShapeArea(self.Points_x_shape[i],self.Points_y_shape[i])
             print("图形%d面积: %f" % (i+1,abs(area)))
             result = "图形" + str(i+1) + "面积：" + str(abs(area)) + '\n'
             self.text_result.insert('insert',result)        
@@ -104,7 +138,7 @@ class Application(Frame):
     # 显示周长
     def ShowShapeLength(self):
         for i in range(self.shapeNum):        
-            length = self.GetShapeLength(Points_x[i],Points_y[i])
+            length = self.GetShapeLength(self.Points_x_shape[i],self.Points_y_shape[i])
             print("图形%d周长: %f" % (i+1,abs(length)))
             result = "图形" + str(i+1) + "周长：" + str(abs(length)) + '\n'
             self.text_result.insert('insert',result)
@@ -132,46 +166,88 @@ class Application(Frame):
     # 显示重心
     def ShowShapeCG(self):
         for i in range(self.shapeNum):
-            x,y = self.GetShapeCG(Points_x[i],Points_y[i])
+            x,y = self.GetShapeCG(self.Points_x_shape[i],self.Points_y_shape[i])
             print("图形%d重心：(%f,%f)"%(i+1,x,y))
             result = "图形" + str(i+1) + "重心：(" + str(x) + ',' + str(y) + ')\n'
             self.text_result.insert('insert',result)
 
-    # 得到鼠标左键坐标
-    def getPoints(self,event):
-        self.p.append(event.x)
-        self.p.append(event.y)
-        self.p_x.append(event.x)
-        self.p_y.append(event.y)
-        # Points_x.append(event.x)
-        # Points_y.append(event.y)    
+    # 得到多边形鼠标左键坐标
+    def ShapeGetPoints(self,event):
+        self.p_shape.append(event.x)
+        self.p_shape.append(event.y)
+        self.p_x_shape.append(event.x)
+        self.p_y_shape.append(event.y)  
         print(event.x,event.y)
-        # return Points
     
+    # 得到直线鼠标左键坐标
+    def LineGetPoints(self,event):
+        self.p_line.append(event.x)
+        self.p_line.append(event.y)
+        self.p_x_line.append(event.x)
+        self.p_y_line.append(event.y)  
+        print(event.x,event.y)
+
+    # 得到椭圆鼠标坐标坐标
+    def OvalGetPoints(self,event):
+        self.p_oval.append(event.x)
+        self.p_oval.append(event.y)
+        self.p_x_oval.append(event.x)
+        self.p_y_oval.append(event.y)  
+        print(event.x,event.y)
+
     # 开始绘制多边形
     def StartDrawShape(self,event):
         self.shapeNum += 1
-        Points.append(self.p)# 将临时坐标值列表存入总列表
-        Points_x.append(self.p_x)# 将临时坐标x值列表存入总列表
-        Points_y.append(self.p_y)# 将临时坐标y值列表存入总列表
+        self.Points_shape.append(self.p_shape)# 将临时坐标值列表存入总列表
+        self.Points_x_shape.append(self.p_x_shape)# 将临时坐标x值列表存入总列表
+        self.Points_y_shape.append(self.p_y_shape)# 将临时坐标y值列表存入总列表
         # self.p.clear()# 清空临时列表(IndexError: tuple index out of range,不能放在前面，原因未知。现在清空，上一句函数的Points也会被清空。)
-        self.drawpad.create_polygon(Points[self.shapeNum-1],fill="",outline="black")
+        self.drawpad.create_polygon(self.Points_shape[self.shapeNum-1],fill="",outline="black")
         # 不要使用clear()方法清空，会导致将总列表的数值也清空，原因可能是函数进程未结束时append(self.p)会与self.p一直关联。
-        self.p = [] # 清空临时列表
-        self.p_x = []# 清空临时列表
-        self.p_y = []# 清空临时列表
-        ##################################
-        # 测试显示数据
-        # print(Points[self.shapeNum-1])
-        # print(Points_x[self.shapeNum-1])
-        # print(Points_y[self.shapeNum-1])
-        ##################################        
+        self.p_shape = [] # 清空临时列表
+        self.p_x_shape = []# 清空临时列表
+        self.p_y_shape = []# 清空临时列表    
 
     # 准备绘制多边形
     def drawShape(self):
-        root.bind("<Button-1>",self.getPoints)
+        root.bind("<Button-1>",self.ShapeGetPoints)
         root.bind("<Button-2>",self.unbindLeft)
         root.bind("<Button-3>",self.StartDrawShape)    
+
+    # 开始绘制直线
+    def StartDrawLine(self,event):
+        self.lineNum += 1
+        self.Points_line.append(self.p_line)# 将临时坐标值列表存入总列表
+        self.Points_x_line.append(self.p_x_line)# 将临时坐标x值列表存入总列表
+        self.Points_y_line.append(self.p_y_line)# 将临时坐标y值列表存入总列表        
+        self.drawpad.create_line(self.Points_line[self.lineNum-1],fill="red")
+        self.p_line = [] # 清空临时列表
+        self.p_x_line = []# 清空临时列表
+        self.p_y_line = []# 清空临时列表
+        print(self.Points_line[self.lineNum-1])
+
+    # 准备绘制直线
+    def drawLine(self):
+        root.bind("<Button-1>",self.LineGetPoints)
+        root.bind("<Button-2>",self.unbindLeft)
+        root.bind("<Button-3>",self.StartDrawLine)  
+
+    # 开始绘制椭圆
+    def StartDrawOval(self,event):
+        self.ovalNum += 1
+        self.Points_oval.append(self.p_oval)# 将临时坐标值列表存入总列表
+        self.Points_x_oval.append(self.p_x_oval)# 将临时坐标x值列表存入总列表
+        self.Points_y_oval.append(self.p_y_oval)# 将临时坐标y值列表存入总列表   
+        self.drawpad.create_oval(self.Points_oval[self.ovalNum-1],fill="red",outline="black")
+        self.p_oval = [] # 清空临时列表
+        self.p_x_oval = []# 清空临时列表
+        self.p_y_oval = []# 清空临时列表
+
+    # 准备绘制椭圆
+    def drawOval(self):
+        root.bind("<Button-1>",self.OvalGetPoints)
+        root.bind("<Button-2>",self.unbindLeft)
+        root.bind("<Button-3>",self.StartDrawOval) 
 
     # 测试
     def drawTest(self):
