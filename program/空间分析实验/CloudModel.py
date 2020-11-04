@@ -67,10 +67,10 @@ def plot_2d_cloud_model(Ex, En, He, n, title='', grid=False):
     ax.set_ylabel('指标值2')  
     ax.set_zlabel('确定度')  
     ax.grid(True)  
-    plt.show()  
+    plt.show()
 
-if __name__ == '__main__':
-    print("test")
+
+
     #二维云图
     # plot_cloud_model(0, 1, 0.1, 500, moni=True)  
     # print Cloud_compute(x)
