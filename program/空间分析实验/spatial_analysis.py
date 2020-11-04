@@ -1,5 +1,7 @@
+ufrom tkinter.constants import FALSE, TRUE
+from CloudModel import plot_2d_cloud_model, plot_cloud_model
 import math
-from tkinter import Button, Canvas, Frame, Menu, Text, Tk
+from tkinter import Button, Canvas, Frame, Label, Menu, Text, Tk
 
 win_width = 640
 win_height = 480
@@ -46,14 +48,19 @@ class Application(Frame):
         self.drawpad.pack()
         # 创建顶部菜单
         self.menubar = Menu(root)
-        self.filemenu = Menu(self.menubar,tearoff=False)
-        self.filemenu.add_command(label="任意多边形",command=self.drawShape)
-        self.filemenu.add_command(label="直线",command=self.drawLine)
-        self.filemenu.add_command(label="椭圆",command=self.drawOval)
-        self.filemenu.add_command(label="test",command=self.drawTest)
-        self.filemenu.add_separator()
-        self.menubar.add_cascade(label="图形",menu=self.filemenu)
+        self.filemenu_draw = Menu(self.menubar,tearoff=FALSE)
+        self.filemenu_draw.add_command(label="任意多边形",command=self.drawShape)
+        self.filemenu_draw.add_command(label="直线",command=self.drawLine)
+        self.filemenu_draw.add_command(label="椭圆",command=self.drawOval)
+        self.filemenu_draw.add_command(label="test",command=self.drawTest)
+        self.filemenu_draw.add_separator()
+        self.filemenu_cloud = Menu(self.menubar,tearoff=FALSE)
+        self.filemenu_cloud.add_command(label="二维云模型",command=self.plot_cloud)
+        self.filemenu_cloud.add_command(label="三维云模型",command=self.plot_2d_cloud)
+        self.filemenu_cloud.add_separator()
+        self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
+        self.menubar.add_cascade(label="云模型",menu=self.filemenu_cloud)
         root.config(menu=self.menubar)
         # 创建功能按钮
         self.btn_area = Button(self,text='面积',command=self.ShowShapeArea)
@@ -261,7 +268,14 @@ class Application(Frame):
     def drawOval(self):
         root.bind("<Button-1>",self.OvalGetPoints)
         root.bind("<Button-2>",self.OvalUnbindLeft)
-        root.bind("<Button-3>",self.StartDrawOval) 
+        root.bind("<Button-3>",self.StartDrawOval)
+
+    # 二维云模型
+    def plot_cloud(self):
+        plot_cloud_model(0, 1, 0.1, 500, moni=True)
+    # 三维云模型
+    def plot_2d_cloud(self):
+        plot_2d_cloud_model([0, 1], [0.3, 0.3], [0.01, 0.05], 2000)
 
     # 测试
     def drawTest(self):

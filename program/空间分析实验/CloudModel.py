@@ -70,8 +70,9 @@ def plot_2d_cloud_model(Ex, En, He, n, title='', grid=False):
     plt.show()  
 
 if __name__ == '__main__':
+    print("test")
     #二维云图
-    plot_cloud_model(0, 1, 0.1, 500, moni=True)  
+    # plot_cloud_model(0, 1, 0.1, 500, moni=True)  
     # print Cloud_compute(x)
 
     # #三维云图
