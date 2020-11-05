@@ -16,9 +16,9 @@ print(logIa)
 
 
 
-# plt.figure()
-# plt.plot(genUa,logIa[0])
-# plt.show()
+plt.figure()
+plt.plot(genUa,logIa[0])
+plt.show()
 
 
 
@@ -39,7 +39,7 @@ for i in range(logIa.shape[0]):
     plt.plot(genUa,logIa[i])
     plt.plot(range(13),k*range(13)+b)
     lgI.append(b)
-# plt.show()
+plt.show()
 print(lgI)
 
 
