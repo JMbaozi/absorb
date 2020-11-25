@@ -1,12 +1,14 @@
-
+# 提取dem_old.txt中的坐标值
 all = ""
+s = ""
 with open('dem_old.txt','r',encoding='utf-8') as f:
     data = f.readlines()
     # print(data)
     for d in data:
         v = d.split(',')
-        s = str(int(v[1])) + ' ' + str(int(v[2])) + ' ' + str(int(v[3])) + '\n'
+        s = str(float(v[1])) + ' ' + str(float(v[2])) + ' ' + str(float(v[3])) + '\n'
         all += s
+        s = ""
 
 # print(all)
 
