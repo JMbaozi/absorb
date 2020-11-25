@@ -1,7 +1,7 @@
 # 提取dem_old.txt中的坐标值
 all = ""
 s = ""
-with open('dem_old.txt','r',encoding='utf-8') as f:
+with open('data/dem_old.txt','r',encoding='utf-8') as f:
     data = f.readlines()
     # print(data)
     for d in data:

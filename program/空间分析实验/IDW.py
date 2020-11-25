@@ -42,28 +42,14 @@ if __name__ == '__main__':
     y = [] # y坐标
     lst = [[1,2,3333],[4,5,6666],[7,8,999],[10,11,1222]]# lst是已有数据的数组，结构为：[[x1，y1，z1]，[x2，y2，z2]，...]
     z = []# 计算得到的高程
-    
-    # 为x,y赋值(0,0),(0,1)...(99,99)
-    for i in range(100):
-        for j in range(100):
-            x.append(i)
-            y.append(j)
 
-    for x in range(100):
-        for y in range (100):
-            z.append(interpolation(x, y, lst))
-    # print(z)
-    with open('demresult.txt','w',encoding='utf-8') as file:
-        key = 0 #判断是否需要换行写入
-        i = 0 #z列表的下标
-        for x in range(100):
-            for y in range(100):
-                s = str(x) + ' ' + str(y) + ' ' + str(z[i]) + ','# 格式:x y z,
-                file.write(s)
-                i += 1
-                key += 1
-                if(key==100):
-                    file.write('\n')
-                    key = 0
-    print('写入完成！')
+    with open('data/dem.txt','r',encoding='utf-8') as file:
+        data = file.readlines()
+        for each in data:
+            d = each.split(' ')
+            x.append(float(d[0]))
+            y.append(float(d[1]))
+            z.append(float(d[2]))
+        print('输入输入完成！')
+    
     IDW_draw_3d(x,y,z)
