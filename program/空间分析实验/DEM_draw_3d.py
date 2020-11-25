@@ -27,7 +27,11 @@ def IDW_draw_3d_surface(x, y, z):
     ax = Axes3D(fig)
     # Plot the surface.
     x,y = np.meshgrid(x,y)
+    print(x.shape)
+    z = z.reshape(100,100)
     surf = ax.plot_surface(x, y, z,cmap='rainbow')
     # Add a color bar which maps values to colors.
     fig.colorbar(surf, shrink=0.5, aspect=5)
     plt.show()
+
+# np.hypot

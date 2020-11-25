@@ -1,6 +1,7 @@
 # 反距离权重插值IDW算法
 # https://blog.csdn.net/BigBoySunshine/article/details/81867502?utm_source=blogxgwz4
 
+import numpy as np
 import math,copy
 from DEM_draw_3d import IDW_draw_3d_points, IDW_draw_3d_surface
 # lon和lat分别是要插值的点的x,y
@@ -40,18 +41,35 @@ def distance(p, pi):
 if __name__ == '__main__':
     x = [] # x坐标
     y = [] # y坐标
-    lst = [[1,2,3333],[4,5,6666],[7,8,999],[10,11,1222]]# lst是已有数据的数组，结构为：[[x1，y1，z1]，[x2，y2，z2]，...]
+    lst = [[1,2,3333],[40,50,6666],[7,8,999],[90,91,1222]]# lst是已有数据的数组，结构为：[[x1，y1，z1]，[x2，y2，z2]，...]
     z = []# 计算得到的高程
 
-    with open('data/dem.txt','r',encoding='utf-8') as file:
-        data = file.readlines()
-        for each in data:
-            d = each.split(' ')
-            x.append(float(d[0]))
-            y.append(float(d[1]))
-            z.append(float(d[2]))
-        print('输入输入完成！')
-    
+
+    # 为x,y赋值(0,0),(0,1)...(99,99)
+    for i in range(100):
+        x.append(i)
+    for j in range(100):  
+        y.append(j)
+    print(len(x))
+    for i in range(100):
+        for j in range (100):
+            z.append(interpolation(i, j, lst))
+    # print(z)
+
+
+
+    # with open('data/dem.txt','r',encoding='utf-8') as file:
+    #     data = file.readlines()
+    #     for each in data:
+    #         d = each.split(' ')
+    #         x.append(float(d[0]))
+    #         y.append(float(d[1]))
+    #         z.append(float(d[2]))
+    #     print('输入输入完成！')
+    x = np.array(x)
+    y = np.array(y)
+    z = np.array(z)
+
     # 三维散点图
     # IDW_draw_3d_points(x,y,z)
 
