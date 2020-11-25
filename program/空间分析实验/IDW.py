@@ -2,7 +2,7 @@
 # https://blog.csdn.net/BigBoySunshine/article/details/81867502?utm_source=blogxgwz4
 
 import math,copy
-from DEM_draw_3d import IDW_draw_3d
+from DEM_draw_3d import IDW_draw_3d_points, IDW_draw_3d_surface
 # lon和lat分别是要插值的点的x,y
 # lst是已有数据的数组，结构为：[[x1，y1，z1]，[x2，y2，z2]，...]
 # 返回值是插值点的高程
@@ -52,4 +52,8 @@ if __name__ == '__main__':
             z.append(float(d[2]))
         print('输入输入完成！')
     
-    IDW_draw_3d(x,y,z)
+    # 三维散点图
+    # IDW_draw_3d_points(x,y,z)
+
+    # 三维表面图
+    IDW_draw_3d_surface(x,y,z)
