@@ -1,6 +1,7 @@
-from CloudModel import plot_2d_cloud_model, plot_cloud_model
 import math
 from tkinter import Button, Canvas, Frame, Label, Menu, Text, Tk
+from CloudModel import plot_2d_cloud_model, plot_cloud_model
+from IDW import IDWdraw3dpoints,IDWdraw3dsurface
 
 win_width = 640
 win_height = 480
@@ -57,9 +58,14 @@ class Application(Frame):
         self.filemenu_cloud.add_command(label="二维云模型",command=self.plot_cloud)
         self.filemenu_cloud.add_command(label="三维云模型",command=self.plot_2d_cloud)
         self.filemenu_cloud.add_separator()
+        self.filemenu_dem = Menu(self.menubar,tearoff=False)
+        self.filemenu_dem.add_command(label="DEM散点图",command=IDWdraw3dpoints)
+        self.filemenu_dem.add_command(label="DEM表面图",command=IDWdraw3dsurface)
+        self.filemenu_dem.add_separator()
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
         self.menubar.add_cascade(label="云模型",menu=self.filemenu_cloud)
+        self.menubar.add_cascade(label="DEM",menu=self.filemenu_dem)
         root.config(menu=self.menubar)
         # 创建功能按钮
         self.btn_area = Button(self,text='面积',command=self.ShowShapeArea)

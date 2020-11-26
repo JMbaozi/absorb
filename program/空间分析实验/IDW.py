@@ -5,6 +5,9 @@ import numpy as np
 import math
 import copy
 from DEM_draw_3d import IDW_draw_3d_points, IDW_draw_3d_surface
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
 
 
 # lon和lat分别是要插值的点的x,y
@@ -70,10 +73,10 @@ def IDWdraw3dsurface():
     lst_surface = []
     points = []  # 高程点坐标值列表：[x,y,z]
 
-    with open('data/dem.txt','r',encoding='utf-8') as file:
+    with open('data/dem_points.txt','r',encoding='utf-8') as file:
         data = file.readlines()
         for each in data:
-            d = each.split(' ')
+            d = each.split('\t')
             x.append(float(d[0]))
             y.append(float(d[1]))
             points.append(float(d[0]))
@@ -81,15 +84,18 @@ def IDWdraw3dsurface():
             points.append(float(d[2]))
             lst_surface.append(points)
             points = []
-        print('输入完成！')
+        print('已知点输入完成！')
 
     for i in range(int(min(x)),int(max(x))+1):
         X.append(i)
+    print('插值点X坐标输入完成！')
     for j in range(int(min(y)),int(max(y))+1):
         Y.append(j)
+    print('插入点Y坐标输入完成！')
     for i in range(int(min(x)),int(max(x))+1):
         for j in range(int(min(y)),int(max(y))+1):
             Z.append(interpolation(i, j, lst_surface))
+    print('插入点Z值计算完成！')
     z_x = int(max(x)) - int(min(x)) + 1
     z_y = int(max(y)) - int(min(y)) + 1            
     X = np.array(X)
@@ -97,9 +103,15 @@ def IDWdraw3dsurface():
     Z = np.array(Z)
     print(z_x)
     print(z_y)
+    print('正在绘制...')
     IDW_draw_3d_surface(X, Y, Z, z_x, z_y)
 
 
-if __name__ == '__main__':
-    IDWdraw3dpoints()
-    IDWdraw3dsurface()
+
+# if __name__ == '__main__':
+#     IDWdraw3dpoints()
+#     IDWdraw3dsurface()
+
+
+
+

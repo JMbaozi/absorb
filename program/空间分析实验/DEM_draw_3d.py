@@ -1,11 +1,7 @@
 # 实例：
 # 首先，还是需要取坐标
-import mpl_toolkits.mplot3d
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-from matplotlib import cm
-from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
 
 
