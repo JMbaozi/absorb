@@ -20,6 +20,9 @@ def IDW_draw_3d_surface(x, y, z, z_x, z_y):
     fig = plt.figure()
     ax = Axes3D(fig)
     # Plot the surface.
+    x = np.array(x)
+    y = np.array(y)
+    z = np.array(z)
     x,y = np.meshgrid(x,y)
     z = z.reshape(z_y,z_x)# 顺序是(y的范围,x的范围)，不要反了
     surf = ax.plot_surface(x, y, z,cmap='rainbow')
