@@ -60,7 +60,7 @@ class Application(Frame):
         self.filemenu_cloud.add_separator()
         self.filemenu_dem = Menu(self.menubar,tearoff=False)
         self.filemenu_dem.add_command(label="DEM散点图",command=IDWdraw3dpoints)
-        self.filemenu_dem.add_command(label="DEM表面图",command=IDWdraw3dsurface)
+        self.filemenu_dem.add_command(label="DEM表面图(慎用)",command=IDWdraw3dsurface)
         self.filemenu_dem.add_separator()
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)

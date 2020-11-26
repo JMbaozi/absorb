@@ -108,9 +108,9 @@ def IDWdraw3dsurface():
 
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 #     IDWdraw3dpoints()
-#     IDWdraw3dsurface()
+    IDWdraw3dsurface()
 
 
 
