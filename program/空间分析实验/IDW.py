@@ -2,13 +2,16 @@
 # https://blog.csdn.net/BigBoySunshine/article/details/81867502?utm_source=blogxgwz4
 
 import numpy as np
-import math,copy
+import math
+import copy
 from DEM_draw_3d import IDW_draw_3d_points, IDW_draw_3d_surface
+
+
 # lon和lat分别是要插值的点的x,y
 # lst是已有数据的数组，结构为：[[x1，y1，z1]，[x2，y2，z2]，...]
 # 返回值是插值点的高程
 def interpolation(lon, lat, lst):
-    P=2
+    P = 2
     p0 = [lon, lat]
     sum0 = 0
     sum1 = 0
@@ -31,47 +34,72 @@ def interpolation(lon, lat, lst):
         sum1 += 1 / math.pow(point[3], P)
     return sum0 / sum1
 
-
 # 计算两点间的距离
 def distance(p, pi):
     dis = (p[0] - pi[0]) * (p[0] - pi[0]) + (p[1] - pi[1]) * (p[1] - pi[1])
     m_result = math.sqrt(dis)
     return m_result
 
-if __name__ == '__main__':
-    x = [] # x坐标
-    y = [] # y坐标
-    lst = [[1,2,3333],[40,50,6666],[7,8,999],[90,91,1222]]# lst是已有数据的数组，结构为：[[x1，y1，z1]，[x2，y2，z2]，...]
-    z = []# 计算得到的高程
 
-
+# 三维散点图
+def IDWdraw3dpoints():
+    x = []  # x坐标
+    y = []  # y坐标
+    z = []  # 计算得到的高程
+    lst_points = [[1, 2, 3333], [40, 50, 6666], [7, 8, 999], [90, 91, 1222]]  # lst是已有数据的数组，结构为：[[x1，y1，z1]，[x2，y2，z2]，...]
     # 为x,y赋值(0,0),(0,1)...(99,99)
     for i in range(100):
-        x.append(i)
-    for j in range(100):  
-        y.append(j)
-    print(len(x))
+        for j in range(100):
+            x.append(i)
+            y.append(j)
     for i in range(100):
-        for j in range (100):
-            z.append(interpolation(i, j, lst))
-    # print(z)
+        for j in range(100):
+            z.append(interpolation(i, j, lst_points))
+    IDW_draw_3d_points(x, y, z)
 
 
+# 三维表面图
+def IDWdraw3dsurface():
+    x = []  # 已知点x坐标,用于计算x范围
+    y = []  # 已知点y坐标，用于计算y范围
+    X = []  # 插值点X坐标
+    Y = []  # 插值点Y坐标
+    Z = []  # 计算得到的高程
+    z_x = 0  # z坐标的x范围
+    z_y = 0  # z坐标的y范围
+    lst_surface = []
+    points = []  # 高程点坐标值列表：[x,y,z]
 
-    # with open('data/dem.txt','r',encoding='utf-8') as file:
-    #     data = file.readlines()
-    #     for each in data:
-    #         d = each.split(' ')
-    #         x.append(float(d[0]))
-    #         y.append(float(d[1]))
-    #         z.append(float(d[2]))
-    #     print('输入输入完成！')
-    x = np.array(x)
-    y = np.array(y)
-    z = np.array(z)
+    with open('data/dem.txt','r',encoding='utf-8') as file:
+        data = file.readlines()
+        for each in data:
+            d = each.split(' ')
+            x.append(float(d[0]))
+            y.append(float(d[1]))
+            points.append(float(d[0]))
+            points.append(float(d[1]))
+            points.append(float(d[2]))
+            lst_surface.append(points)
+            points = []
+        print('输入完成！')
 
-    # 三维散点图
-    # IDW_draw_3d_points(x,y,z)
+    for i in range(int(min(x)),int(max(x))+1):
+        X.append(i)
+    for j in range(int(min(y)),int(max(y))+1):
+        Y.append(j)
+    for i in range(int(min(x)),int(max(x))+1):
+        for j in range(int(min(y)),int(max(y))+1):
+            Z.append(interpolation(i, j, lst_surface))
+    z_x = int(max(x)) - int(min(x)) + 1
+    z_y = int(max(y)) - int(min(y)) + 1            
+    X = np.array(X)
+    Y = np.array(Y)
+    Z = np.array(Z)
+    print(z_x)
+    print(z_y)
+    IDW_draw_3d_surface(X, Y, Z, z_x, z_y)
 
-    # 三维表面图
-    IDW_draw_3d_surface(x,y,z)
+
+if __name__ == '__main__':
+    IDWdraw3dpoints()
+    IDWdraw3dsurface()
