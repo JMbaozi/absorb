@@ -92,9 +92,13 @@ def IDWdraw3dsurface():
     for j in range(int(min(y)),int(max(y))+1):
         Y.append(j)
     print('插入点Y坐标输入完成！')
+    all_num = (int(max(x)) - int(min(x)) + 1) * (int(max(y)) - int(min(y)) + 1)
+    key = 1
     for i in range(int(min(x)),int(max(x))+1):
         for j in range(int(min(y)),int(max(y))+1):
-            Z.append(interpolation(i, j, lst_surface))
+            Z.append(interpolation(i, j, lst_surface[0:100]))
+            print("共%d,正计算第%d个" % (all_num,key))
+            key += 1
     print('插入点Z值计算完成！')
     z_x = int(max(x)) - int(min(x)) + 1
     z_y = int(max(y)) - int(min(y)) + 1            
@@ -109,8 +113,8 @@ def IDWdraw3dsurface():
 
 
 if __name__ == '__main__':
-#     IDWdraw3dpoints()
-    IDWdraw3dsurface()
+    IDWdraw3dpoints()
+    # IDWdraw3dsurface()
 
 
 
