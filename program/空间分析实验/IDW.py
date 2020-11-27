@@ -65,18 +65,23 @@ need_num = 200  # know[0:need_num],需要使用的已知点个数为 need_num + 
 
 def getDemData():
     points = []  # 临时高程点坐标值列表：[x,y,z]
+    flag = 0  # 判断是否需要读取
     with open('data/dem_points.txt', 'r', encoding='utf-8') as file:
         data = file.readlines()
         for each in data:
-            d = each.split('\t')
-            x_konw.append(float(d[0]))
-            y_konw.append(float(d[1]))
-            z_konw.append(float(d[2]))
-            points.append(float(d[0]))
-            points.append(float(d[1]))
-            points.append(float(d[2]))
-            lst_surface.append(points)
-            points = []
+            flag += 1
+            if(flag%45 == 0):
+                d = each.split('\t')
+                x_konw.append(float(d[0]))
+                y_konw.append(float(d[1]))
+                z_konw.append(float(d[2]))
+                points.append(float(d[0]))
+                points.append(float(d[1]))
+                points.append(float(d[2]))
+                lst_surface.append(points)
+                points = []
+            else:
+                continue
         print('已知点输入完成！')
 
 # 绘制已知点三维散点图
@@ -116,5 +121,5 @@ def IDWdraw3dsurface():
 
 
 if __name__ == '__main__':
-    # IDWdraw3dpoints()
-    IDWdraw3dsurface()
+    IDWdraw3dpoints()
+    # IDWdraw3dsurface()
