@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>publisher_list</title>
+</head>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>ID</th>
+                <th>出版社名称</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in all_publishers %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.id }}</td>
+                <td>{{ i.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
