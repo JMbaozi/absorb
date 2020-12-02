@@ -7,6 +7,7 @@ import copy
 from DEM_draw_3d import IDW_draw_3d_points, IDW_draw_3d_surface
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import time
 
 
 # lon和lat分别是要插值的点的x,y
@@ -22,7 +23,7 @@ def interpolation(lon, lat, lst):
     for point in lst:
         if lon == point[0] and lat == point[1]:
             return point[2]
-        Di = distance(p0, point)
+        Di = np.hypot(p0[0]-point[0],p0[1]-point[1])    # 计算两点间的距离
         # new出来一个对象，不然会改变原来lst的值
         ptn = copy.deepcopy(point)
         ptn.append(Di)
@@ -36,11 +37,7 @@ def interpolation(lon, lat, lst):
         sum1 += 1 / math.pow(point[3], P)
     return sum0 / sum1
 
-# 计算两点间的距离
-def distance(p, pi):
-    dis = (p[0] - pi[0]) * (p[0] - pi[0]) + (p[1] - pi[1]) * (p[1] - pi[1])
-    m_result = math.sqrt(dis)
-    return m_result
+
 
 ###############################################################################
 #               分                  割                  线
@@ -92,6 +89,7 @@ def IDWdraw3dpoints():
 
 # 三维表面图
 def IDWdraw3dsurface():
+    time1 = time.time()
     getDemData()
     X_min = int(min(x_konw))
     X_max = int(max(x_konw)) + 1
@@ -116,8 +114,10 @@ def IDWdraw3dsurface():
     print(z_x)
     print(z_y)
     print('正在绘制...')
+    time2 = time.time()
     IDW_draw_3d_surface(X_insert, Y_insert, Z_insert, z_x, z_y)
     print('绘制完成！')
+    print("用时：%f s" % (time2-time1))
 
 
 if __name__ == '__main__':
