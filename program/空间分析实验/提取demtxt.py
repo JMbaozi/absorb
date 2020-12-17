@@ -12,7 +12,7 @@ with open('data/dem_old.txt','r',encoding='utf-8') as f:
 
 # print(all)
 
-with open('dem.txt','w',encoding='utf-8') as f:
+with open('data/dem.txt','w',encoding='utf-8') as f:
     f.write(all)
 
 print('提取完成！')

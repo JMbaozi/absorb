@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import time
 
+import DEMclass as dem
+from DEMclass import Drawgrid
+
 from DEM_draw_3d import IDW_draw_3d_points, IDW_draw_3d_surface
 # from DEM_draw_2d import IDW_draw_2d_height
 
@@ -59,18 +62,18 @@ X_max = 0  # 插值点X范围最大值
 Y_min = 0  # 插值点Y范围最小值
 Y_max = 0  # 插值点Y范围最大值
 lst_surface = []  # 已知点三维坐标值列表：[[x,y,z],[x,y,z]...]
-need_num = 10  # know[0:need_num],需要使用的已知点个数为 need_num + 1
+need_num = 100  # know[0:need_num],需要使用的已知点个数为 need_num + 1
 
 
 def getDemData():
     points = []  # 临时高程点坐标值列表：[x,y,z]
     flag = 0  # 判断是否需要读取
-    with open('data/dem_points.txt', 'r', encoding='utf-8') as file:
+    with open('data/dem.txt', 'r', encoding='utf-8') as file:
         data = file.readlines()
         for each in data:
             flag += 1
-            if(flag%45 == 0):
-                d = each.split('\t')
+            if(flag%1 == 0):
+                d = each.split(' ')
                 x_konw.append(float(d[0]))
                 y_konw.append(float(d[1]))
                 z_konw.append(float(d[2]))
@@ -122,50 +125,47 @@ def IDWdraw3dsurface():
     print("用时：%f s" % (time2-time1))
 
 
-# 暂时停用
-# 二维高程分布图
-# def IDWdraw2dheight():
-#     getDemData()
-#     z_grade = []
-#     X_min = int(min(x_konw))
-#     X_max = int(max(x_konw)) + 1
-#     Y_min = int(min(y_konw))
-#     Y_max = int(max(y_konw)) + 1
-#     for i in range(X_min, X_max):
-#         X_insert.append(i)
-#     print('插值点X坐标输入完成！')
-#     for j in range(Y_min, Y_max):
-#         Y_insert.append(j)
-#     print('插入点Y坐标输入完成！')
-#     all_num = (X_max - X_min) * (Y_max - Y_min)
-#     key = 1
-#     for i in range(X_min, X_max):
-#         for j in range(Y_min, Y_max):
-#             Z_insert.append(interpolation(i, j, lst_surface[0:need_num]))
-#             print("共%d,正计算第%d个" % (all_num, key))
-#             key += 1
-#     print('插入点Z值计算完成！')
-#     allNum = int(max(Z_insert) - min(Z_insert))
-#     key = 0
-#     for i in range(X_min, X_max):
-#         for j in range(Y_min, Y_max):
-#             judgeNum = int(Z_insert[key] - min(Z_insert))
-#             key += 1
-#             g = int(judgeNum/allNum)
-#             if(g<0.2):
-#                 z_grade.append(1)
-#             elif(g<0.4):
-#                 z_grade.append(2)
-#             elif(g<0.6):
-#                 z_grade.append(3)
-#             elif(g<0.8):
-#                 z_grade.append(4)
-#             else:
-#                 z_grade.append(5)
-#             print("共%d,正计算第%d个" % (all_num, key+1))
-#     IDW_draw_2d_height(X_insert, Y_insert,z_grade)
+def DEMclassall():
+###########################################################   
+    getDemData()
+    X_min = int(min(x_konw))
+    X_max = int(max(x_konw)) + 1
+    Y_min = int(min(y_konw))
+    Y_max = int(max(y_konw)) + 1
+    for i in range(X_min, X_max):
+        X_insert.append(i)
+    print('插值点X坐标输入完成！')
+    for j in range(Y_min, Y_max):
+        Y_insert.append(j)
+    print('插入点Y坐标输入完成！')
+    all_num = (X_max - X_min) * (Y_max - Y_min)
+    key = 1
+    for i in range(X_min, X_max):
+        for j in range(Y_min, Y_max):
+            Z_insert.append(interpolation(i, j, lst_surface[0:need_num]))
+            print("共%d,正计算第%d个" % (all_num, key))
+            key += 1
+    print('插入点Z值计算完成！')
+    z_x = int(max(x_konw)) - int(min(x_konw)) + 1
+    z_y = int(max(y_konw)) - int(min(y_konw)) + 1
+    print(z_x)
+    print(z_y)
+###########################################################   
+    npgrid=dem.readfile(z_y,z_x,Z_insert)
+    pre=npgrid
+    npgrid=dem.AddRound(npgrid)
+    dx,dy=dem.Cacdxdy(npgrid,22.5,22.5)
+    slope,arf=dem.CacSlopAsp(dx,dy)
+    dem.np.savetxt("slope.csv",slope,delimiter=",")
+    #绘制二维DEM
+    # Drawgrid(judge=0,A=pre,strs="bone")
+    #绘制坡度图
+    Drawgrid(judge=0,A=slope,strs="rainbow")
+    #绘制坡向图
+    # Drawgrid(judge=0,A=arf)
+
 
 if __name__ == '__main__':
-    IDWdraw3dpoints()
+    # IDWdraw3dpoints()
     # IDWdraw3dsurface()
-    # IDWdraw2dheight()
+    DEMclassall()
