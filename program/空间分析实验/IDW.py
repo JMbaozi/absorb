@@ -125,7 +125,7 @@ def IDWdraw3dsurface():
     print("用时：%f s" % (time2-time1))
 
 
-def DEMclassall():
+def DEMclassAllData():
 ###########################################################   
     getDemData()
     X_min = int(min(x_konw))
@@ -150,22 +150,36 @@ def DEMclassall():
     z_y = int(max(y_konw)) - int(min(y_konw)) + 1
     print(z_x)
     print(z_y)
-###########################################################   
+    return z_x,z_y,Z_insert
+###########################################################
+
+#绘制二维DEM
+def Drawgrid2dDEM():
     npgrid=dem.readfile(z_y,z_x,Z_insert)
     pre=npgrid
     npgrid=dem.AddRound(npgrid)
     dx,dy=dem.Cacdxdy(npgrid,22.5,22.5)
     slope,arf=dem.CacSlopAsp(dx,dy)
     dem.np.savetxt("slope.csv",slope,delimiter=",")
-    #绘制二维DEM
-    # Drawgrid(judge=0,A=pre,strs="bone")
-    #绘制坡度图
+    Drawgrid(judge=0,A=pre,strs="bone")
+#绘制坡度图
+def DrawgridSlope():
+    npgrid=dem.readfile(z_y,z_x,Z_insert)
+    npgrid=dem.AddRound(npgrid)
+    dx,dy=dem.Cacdxdy(npgrid,22.5,22.5)
+    slope,arf=dem.CacSlopAsp(dx,dy)
+    dem.np.savetxt("slope.csv",slope,delimiter=",")
     Drawgrid(judge=0,A=slope,strs="rainbow")
-    #绘制坡向图
-    # Drawgrid(judge=0,A=arf)
-
+#绘制坡向图
+def Drawgrid2dDEMAspectOfSlope():
+    npgrid=dem.readfile(z_y,z_x,Z_insert)
+    npgrid=dem.AddRound(npgrid)
+    dx,dy=dem.Cacdxdy(npgrid,22.5,22.5)
+    slope,arf=dem.CacSlopAsp(dx,dy)
+    dem.np.savetxt("slope.csv",slope,delimiter=",")
+    Drawgrid(judge=0,A=arf)
 
 if __name__ == '__main__':
     # IDWdraw3dpoints()
     # IDWdraw3dsurface()
-    DEMclassall()
+    DEMclassAllData()
