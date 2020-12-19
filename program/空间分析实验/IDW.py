@@ -62,7 +62,7 @@ X_max = 0  # 插值点X范围最大值
 Y_min = 0  # 插值点Y范围最小值
 Y_max = 0  # 插值点Y范围最大值
 lst_surface = []  # 已知点三维坐标值列表：[[x,y,z],[x,y,z]...]
-need_num = 100  # know[0:need_num],需要使用的已知点个数为 need_num + 1
+need_num = 10  # know[0:need_num],需要使用的已知点个数为 need_num + 1
 
 
 def getDemData():
@@ -125,19 +125,13 @@ def IDWdraw3dsurface():
     print("用时：%f s" % (time2-time1))
 
 
-def DEMclassAllData():
-###########################################################   
+def GetDEMclassAllData():
     getDemData()
+    global X_min,X_max,Y_min,Y_max,all_num,Z_insert,z_x,z_y
     X_min = int(min(x_konw))
     X_max = int(max(x_konw)) + 1
     Y_min = int(min(y_konw))
     Y_max = int(max(y_konw)) + 1
-    for i in range(X_min, X_max):
-        X_insert.append(i)
-    print('插值点X坐标输入完成！')
-    for j in range(Y_min, Y_max):
-        Y_insert.append(j)
-    print('插入点Y坐标输入完成！')
     all_num = (X_max - X_min) * (Y_max - Y_min)
     key = 1
     for i in range(X_min, X_max):
@@ -150,8 +144,7 @@ def DEMclassAllData():
     z_y = int(max(y_konw)) - int(min(y_konw)) + 1
     print(z_x)
     print(z_y)
-    return z_x,z_y,Z_insert
-###########################################################
+
 
 #绘制二维DEM
 def Drawgrid2dDEM():
@@ -179,7 +172,9 @@ def Drawgrid2dDEMAspectOfSlope():
     dem.np.savetxt("slope.csv",slope,delimiter=",")
     Drawgrid(judge=0,A=arf)
 
+
+
 if __name__ == '__main__':
     # IDWdraw3dpoints()
     # IDWdraw3dsurface()
-    DEMclassAllData()
+    GetDEMclassAllData()

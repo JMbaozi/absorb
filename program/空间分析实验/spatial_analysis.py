@@ -1,7 +1,7 @@
 import math
 from tkinter import Button, Canvas, Frame, Label, Menu, Text, Tk
 from CloudModel import plot_2d_cloud_model, plot_cloud_model
-from IDW import IDWdraw3dpoints,IDWdraw3dsurface
+from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMclassAllData,Drawgrid2dDEM,DrawgridSlope,Drawgrid2dDEMAspectOfSlope
 
 win_width = 640
 win_height = 480
@@ -63,9 +63,10 @@ class Application(Frame):
         self.filemenu_dem.add_command(label="DEM插值点表面图",command=IDWdraw3dsurface)
         self.filemenu_dem.add_separator()
         self.filemenu_demclass = Menu(self.menubar,tearoff=False)
-        self.filemenu_demclass.add_command(label="二维DEM",command=IDWdraw3dpoints)
-        self.filemenu_demclass.add_command(label="坡度图",command=IDWdraw3dsurface)
-        self.filemenu_demclass.add_command(label="坡向图",command=IDWdraw3dsurface)
+        self.filemenu_demclass.add_command(label="获取数据",command=GetDEMclassAllData)
+        self.filemenu_demclass.add_command(label="二维DEM",command=Drawgrid2dDEM)
+        self.filemenu_demclass.add_command(label="坡度图",command=DrawgridSlope)
+        self.filemenu_demclass.add_command(label="坡向图",command=Drawgrid2dDEMAspectOfSlope)
         self.filemenu_demclass.add_separator()
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
