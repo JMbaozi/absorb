@@ -62,18 +62,18 @@ X_max = 0  # 插值点X范围最大值
 Y_min = 0  # 插值点Y范围最小值
 Y_max = 0  # 插值点Y范围最大值
 lst_surface = []  # 已知点三维坐标值列表：[[x,y,z],[x,y,z]...]
-need_num = 10  # know[0:need_num],需要使用的已知点个数为 need_num + 1
+need_num =50   # know[0:need_num],需要使用的已知点个数为 need_num + 1
 
 
 def getDemData():
     points = []  # 临时高程点坐标值列表：[x,y,z]
     flag = 0  # 判断是否需要读取
-    with open('data/dem.txt', 'r', encoding='utf-8') as file:
+    with open('data/test.txt', 'r', encoding='utf-8') as file:
         data = file.readlines()
         for each in data:
             flag += 1
             if(flag%1 == 0):
-                d = each.split(' ')
+                d = each.split('\t')
                 x_konw.append(float(d[0]))
                 y_konw.append(float(d[1]))
                 z_konw.append(float(d[2]))
@@ -114,8 +114,8 @@ def IDWdraw3dsurface():
             print("共%d,正计算第%d个" % (all_num, key))
             key += 1
     print('插入点Z值计算完成！')
-    z_x = int(max(x_konw)) - int(min(x_konw)) + 1
-    z_y = int(max(y_konw)) - int(min(y_konw)) + 1
+    z_x = X_max - X_min
+    z_y = Y_max - Y_min
     print(z_x)
     print(z_y)
     print('正在绘制...')
@@ -140,8 +140,8 @@ def GetDEMclassAllData():
             print("共%d,正计算第%d个" % (all_num, key))
             key += 1
     print('插入点Z值计算完成！')
-    z_x = int(max(x_konw)) - int(min(x_konw)) + 1
-    z_y = int(max(y_konw)) - int(min(y_konw)) + 1
+    z_x = X_max - X_min
+    z_y = Y_max - Y_min
     print(z_x)
     print(z_y)
 
