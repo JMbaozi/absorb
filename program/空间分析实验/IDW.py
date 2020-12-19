@@ -86,16 +86,11 @@ def getDemData():
                 continue
         print('已知点输入完成！')
 
-# 绘制已知点三维散点图
-def IDWdraw3dpoints():
-    getDemData()
-    IDW_draw_3d_points(x_konw[0:need_num], y_konw[0:need_num], z_konw[0:need_num])
 
-
-# 三维表面图
-def IDWdraw3dsurface():
-    time1 = time.time()
+# 获取DEM所有点的数据
+def GetDEMAllData():
     getDemData()
+    global X_min,X_max,Y_min,Y_max,Z_insert,z_x,z_y
     X_min = int(min(x_konw))
     X_max = int(max(x_konw)) + 1
     Y_min = int(min(y_konw))
@@ -118,32 +113,22 @@ def IDWdraw3dsurface():
     z_y = Y_max - Y_min
     print(z_x)
     print(z_y)
+
+# 绘制已知点三维散点图
+def IDWdraw3dpoints():
+    getDemData()
+    IDW_draw_3d_points(x_konw[0:need_num], y_konw[0:need_num], z_konw[0:need_num])
+
+
+# 三维表面图
+def IDWdraw3dsurface():
+    time1 = time.time()
     print('正在绘制...')
     time2 = time.time()
     IDW_draw_3d_surface(X_insert, Y_insert, Z_insert, z_x, z_y)
     print('绘制完成！')
     print("用时：%f s" % (time2-time1))
 
-
-def GetDEMclassAllData():
-    getDemData()
-    global X_min,X_max,Y_min,Y_max,all_num,Z_insert,z_x,z_y
-    X_min = int(min(x_konw))
-    X_max = int(max(x_konw)) + 1
-    Y_min = int(min(y_konw))
-    Y_max = int(max(y_konw)) + 1
-    all_num = (X_max - X_min) * (Y_max - Y_min)
-    key = 1
-    for i in range(X_min, X_max):
-        for j in range(Y_min, Y_max):
-            Z_insert.append(interpolation(i, j, lst_surface[0:need_num]))
-            print("共%d,正计算第%d个" % (all_num, key))
-            key += 1
-    print('插入点Z值计算完成！')
-    z_x = X_max - X_min
-    z_y = Y_max - Y_min
-    print(z_x)
-    print(z_y)
 
 
 #绘制二维DEM
@@ -176,5 +161,5 @@ def Drawgrid2dDEMAspectOfSlope():
 
 if __name__ == '__main__':
     # IDWdraw3dpoints()
-    # IDWdraw3dsurface()
-    GetDEMclassAllData()
+    IDWdraw3dsurface()
+    # GetDEMAllData()
