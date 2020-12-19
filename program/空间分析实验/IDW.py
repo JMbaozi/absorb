@@ -89,6 +89,7 @@ def getDemData():
 
 # 获取DEM所有点的数据
 def GetDEMAllData():
+    time1 = time.time()
     getDemData()
     global X_min,X_max,Y_min,Y_max,Z_insert,z_x,z_y
     X_min = int(min(x_konw))
@@ -109,6 +110,8 @@ def GetDEMAllData():
             print("共%d,正计算第%d个" % (all_num, key))
             key += 1
     print('插入点Z值计算完成！')
+    time2 = time.time()
+    print("用时：%f s" % (time2-time1))
     z_x = X_max - X_min
     z_y = Y_max - Y_min
     print(z_x)
@@ -122,12 +125,9 @@ def IDWdraw3dpoints():
 
 # 三维表面图
 def IDWdraw3dsurface():
-    time1 = time.time()
     print('正在绘制...')
-    time2 = time.time()
     IDW_draw_3d_surface(X_insert, Y_insert, Z_insert, z_x, z_y)
     print('绘制完成！')
-    print("用时：%f s" % (time2-time1))
 
 
 
