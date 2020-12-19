@@ -28,7 +28,7 @@ for i in range(1,101):
     re += '\t'
     re += str(random.uniform(100,160))
     re += '\t'
-    re += str(random.uniform(1120,11150))
+    re += str(random.uniform(1120,1150))
     re += '\n'
 
 with open('data/test.txt','w',encoding='utf-8') as file:
