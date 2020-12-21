@@ -1,5 +1,6 @@
 import math
 from tkinter import Button, Canvas, Frame, Label, Menu, Text, Tk,messagebox
+from tkinter.constants import END
 from turtle import distance
 from CloudModel import plot_2d_cloud_model, plot_cloud_model
 from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMAllData,Drawgrid2dDEM,DrawgridSlope,Drawgrid2dDEMAspectOfSlope
@@ -8,7 +9,6 @@ from Drawkoch import DrawKoch
 win_width = 1000
 win_height = 700
 bgcolor = 'white'
-test = [200,10,240,30,120,100,140,120]
 
 class Application(Frame):
     def __init__(self,master=None):
@@ -62,7 +62,7 @@ class Application(Frame):
         self.filemenu_draw.add_command(label="任意多边形",command=self.drawShape)
         self.filemenu_draw.add_command(label="直线",command=self.drawLine)
         self.filemenu_draw.add_command(label="椭圆",command=self.drawOval)
-        self.filemenu_draw.add_command(label="test",command=self.drawTest)
+        self.filemenu_draw.add_command(label="test",command=self.Test)
         self.filemenu_draw.add_separator()
         self.filemenu_cloud = Menu(self.menubar,tearoff=False)
         self.filemenu_cloud.add_command(label="二维云模型",command=self.plot_cloud)
@@ -79,7 +79,7 @@ class Application(Frame):
         self.filemenu_demclass.add_command(label="坡向图",command=Drawgrid2dDEMAspectOfSlope)
         self.filemenu_demclass.add_separator()
         self.filemenu_koch = Menu(self.menubar,tearoff=False)
-        self.filemenu_koch.add_command(label="koch曲线",command=DrawKoch)
+        self.filemenu_koch.add_command(label="koch曲线",command=self.Drawkoch)
         self.filemenu_koch.add_separator()
         self.filemenu_spatialmeasure = Menu(self.menubar,tearoff=False)
         self.filemenu_spatialmeasure.add_command(label="点与点距离",command=self.DistancePointandPoint)
@@ -106,6 +106,8 @@ class Application(Frame):
         # 添加显示标签
         self.text_result = Text(self)
         self.text_result.pack(side='left',padx=10)
+        self.text_input = Text(self)
+        self.text_input.pack(side='left',padx=10)
 
     # 清空面板和数据
     def Clear(self):
@@ -142,6 +144,11 @@ class Application(Frame):
         self.p_oval.clear()
         self.p_x_oval.clear()
         self.p_y_oval.clear()
+
+    # 绘制koch曲线
+    def Drawkoch(self):
+        length,num = int(self.text_input.get('0.0',END)),int(self.text_input.get('1.0',END))
+        DrawKoch(length,num)
 
     # 解除点图形左键绑定
     def PointUnbindLeft(self,event):
@@ -392,8 +399,8 @@ class Application(Frame):
 
 
     # 测试
-    def drawTest(self):
-        self.drawpad.create_polygon(test,fill="",outline="black")
+    def Test(self):
+        print(self.text_input.get("0.0","end"))
 
 if __name__ == '__main__':
     root = Tk()
