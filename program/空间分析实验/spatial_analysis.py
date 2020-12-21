@@ -146,6 +146,7 @@ class Application(Frame):
         self.p_y_oval.clear()
 
     # 绘制koch曲线
+    # TODO 待完善
     def Drawkoch(self):
         length,num = int(self.text_input.get('0.0',END)),int(self.text_input.get('1.0',END))
         DrawKoch(length,num)
