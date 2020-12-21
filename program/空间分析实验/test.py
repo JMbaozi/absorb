@@ -19,18 +19,20 @@
 
 # print("%d用时：%f" % (sum1,T1))
 
-import random
+# import random
 
-re = ""
+# re = ""
 
-for i in range(1,101):
-    re += str(random.uniform(100,160))
-    re += '\t'
-    re += str(random.uniform(100,160))
-    re += '\t'
-    re += str(random.uniform(1120,1150))
-    re += '\n'
+# for i in range(1,101):
+#     re += str(random.uniform(100,160))
+#     re += '\t'
+#     re += str(random.uniform(100,160))
+#     re += '\t'
+#     re += str(random.uniform(1120,1150))
+#     re += '\n'
 
-with open('data/test.txt','w',encoding='utf-8') as file:
-    file.write(re)
-    print("写入完毕")
+# with open('data/test.txt','w',encoding='utf-8') as file:
+#     file.write(re)
+#     print("写入完毕")
+
+
