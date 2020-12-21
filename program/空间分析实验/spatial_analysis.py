@@ -3,8 +3,8 @@ from tkinter import Button, Canvas, Frame, Label, Menu, Text, Tk
 from CloudModel import plot_2d_cloud_model, plot_cloud_model
 from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMAllData,Drawgrid2dDEM,DrawgridSlope,Drawgrid2dDEMAspectOfSlope
 
-win_width = 640
-win_height = 480
+win_width = 1000
+win_height = 700
 bgcolor = 'white'
 test = [200,10,240,30,120,100,140,120]
 
@@ -296,6 +296,6 @@ class Application(Frame):
 if __name__ == '__main__':
     root = Tk()
     root.title('地理空间分析')
-    root.geometry('600x520+200+200')# 底部按钮栏
+    root.geometry('1000x800+200+200')# 底部按钮栏
     app = Application(master=root)
     root.mainloop()
