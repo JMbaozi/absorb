@@ -1,5 +1,6 @@
 import math
 from tkinter import Button, Canvas, Frame, Label, Menu, Text, Tk,messagebox
+from turtle import distance
 from CloudModel import plot_2d_cloud_model, plot_cloud_model
 from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMAllData,Drawgrid2dDEM,DrawgridSlope,Drawgrid2dDEMAspectOfSlope
 from Drawkoch import DrawKoch
@@ -80,12 +81,20 @@ class Application(Frame):
         self.filemenu_koch = Menu(self.menubar,tearoff=False)
         self.filemenu_koch.add_command(label="koch曲线",command=DrawKoch)
         self.filemenu_koch.add_separator()
+        self.filemenu_spatialmeasure = Menu(self.menubar,tearoff=False)
+        self.filemenu_spatialmeasure.add_command(label="点与点距离",command=self.DistancePointandPoint)
+        self.filemenu_spatialmeasure.add_command(label="点与线距离",command=self.DistancePointandLine)
+        self.filemenu_spatialmeasure.add_command(label="点与面距离",command=self.DistancePointandShape)
+        self.filemenu_spatialmeasure.add_command(label="线与面距离",command=self.DistanceLineandShape)
+        self.filemenu_spatialmeasure.add_command(label="面与面距离",command=self.DistanceShapeandShape)
+        self.filemenu_spatialmeasure.add_separator()
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
         self.menubar.add_cascade(label="云模型",menu=self.filemenu_cloud)
         self.menubar.add_cascade(label="DEM",menu=self.filemenu_dem)
         self.menubar.add_cascade(label="DEMClass",menu=self.filemenu_demclass)
         self.menubar.add_cascade(label="koch曲线",menu=self.filemenu_koch)
+        self.menubar.add_cascade(label="空间实体量测",menu=self.filemenu_spatialmeasure)
         root.config(menu=self.menubar)
         # 创建功能按钮
         self.btn_area = Button(self,text='面积',command=self.ShowShapeArea)
@@ -243,17 +252,18 @@ class Application(Frame):
         print(event.x,event.y)
     # 开始绘制点
     def StartDrawPoint(self,event):
-        self.Points_point.append(self.p_point)# 将临时坐标值列表存入总列表
-        self.Points_x_point.append(self.p_x_point)# 将临时坐标x值列表存入总列表
-        self.Points_y_point.append(self.p_y_point)# 将临时坐标y值列表存入总列表
+        self.Points_point += self.p_point# 将临时坐标值列表存入总列表
+        self.Points_x_point += self.p_x_point# 将临时坐标x值列表存入总列表
+        self.Points_y_point += self.p_y_point# 将临时坐标y值列表存入总列表
         # x1,y1 = int(self.Points_x_point[self.pointNum-1][0])-1,int(self.Points_y_point[self.pointNum-1][0])-1
         # x2,y2 = int(self.Points_x_point[self.pointNum-1][0])+1,int(self.Points_y_point[self.pointNum-1][0])+1
         # self.drawpad.create_oval(x1,y1,x2,y2,outline="red")
         for i in range(self.pointNum):
-            x1,y1 = int(self.Points_x_point[0][i])-1,int(self.Points_y_point[0][i])-1
-            x2,y2 = int(self.Points_x_point[0][i])+1,int(self.Points_y_point[0][i])+1
+            x1,y1 = int(self.Points_x_point[i])-1,int(self.Points_y_point[i])-1
+            x2,y2 = int(self.Points_x_point[i])+1,int(self.Points_y_point[i])+1
             self.drawpad.create_oval(x1,y1,x2,y2,fill="red",outline="red")
         print(self.Points_x_point)
+        print(self.Points_y_point)
         self.p_point = [] # 清空临时列表
         self.p_x_point = []# 清空临时列表
         self.p_y_point = []# 清空临时列表
@@ -279,6 +289,8 @@ class Application(Frame):
         # self.p.clear()# 清空临时列表(IndexError: tuple index out of range,不能放在前面，原因未知。现在清空，上一句函数的Points也会被清空。)
         self.drawpad.create_polygon(self.Points_shape[self.shapeNum-1],fill="",outline="black")
         # 不要使用clear()方法清空，会导致将总列表的数值也清空，原因可能是函数进程未结束时append(self.p)会与self.p一直关联。
+        print(self.Points_shape)
+        print(self.Points_x_shape)
         self.p_shape = [] # 清空临时列表
         self.p_x_shape = []# 清空临时列表
         self.p_y_shape = []# 清空临时列表    
@@ -305,6 +317,7 @@ class Application(Frame):
         self.p_line = [] # 清空临时列表
         self.p_x_line = []# 清空临时列表
         self.p_y_line = []# 清空临时列表
+        print(self.Points_line)
         print(self.Points_line[self.lineNum-1])
     # 准备绘制直线
     def drawLine(self):
@@ -341,6 +354,42 @@ class Application(Frame):
     # 三维云模型
     def plot_2d_cloud(self):
         plot_2d_cloud_model([0, 1], [0.3, 0.3], [0.01, 0.05], 2000)
+
+    # 点与点之间的距离
+    def DistancePointandPoint(self):
+        distance = math.sqrt((self.Points_x_point[0]-self.Points_x_point[1])**2 + (self.Points_y_point[0]-self.Points_y_point[1])**2)
+        print("点与点之间的距离：%f" % distance)
+    # 点与线之间的距离
+    def DistancePointandLine(self):
+        k,b = 0.0,0.0
+        for each in self.Points_line:
+            k = math.sqrt((each[0]-each[2])**2 + (each[1]-each[3])**2)#斜率
+            b = each[1] - k*each[0]#常数b
+        A,B,C = k,-1,b
+        distance = (abs(A*self.Points_x_point[0]+B*self.Points_y_point[0]+C))/math.sqrt(A*A + B*B)
+        print("点与线之间的距离：%f" % distance)
+    # 点与面之间的距离
+    def DistancePointandShape(self):
+        x,y = self.GetShapeCG(self.Points_x_shape[0],self.Points_y_shape[0])#重心x,y坐标值
+        distance = math.sqrt((self.Points_x_point[0]-x)**2 + (self.Points_y_point[0]-y)**2)
+        print("点与面之间的距离：%f" % distance)
+    # 线与面之间的距离
+    def DistanceLineandShape(self):
+        k,b = 0.0,0.0
+        for each in self.Points_line:
+            k = math.sqrt((each[0]-each[2])**2 + (each[1]-each[3])**2)#斜率
+            b = each[1] - k*each[0]#常数b
+        A,B,C = k,-1,b
+        x,y = self.GetShapeCG(self.Points_x_shape[0],self.Points_y_shape[0])#重心x,y坐标值
+        distance = (abs(A*x+B*y+C))/math.sqrt(A*A + B*B)
+        print("线与面之间的距离：%f" % distance)
+    # 面与面之间的距离
+    def DistanceShapeandShape(self):
+        x1,y1 = self.GetShapeCG(self.Points_x_shape[0],self.Points_y_shape[0])#重心x1,y1坐标值
+        x2,y2 = self.GetShapeCG(self.Points_x_shape[1],self.Points_y_shape[1])#重心x2,y2坐标值
+        distance = math.sqrt((x1-x2)**2 + (y1-y2)**2)
+        print("面与面之间的距离：%f" % distance)
+
 
     # 测试
     def drawTest(self):
