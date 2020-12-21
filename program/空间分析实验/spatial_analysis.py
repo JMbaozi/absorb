@@ -149,7 +149,7 @@ class Application(Frame):
             root.unbind("<Button-1>")
             self.unbindkey = 0
         else:
-            root.bind("<Button-1>",self.ShapeGetPoints)# 恢复左键绑定
+            root.bind("<Button-1>",self.PointGetPoints)# 恢复左键绑定
             self.unbindkey = 1
     # 解除多边形左键绑定
     def ShapeUnbindLeft(self,event):
