@@ -1,5 +1,5 @@
 import math
-from tkinter import Button, Canvas, Frame, Label, Menu, Text, Tk,messagebox
+from tkinter import Button, Canvas, Entry, Frame, Label, Menu, Text, Tk,messagebox
 from tkinter.constants import END
 from turtle import distance
 from CloudModel import plot_2d_cloud_model, plot_cloud_model
@@ -46,6 +46,9 @@ class Application(Frame):
         self.p_x_oval = []# 椭圆图形临时坐标x值列表
         self.p_y_oval = []# 椭圆图形临时坐标y值列表
         ################################################
+        self.kochLength = 0
+        self.kochNum = 0
+        ################################################
         self.fgcolor = 'black'
         self.master = master
         self.pack()
@@ -79,7 +82,8 @@ class Application(Frame):
         self.filemenu_demclass.add_command(label="坡向图",command=Drawgrid2dDEMAspectOfSlope)
         self.filemenu_demclass.add_separator()
         self.filemenu_koch = Menu(self.menubar,tearoff=False)
-        self.filemenu_koch.add_command(label="koch曲线",command=self.Drawkoch)
+        self.filemenu_koch.add_command(label="获取koch曲线参数",command=self.DrawkochData)
+        self.filemenu_koch.add_command(label="绘制koch曲线",command=self.StartDrawKoch)
         self.filemenu_koch.add_separator()
         self.filemenu_spatialmeasure = Menu(self.menubar,tearoff=False)
         self.filemenu_spatialmeasure.add_command(label="点与点距离",command=self.DistancePointandPoint)
@@ -106,8 +110,13 @@ class Application(Frame):
         # 添加显示标签
         self.text_result = Text(self)
         self.text_result.pack(side='left',padx=10)
-        self.text_input = Text(self)
-        self.text_input.pack(side='left',padx=10)
+        # 添加输入标签
+        self.entry_input1 = Entry(self)
+        self.entry_input1.pack(padx=10, pady=5)
+        self.entry_input1.insert(END,'koch曲线长度')
+        self.entry_input2 = Entry(self)
+        self.entry_input2.pack(padx=10, pady=5)
+        self.entry_input2.insert(END,'koch迭代次数')
 
     # 清空面板和数据
     def Clear(self):
@@ -145,11 +154,14 @@ class Application(Frame):
         self.p_x_oval.clear()
         self.p_y_oval.clear()
 
-    # 绘制koch曲线
-    # TODO 待完善
-    def Drawkoch(self):
-        length,num = int(self.text_input.get('0.0',END)),int(self.text_input.get('1.0',END))
-        DrawKoch(length,num)
+    # 绘制koch曲线的数据
+    def DrawkochData(self):
+        self.kochLength,self.kochNum = int(self.entry_input1.get()),int(self.entry_input2.get())
+        print(self.kochLength)
+        print(self.kochNum)
+    # 开始绘制koch曲线
+    def StartDrawKoch(self):
+        DrawKoch(self.kochLength,self.kochNum)
 
     # 解除点图形左键绑定
     def PointUnbindLeft(self,event):
