@@ -429,7 +429,7 @@ class Application(Frame):
         for i in range(len(self.Points_x_kmeans)):
             x1,y1 = int(self.Points_x_kmeans[i])-1,int(self.Points_y_kmeans[i])-1
             x2,y2 = int(self.Points_x_kmeans[i])+1,int(self.Points_y_kmeans[i])+1
-            self.drawpad.create_oval(x1,y1,x2,y2,fill="red",outline="red")
+            self.drawpad.create_oval(x1,y1,x2,y2,fill="black",outline="black")
         self.text_result.insert('insert',"K-means点数据导入成功！\n")
 
 
