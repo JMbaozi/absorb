@@ -1,5 +1,5 @@
 import math
-from tkinter import Button, Canvas, Entry, Frame, Label, Menu, Text, Tk,messagebox
+from tkinter import Button, Canvas, Entry, Frame, Label, Menu, Text, Tk,filedialog
 from tkinter.constants import END
 from turtle import distance
 from CloudModel import plot_2d_cloud_model, plot_cloud_model
@@ -46,8 +46,11 @@ class Application(Frame):
         self.p_x_oval = []# 椭圆图形临时坐标x值列表
         self.p_y_oval = []# 椭圆图形临时坐标y值列表
         ################################################
-        self.kochLength = 0
-        self.kochNum = 0
+        self.kochLength = 0#koch曲线长度
+        self.kochNum = 0#koch曲线迭代次数
+        ################################################
+        self.Points_x_kmeans = []#K均值聚类的点数据x值
+        self.Points_y_kmeans = []#K均值聚类的点数据y值
         ################################################
         self.fgcolor = 'black'
         self.master = master
@@ -92,6 +95,10 @@ class Application(Frame):
         self.filemenu_spatialmeasure.add_command(label="线与面距离",command=self.DistanceLineandShape)
         self.filemenu_spatialmeasure.add_command(label="面与面距离",command=self.DistanceShapeandShape)
         self.filemenu_spatialmeasure.add_separator()
+        self.filemenu_kmeans = Menu(self.menubar,tearoff=False)
+        self.filemenu_kmeans.add_command(label="打开点数据文件",command=self.OpenKmeansData)
+        self.filemenu_kmeans.add_command(label="开始K均值据类",command=self.StartDrawKoch)
+        self.filemenu_kmeans.add_separator()
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
         self.menubar.add_cascade(label="云模型",menu=self.filemenu_cloud)
@@ -99,6 +106,7 @@ class Application(Frame):
         self.menubar.add_cascade(label="DEMClass",menu=self.filemenu_demclass)
         self.menubar.add_cascade(label="koch曲线",menu=self.filemenu_koch)
         self.menubar.add_cascade(label="空间实体量测",menu=self.filemenu_spatialmeasure)
+        self.menubar.add_cascade(label="K均值聚类",menu=self.filemenu_kmeans)
         root.config(menu=self.menubar)
         # 创建功能按钮
         self.btn_area = Button(self,text='面积',command=self.ShowShapeArea)
@@ -409,6 +417,20 @@ class Application(Frame):
         x2,y2 = self.GetShapeCG(self.Points_x_shape[1],self.Points_y_shape[1])#重心x2,y2坐标值
         distance = math.sqrt((x1-x2)**2 + (y1-y2)**2)
         print("面与面之间的距离：%f" % distance)
+
+    # 打开K均值聚类的点数据
+    def OpenKmeansData(self):
+        filename = filedialog.askopenfilename()
+        with open(filename,'r',encoding='utf-8') as f:
+            for each in f:
+                p = each.split(',')
+                self.Points_x_kmeans.append(p[0])
+                self.Points_y_kmeans.append(p[1])
+        for i in range(len(self.Points_x_kmeans)):
+            x1,y1 = int(self.Points_x_kmeans[i])-1,int(self.Points_y_kmeans[i])-1
+            x2,y2 = int(self.Points_x_kmeans[i])+1,int(self.Points_y_kmeans[i])+1
+            self.drawpad.create_oval(x1,y1,x2,y2,fill="red",outline="red")
+        self.text_result.insert('insert',"K-means点数据导入成功！\n")
 
 
     # 测试

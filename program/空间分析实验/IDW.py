@@ -68,7 +68,7 @@ need_num =50   # know[0:need_num],需要使用的已知点个数为 need_num + 1
 def getDemData():
     points = []  # 临时高程点坐标值列表：[x,y,z]
     flag = 0  # 判断是否需要读取
-    with open('data/test.txt', 'r', encoding='utf-8') as file:
+    with open('data/dem.txt', 'r', encoding='utf-8') as file:
         data = file.readlines()
         for each in data:
             flag += 1
