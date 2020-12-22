@@ -44,10 +44,10 @@ import random
 
 re = ""
 
-for i in range(0,500):
-    re += str(random.randint(10,800))
+for i in range(0,100):
+    re += str(random.randint(10,900))
     re += ','
-    re += str(random.randint(10,800))
+    re += str(random.randint(10,700))
     re += '\n'
 with open('data/kmenasPoints.txt','w',encoding='utf-8') as file:
     file.write(re)
