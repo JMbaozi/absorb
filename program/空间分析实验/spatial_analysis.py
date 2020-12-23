@@ -105,6 +105,7 @@ class Application(Frame):
         self.filemenu_kmeans.add_separator()
         self.filemenu_buffer = Menu(self.menubar,tearoff=False)
         self.filemenu_buffer.add_command(label="点缓冲区",command=self.BufferPoints)
+        self.filemenu_buffer.add_command(label="线缓冲区",command=self.BufferLines)
         self.filemenu_buffer.add_separator()
         self.menubar.add_cascade(label="打开",menu=self.filemenu_openfile)
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
@@ -203,13 +204,20 @@ class Application(Frame):
                 for i in P:
                     p.append(int(i))#消除回车等字符影响
                 self.Points_line.append(p)
-                self.Points_x_line.append(p[0])
-                self.Points_x_line.append(p[2])
-                self.Points_y_line.append(p[1])
-                self.Points_y_line.append(p[3])
+                p_x= []
+                p_y= []
+                p_x.append(p[0])
+                p_x.append(p[2])
+                p_y.append(p[1])
+                p_y.append(p[3])
+                self.Points_x_line.append(p_x)
+                self.Points_y_line.append(p_y)
+                p_x= []
+                p_y= []
         for line in self.Points_line:
             self.drawpad.create_line(line,fill="black")
             print(line)
+        print(self.Points_x_line)
         self.text_result.insert('insert',"线数据导入成功！\n")
 
     # 打开面数据文件
@@ -424,7 +432,6 @@ class Application(Frame):
         self.p_x_line = []# 清空临时列表
         self.p_y_line = []# 清空临时列表
         print(self.Points_line)
-        print(self.Points_line[self.lineNum-1])
     # 准备绘制直线
     def drawLine(self):
         root.bind("<Button-1>",self.LineGetPoints)
@@ -501,6 +508,11 @@ class Application(Frame):
         return
 
 
+    # 得到直线斜率
+    def GetLineSlope(self,line_x=[],line_y=[]):
+        k = 0.0#斜率
+        k = (int(line_y[1])-int(line_y[0]))/(int(line_x[1])-int(line_x[0]))
+        return k
     # 点缓冲区
     def BufferPoints(self):
         for i in range(len(self.Points_x_point)):
@@ -508,6 +520,12 @@ class Application(Frame):
             x2,y2 = int(self.Points_x_point[i])+10,int(self.Points_y_point[i])+10
             self.drawpad.create_oval(x1,y1,x2,y2,fill="",outline="blue")
         self.text_result.insert('insert',"点缓冲区建立成功！\n")
+    # 线缓冲区
+    def BufferLines(self):
+        line_k = []#存放直线斜率
+        for i in range(self.lineNum):
+            line_k.append(self.GetLineSlope(self.Points_x_line[i],self.Points_y_line[i]))
+        print(line_k)
 
     # 测试
     def Test(self):
