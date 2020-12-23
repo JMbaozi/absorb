@@ -193,8 +193,8 @@ class Application(Frame):
                 self.Points_x_point.append(p[0])
                 self.Points_y_point.append(p[1])
         for i in range(len(self.Points_x_point)):
-            x1,y1 = int(self.Points_x_point[i])-1,int(self.Points_y_point[i])-1
-            x2,y2 = int(self.Points_x_point[i])+1,int(self.Points_y_point[i])+1
+            x1,y1 = int(self.Points_x_point[i])-3,int(self.Points_y_point[i])-3
+            x2,y2 = int(self.Points_x_point[i])+3,int(self.Points_y_point[i])+3
             self.drawpad.create_oval(x1,y1,x2,y2,fill="black",outline="black")
         self.text_result.insert('insert',"点数据导入成功！\n")
 
@@ -366,7 +366,7 @@ class Application(Frame):
         self.p_point.append(event.x)
         self.p_point.append(event.y)
         self.p_x_point.append(event.x)
-        self.p_y_point.append(event.y) 
+        self.p_y_point.append(event.y)
         self.pointNum += 1
         print(event.x,event.y)
     # 开始绘制点
@@ -378,8 +378,8 @@ class Application(Frame):
         # x2,y2 = int(self.Points_x_point[self.pointNum-1][0])+1,int(self.Points_y_point[self.pointNum-1][0])+1
         # self.drawpad.create_oval(x1,y1,x2,y2,outline="red")
         for i in range(self.pointNum):
-            x1,y1 = int(self.Points_x_point[i])-1,int(self.Points_y_point[i])-1
-            x2,y2 = int(self.Points_x_point[i])+1,int(self.Points_y_point[i])+1
+            x1,y1 = int(self.Points_x_point[i])-3,int(self.Points_y_point[i])-3
+            x2,y2 = int(self.Points_x_point[i])+3,int(self.Points_y_point[i])+3
             self.drawpad.create_oval(x1,y1,x2,y2,fill="red",outline="red")
         print(self.Points_x_point)
         print(self.Points_y_point)
