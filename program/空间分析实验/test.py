@@ -68,22 +68,22 @@
 #     print("写入完毕")
 
 
-# import random
+import random
 
-# re = ""
+re = ""
 
-# for i in range(0,10):
-#     re += str(random.randint(100,800))
-#     re += ','
-#     re += str(random.randint(100,600))
-#     re += ','
-#     re += str(random.randint(100,800))
-#     re += ','
-#     re += str(random.randint(100,600))
-#     re += '\n'
-# with open('data/Linesbuffer.txt','w',encoding='utf-8') as file:
-#     file.write(re)
-#     print("写入完毕")
+for i in range(0,10):
+    re += str(random.randint(100,800))
+    re += ','
+    re += str(random.randint(100,600))
+    re += ','
+    re += str(random.randint(100,800))
+    re += ','
+    re += str(random.randint(100,600))
+    re += '\n'
+with open('data/Linesbuffer.txt','w',encoding='utf-8') as file:
+    file.write(re)
+    print("写入完毕")
 
 
 
@@ -103,3 +103,10 @@
 # with open('data/Shapesbuffer.txt','w',encoding='utf-8') as file:
 #     file.write(re)
 #     print("写入完毕")
+
+
+# a = [[0,1,2],[3,4,5],[7,8,9]]
+
+# print(a[1][1])
+# print(a[0][2])
+# print(a[0][0])

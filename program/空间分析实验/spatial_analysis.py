@@ -135,6 +135,9 @@ class Application(Frame):
         self.entry_input2 = Entry(self)
         self.entry_input2.pack(padx=10, pady=5)
         self.entry_input2.insert(END,'koch迭代次数')
+        self.entry_input3 = Entry(self)
+        self.entry_input3.pack(padx=10, pady=5)
+        self.entry_input3.insert(END,'缓冲区大小')
 
     # 清空面板和数据
     def Clear(self):
@@ -515,17 +518,66 @@ class Application(Frame):
         return k
     # 点缓冲区
     def BufferPoints(self):
+        size = int(self.entry_input3.get())#缓冲区大小
         for i in range(len(self.Points_x_point)):
-            x1,y1 = int(self.Points_x_point[i])-10,int(self.Points_y_point[i])-10
-            x2,y2 = int(self.Points_x_point[i])+10,int(self.Points_y_point[i])+10
+            x1,y1 = int(self.Points_x_point[i])-size,int(self.Points_y_point[i])-size
+            x2,y2 = int(self.Points_x_point[i])+size,int(self.Points_y_point[i])+size
             self.drawpad.create_oval(x1,y1,x2,y2,fill="",outline="blue")
         self.text_result.insert('insert',"点缓冲区建立成功！\n")
     # 线缓冲区
     def BufferLines(self):
+        size = int(self.entry_input3.get())#缓冲区大小
         line_k = []#存放直线斜率
+        buffer_line_up = []#缓冲区上边
+        buffer_line_down = []#缓冲区下边
         for i in range(self.lineNum):
             line_k.append(self.GetLineSlope(self.Points_x_line[i],self.Points_y_line[i]))
         print(line_k)
+        i = 0
+        for k in line_k:
+            if(k>0):
+                x1 = self.Points_x_line[i][0]+size*math.sin(math.atan(k))
+                y1 = self.Points_y_line[i][0]-size*math.cos(math.atan(k))
+                x2 = self.Points_x_line[i][1]+size*math.sin(math.atan(k))
+                y2 = self.Points_y_line[i][1]-size*math.cos(math.atan(k))
+                buffer = [x1,y1,x2,y2]
+                buffer_line_up.append(buffer)
+            else:
+                k = -k
+                x1 = self.Points_x_line[i][0]-size*math.sin(math.atan(k))
+                y1 = self.Points_y_line[i][0]-size*math.cos(math.atan(k))
+                x2 = self.Points_x_line[i][1]-size*math.sin(math.atan(k))
+                y2 = self.Points_y_line[i][1]-size*math.cos(math.atan(k))
+                buffer = [x1,y1,x2,y2]
+                buffer_line_up.append(buffer)
+            i += 1
+        i = 0
+        for k in line_k:
+            if(k>0):
+                x3 = self.Points_x_line[i][0]-size*math.sin(math.atan(k))
+                y3 = self.Points_y_line[i][0]+size*math.cos(math.atan(k))
+                x4 = self.Points_x_line[i][1]-size*math.sin(math.atan(k))
+                y4 = self.Points_y_line[i][1]+size*math.cos(math.atan(k))
+                buffer = [x4,y4,x3,y3]
+                buffer_line_down.append(buffer)
+            else:
+                k = -k
+                x3 = self.Points_x_line[i][0]+size*math.sin(math.atan(k))
+                y3 = self.Points_y_line[i][0]+size*math.cos(math.atan(k))
+                x4 = self.Points_x_line[i][1]+size*math.sin(math.atan(k))
+                y4 = self.Points_y_line[i][1]+size*math.cos(math.atan(k))
+                buffer = [x4,y4,x3,y3]
+                buffer_line_down.append(buffer)
+            i += 1
+        print(buffer_line_up)
+        print(buffer_line_down)
+        for i in range(len(buffer_line_up)):
+            points = buffer_line_up[i] + buffer_line_down[i]
+            self.drawpad.create_polygon(points,fill="",outline="blue")
+
+
+
+
 
     # 测试
     def Test(self):
