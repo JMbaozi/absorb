@@ -110,3 +110,26 @@
 # print(a[1][1])
 # print(a[0][2])
 # print(a[0][0])
+
+
+
+
+from shapely.geometry import Point
+from shapely.geometry import LineString
+from shapely.geometry import MultiPolygon
+import matplotlib.pyplot as plt
+# 定义线段
+line = LineString([(0.1, 0.1), (2, 3),(3,3),(4,5)])
+# 生成缓冲区
+buffer = line.buffer(0.5)
+x1,y1=line.xy
+ 
+x2,y2=buffer.boundary.xy
+ 
+plt.figure()
+ 
+plt.plot(x1,y1)
+ 
+plt.plot(x2,y2)
+ 
+plt.show()
