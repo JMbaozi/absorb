@@ -87,19 +87,19 @@
 
 
 
-import random
+# import random
 
-re = ""
+# re = ""
 
-for i in range(0,10):
-    t = random.randint(3,10)#多边形边数
-    for j in range(t):
-        re += str(random.randint(100,800))
-        re += ','
-        re += str(random.randint(100,800))
-        if(j != t-1):
-            re += ','
-    re += '\n'
-with open('data/Shapesbuffer.txt','w',encoding='utf-8') as file:
-    file.write(re)
-    print("写入完毕")
+# for i in range(0,3):
+#     t = random.randint(3,6)#多边形边数
+#     for j in range(t):
+#         re += str(random.randint(100,800))
+#         re += ','
+#         re += str(random.randint(100,800))
+#         if(j != t-1):
+#             re += ','
+#     re += '\n'
+# with open('data/Shapesbuffer.txt','w',encoding='utf-8') as file:
+#     file.write(re)
+#     print("写入完毕")

@@ -186,6 +186,7 @@ class Application(Frame):
                 self.Points_x_point.append(p[0])
                 self.Points_y_point.append(p[1])
         for i in range(len(self.Points_x_point)):
+            self.pointNum += 1
             x1,y1 = int(self.Points_x_point[i])-1,int(self.Points_y_point[i])-1
             x2,y2 = int(self.Points_x_point[i])+1,int(self.Points_y_point[i])+1
             self.drawpad.create_oval(x1,y1,x2,y2,fill="black",outline="black")
@@ -206,11 +207,13 @@ class Application(Frame):
                 self.Points_y_line.append(p[1])
                 self.Points_y_line.append(p[3])
         for line in self.Points_line:
+            self.lineNum += 1
             self.drawpad.create_line(line,fill="black")
             print(line)
         self.text_result.insert('insert',"线数据导入成功！\n")
 
     # 打开面数据文件
+    # TODO 无法计算重心bug
     def OpenShapes(self):
         filename = filedialog.askopenfilename()
         with open(filename,'r',encoding='utf-8') as f:
@@ -220,10 +223,21 @@ class Application(Frame):
                 for i in P:
                     p.append(int(i))#消除回车等字符影响
                 self.Points_shape.append(p)
-                self.Points_x_shape.append(p[0])
-                self.Points_y_shape.append(p[1])
-        for i in range(len(self.Points_x_shape)):
-            self.drawpad.create_polygon(i,fill="black",outline="black")
+                p_x= []
+                p_y= []
+                for j in range(len(p)):
+                    if(j%2==0):
+                        p_x.append(p[j])
+                    else:
+                        p_y.append(p[j])
+                self.Points_x_shape.append(p_x)
+                self.Points_y_shape.append(p_y)
+                p_x= []
+                p_y= []
+        for shape in self.Points_shape:
+            self.shapeNum += 1
+            self.drawpad.create_polygon(shape,fill="",outline="blue")
+        print(self.shapeNum)
         self.text_result.insert('insert',"面数据导入成功！\n")
 
     # 绘制koch曲线的数据
