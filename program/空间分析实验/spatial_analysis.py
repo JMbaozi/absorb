@@ -63,6 +63,11 @@ class Application(Frame):
         self.drawpad.pack()
         # 创建顶部菜单
         self.menubar = Menu(root)
+        self.filemenu_openfile = Menu(self.menubar,tearoff=False)
+        self.filemenu_openfile.add_command(label="点数据",command=self.OpenPoints)
+        self.filemenu_openfile.add_command(label="线数据",command=self.OpenLines)
+        self.filemenu_openfile.add_command(label="面数据",command=self.OpenShapes)
+        self.filemenu_openfile.add_separator()
         self.filemenu_draw = Menu(self.menubar,tearoff=False)
         self.filemenu_draw.add_command(label="点",command=self.drawPoint)
         self.filemenu_draw.add_command(label="任意多边形",command=self.drawShape)
@@ -96,9 +101,12 @@ class Application(Frame):
         self.filemenu_spatialmeasure.add_command(label="面与面距离",command=self.DistanceShapeandShape)
         self.filemenu_spatialmeasure.add_separator()
         self.filemenu_kmeans = Menu(self.menubar,tearoff=False)
-        self.filemenu_kmeans.add_command(label="打开点数据文件",command=self.OpenKmeansData)
-        self.filemenu_kmeans.add_command(label="开始K均值据类",command=self.StartDrawKoch)
+        self.filemenu_kmeans.add_command(label="K均值聚类",command=self.StartKmeans)
         self.filemenu_kmeans.add_separator()
+        self.filemenu_buffer = Menu(self.menubar,tearoff=False)
+        self.filemenu_buffer.add_command(label="点缓冲区",command=self.BufferPoints)
+        self.filemenu_buffer.add_separator()
+        self.menubar.add_cascade(label="打开",menu=self.filemenu_openfile)
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
         self.menubar.add_cascade(label="云模型",menu=self.filemenu_cloud)
@@ -107,6 +115,7 @@ class Application(Frame):
         self.menubar.add_cascade(label="koch曲线",menu=self.filemenu_koch)
         self.menubar.add_cascade(label="空间实体量测",menu=self.filemenu_spatialmeasure)
         self.menubar.add_cascade(label="K均值聚类",menu=self.filemenu_kmeans)
+        self.menubar.add_cascade(label="缓冲区",menu=self.filemenu_buffer)
         root.config(menu=self.menubar)
         # 创建功能按钮
         self.btn_area = Button(self,text='面积',command=self.ShowShapeArea)
@@ -163,6 +172,59 @@ class Application(Frame):
         self.p_oval.clear()
         self.p_x_oval.clear()
         self.p_y_oval.clear()
+
+
+    # 打开点数据文件
+    def OpenPoints(self):
+        filename = filedialog.askopenfilename()
+        with open(filename,'r',encoding='utf-8') as f:
+            for each in f:
+                P = each.split(',')
+                p = []
+                for i in P:
+                    p.append(int(i))#消除回车等字符影响
+                self.Points_x_point.append(p[0])
+                self.Points_y_point.append(p[1])
+        for i in range(len(self.Points_x_point)):
+            x1,y1 = int(self.Points_x_point[i])-1,int(self.Points_y_point[i])-1
+            x2,y2 = int(self.Points_x_point[i])+1,int(self.Points_y_point[i])+1
+            self.drawpad.create_oval(x1,y1,x2,y2,fill="black",outline="black")
+        self.text_result.insert('insert',"点数据导入成功！\n")
+
+    # 打开线数据文件
+    def OpenLines(self):
+        filename = filedialog.askopenfilename()
+        with open(filename,'r',encoding='utf-8') as f:
+            for each in f:
+                P = each.split(',')
+                p = []
+                for i in P:
+                    p.append(int(i))#消除回车等字符影响
+                self.Points_line.append(p)
+                self.Points_x_line.append(p[0])
+                self.Points_x_line.append(p[2])
+                self.Points_y_line.append(p[1])
+                self.Points_y_line.append(p[3])
+        for line in self.Points_line:
+            self.drawpad.create_line(line,fill="black")
+            print(line)
+        self.text_result.insert('insert',"线数据导入成功！\n")
+
+    # 打开面数据文件
+    def OpenShapes(self):
+        filename = filedialog.askopenfilename()
+        with open(filename,'r',encoding='utf-8') as f:
+            for each in f:
+                P = each.split(',')
+                p = []
+                for i in P:
+                    p.append(int(i))#消除回车等字符影响
+                self.Points_shape.append(p)
+                self.Points_x_shape.append(p[0])
+                self.Points_y_shape.append(p[1])
+        for i in range(len(self.Points_x_shape)):
+            self.drawpad.create_polygon(i,fill="black",outline="black")
+        self.text_result.insert('insert',"面数据导入成功！\n")
 
     # 绘制koch曲线的数据
     def DrawkochData(self):
@@ -420,20 +482,18 @@ class Application(Frame):
         distance = math.sqrt((x1-x2)**2 + (y1-y2)**2)
         print("面与面之间的距离：%f" % distance)
 
-    # 打开K均值聚类的点数据
-    def OpenKmeansData(self):
-        filename = filedialog.askopenfilename()
-        with open(filename,'r',encoding='utf-8') as f:
-            for each in f:
-                p = each.split(',')
-                self.Points_x_kmeans.append(p[0])
-                self.Points_y_kmeans.append(p[1])
-        for i in range(len(self.Points_x_kmeans)):
-            x1,y1 = int(self.Points_x_kmeans[i])-1,int(self.Points_y_kmeans[i])-1
-            x2,y2 = int(self.Points_x_kmeans[i])+1,int(self.Points_y_kmeans[i])+1
-            self.drawpad.create_oval(x1,y1,x2,y2,fill="black",outline="black")
-        self.text_result.insert('insert',"K-means点数据导入成功！\n")
+    # 开始k值聚类
+    def StartKmeans(self):
+        return
 
+
+    # 点缓冲区
+    def BufferPoints(self):
+        for i in range(len(self.Points_x_point)):
+            x1,y1 = int(self.Points_x_point[i])-10,int(self.Points_y_point[i])-10
+            x2,y2 = int(self.Points_x_point[i])+10,int(self.Points_y_point[i])+10
+            self.drawpad.create_oval(x1,y1,x2,y2,fill="",outline="blue")
+        self.text_result.insert('insert',"点缓冲区建立成功！\n")
 
     # 测试
     def Test(self):

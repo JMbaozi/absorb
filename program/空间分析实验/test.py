@@ -54,15 +54,52 @@
 #     print("写入完毕")
 
 
+# import random
+
+# re = ""
+
+# for i in range(0,10):
+#     re += str(random.randint(100,800))
+#     re += ','
+#     re += str(random.randint(100,600))
+#     re += '\n'
+# with open('data/Pointsbuffer.txt','w',encoding='utf-8') as file:
+#     file.write(re)
+#     print("写入完毕")
+
+
+# import random
+
+# re = ""
+
+# for i in range(0,10):
+#     re += str(random.randint(100,800))
+#     re += ','
+#     re += str(random.randint(100,600))
+#     re += ','
+#     re += str(random.randint(100,800))
+#     re += ','
+#     re += str(random.randint(100,600))
+#     re += '\n'
+# with open('data/Linesbuffer.txt','w',encoding='utf-8') as file:
+#     file.write(re)
+#     print("写入完毕")
+
+
+
 import random
 
 re = ""
 
 for i in range(0,10):
-    re += str(random.randint(100,800))
-    re += ','
-    re += str(random.randint(100,600))
+    t = random.randint(3,10)#多边形边数
+    for j in range(t):
+        re += str(random.randint(100,800))
+        re += ','
+        re += str(random.randint(100,800))
+        if(j != t-1):
+            re += ','
     re += '\n'
-with open('data/Pointsbuffer.txt','w',encoding='utf-8') as file:
+with open('data/Shapesbuffer.txt','w',encoding='utf-8') as file:
     file.write(re)
     print("写入完毕")
