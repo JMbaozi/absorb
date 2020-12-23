@@ -222,7 +222,7 @@ class Application(Frame):
                 P = each.split(',')
                 p = []
                 for i in P:
-                    p.append(int(i))#消除回车等字符影响
+                    p.append(int(i))#消除回车等字符影响 
                 self.Points_shape.append(p)
                 p_x= []
                 p_y= []
