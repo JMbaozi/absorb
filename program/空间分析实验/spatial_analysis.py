@@ -142,6 +142,8 @@ class Application(Frame):
         self.Points_oval.clear()
         self.Points_x_oval.clear()
         self.Points_y_oval.clear()
+        self.Points_x_kmeans.clear()
+        self.Points_y_kmeans.clear()
         ##############################
         self.unbindkey = 1
         self.pointNum = 0

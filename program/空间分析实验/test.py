@@ -40,15 +40,29 @@
 # print(a[-1])
 
 
+# import random
+
+# re = ""
+
+# for i in range(0,100):
+#     re += str(random.randint(10,900))
+#     re += ','
+#     re += str(random.randint(10,700))
+#     re += '\n'
+# with open('data/kmenasPoints.txt','w',encoding='utf-8') as file:
+#     file.write(re)
+#     print("写入完毕")
+
+
 import random
 
 re = ""
 
-for i in range(0,100):
-    re += str(random.randint(10,900))
+for i in range(0,10):
+    re += str(random.randint(100,800))
     re += ','
-    re += str(random.randint(10,700))
+    re += str(random.randint(100,600))
     re += '\n'
-with open('data/kmenasPoints.txt','w',encoding='utf-8') as file:
+with open('data/Pointsbuffer.txt','w',encoding='utf-8') as file:
     file.write(re)
     print("写入完毕")
