@@ -5,6 +5,7 @@ from turtle import distance
 from CloudModel import plot_2d_cloud_model, plot_cloud_model
 from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMAllData,Drawgrid2dDEM,DrawgridSlope,Drawgrid2dDEMAspectOfSlope
 from Drawkoch import DrawKoch
+from Kmenas import ShowKmeans
 
 win_width = 1000
 win_height = 700
@@ -106,6 +107,7 @@ class Application(Frame):
         self.filemenu_buffer = Menu(self.menubar,tearoff=False)
         self.filemenu_buffer.add_command(label="点缓冲区",command=self.BufferPoints)
         self.filemenu_buffer.add_command(label="线缓冲区",command=self.BufferLines)
+        self.filemenu_buffer.add_command(label="面缓冲区",command=self.BufferShapes)
         self.filemenu_buffer.add_separator()
         self.menubar.add_cascade(label="打开",menu=self.filemenu_openfile)
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
@@ -474,7 +476,9 @@ class Application(Frame):
     # 点与点之间的距离
     def DistancePointandPoint(self):
         distance = math.sqrt((self.Points_x_point[0]-self.Points_x_point[1])**2 + (self.Points_y_point[0]-self.Points_y_point[1])**2)
-        print("点与点之间的距离：%f" % distance)
+        s = "点与点之间的距离：" + str(distance) + '\n'
+        print(s)
+        self.text_result.insert('insert',s)
     # 点与线之间的距离
     def DistancePointandLine(self):
         k,b = 0.0,0.0
@@ -483,12 +487,16 @@ class Application(Frame):
             b = each[1] - k*each[0]#常数b
         A,B,C = k,-1,b
         distance = (abs(A*self.Points_x_point[0]+B*self.Points_y_point[0]+C))/math.sqrt(A*A + B*B)
-        print("点与线之间的距离：%f" % distance)
+        s = "点与线之间的距离：" + str(distance) + '\n'
+        print(s)
+        self.text_result.insert('insert',s)
     # 点与面之间的距离
     def DistancePointandShape(self):
         x,y = self.GetShapeCG(self.Points_x_shape[0],self.Points_y_shape[0])#重心x,y坐标值
         distance = math.sqrt((self.Points_x_point[0]-x)**2 + (self.Points_y_point[0]-y)**2)
-        print("点与面之间的距离：%f" % distance)
+        s = "点与面之间的距离：" + str(distance) + '\n'
+        print(s)
+        self.text_result.insert('insert',s)
     # 线与面之间的距离
     def DistanceLineandShape(self):
         k,b = 0.0,0.0
@@ -498,17 +506,22 @@ class Application(Frame):
         A,B,C = k,-1,b
         x,y = self.GetShapeCG(self.Points_x_shape[0],self.Points_y_shape[0])#重心x,y坐标值
         distance = (abs(A*x+B*y+C))/math.sqrt(A*A + B*B)
-        print("线与面之间的距离：%f" % distance)
+        s = "线与面之间的距离：" + str(distance) + '\n'
+        print(s)
+        self.text_result.insert('insert',s)
     # 面与面之间的距离
     def DistanceShapeandShape(self):
         x1,y1 = self.GetShapeCG(self.Points_x_shape[0],self.Points_y_shape[0])#重心x1,y1坐标值
         x2,y2 = self.GetShapeCG(self.Points_x_shape[1],self.Points_y_shape[1])#重心x2,y2坐标值
         distance = math.sqrt((x1-x2)**2 + (y1-y2)**2)
-        print("面与面之间的距离：%f" % distance)
+        s = "面与面之间的距离：" + str(distance) + '\n'
+        print(s)
+        self.text_result.insert('insert',s)
 
     # 开始k值聚类
     def StartKmeans(self):
-        return
+        ShowKmeans()
+        self.text_result.insert('insert','K值聚类计算完成！\n')
 
 
     # 得到直线斜率
@@ -574,7 +587,19 @@ class Application(Frame):
         for i in range(len(buffer_line_up)):
             points = buffer_line_up[i] + buffer_line_down[i]
             self.drawpad.create_polygon(points,fill="",outline="blue")
-
+        self.text_result.insert('insert','线缓冲区建立成功！\n')
+    # 面缓冲区
+    def BufferShapes(self):
+        size = int(self.entry_input3.get())#缓冲区大小
+        x1,x4 = 200-size,200-size
+        x2,x3 = 500+size,500+size
+        y1,y2 = 200-size,200-size
+        y3,y4 = 500+size,500+size
+        p = [x1,y1,x2,y2,x3,y3,x4,y4]
+        self.drawpad.create_polygon(p,fill="",outline="red")
+        self.text_result.insert('insert','面缓冲区建立成功！\n')
+        # for i in range(len(self.Points_x_shape)):
+            
 
 
 
