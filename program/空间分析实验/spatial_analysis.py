@@ -179,6 +179,7 @@ class Application(Frame):
         filename = filedialog.askopenfilename()
         with open(filename,'r',encoding='utf-8') as f:
             for each in f:
+                self.pointNum += 1
                 P = each.split(',')
                 p = []
                 for i in P:
@@ -186,7 +187,6 @@ class Application(Frame):
                 self.Points_x_point.append(p[0])
                 self.Points_y_point.append(p[1])
         for i in range(len(self.Points_x_point)):
-            self.pointNum += 1
             x1,y1 = int(self.Points_x_point[i])-1,int(self.Points_y_point[i])-1
             x2,y2 = int(self.Points_x_point[i])+1,int(self.Points_y_point[i])+1
             self.drawpad.create_oval(x1,y1,x2,y2,fill="black",outline="black")
@@ -197,6 +197,7 @@ class Application(Frame):
         filename = filedialog.askopenfilename()
         with open(filename,'r',encoding='utf-8') as f:
             for each in f:
+                self.lineNum += 1
                 P = each.split(',')
                 p = []
                 for i in P:
@@ -207,7 +208,6 @@ class Application(Frame):
                 self.Points_y_line.append(p[1])
                 self.Points_y_line.append(p[3])
         for line in self.Points_line:
-            self.lineNum += 1
             self.drawpad.create_line(line,fill="black")
             print(line)
         self.text_result.insert('insert',"线数据导入成功！\n")
@@ -218,6 +218,7 @@ class Application(Frame):
         filename = filedialog.askopenfilename()
         with open(filename,'r',encoding='utf-8') as f:
             for each in f:
+                self.shapeNum += 1
                 P = each.split(',')
                 p = []
                 for i in P:
@@ -235,7 +236,6 @@ class Application(Frame):
                 p_x= []
                 p_y= []
         for shape in self.Points_shape:
-            self.shapeNum += 1
             self.drawpad.create_polygon(shape,fill="",outline="blue")
         print(self.shapeNum)
         self.text_result.insert('insert',"面数据导入成功！\n")
@@ -394,9 +394,9 @@ class Application(Frame):
         self.Points_y_shape.append(self.p_y_shape)# 将临时坐标y值列表存入总列表
         # self.p.clear()# 清空临时列表(IndexError: tuple index out of range,不能放在前面，原因未知。现在清空，上一句函数的Points也会被清空。)
         self.drawpad.create_polygon(self.Points_shape[self.shapeNum-1],fill="",outline="black")
+        print(self.shapeNum)
         # 不要使用clear()方法清空，会导致将总列表的数值也清空，原因可能是函数进程未结束时append(self.p)会与self.p一直关联。
         print(self.Points_shape)
-        print(self.Points_x_shape)
         self.p_shape = [] # 清空临时列表
         self.p_x_shape = []# 清空临时列表
         self.p_y_shape = []# 清空临时列表    
