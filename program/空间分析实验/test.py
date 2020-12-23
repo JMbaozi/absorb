@@ -68,22 +68,22 @@
 #     print("写入完毕")
 
 
-import random
+# import random
 
-re = ""
+# re = ""
 
-for i in range(0,10):
-    re += str(random.randint(100,800))
-    re += ','
-    re += str(random.randint(100,600))
-    re += ','
-    re += str(random.randint(100,800))
-    re += ','
-    re += str(random.randint(100,600))
-    re += '\n'
-with open('data/Linesbuffer.txt','w',encoding='utf-8') as file:
-    file.write(re)
-    print("写入完毕")
+# for i in range(0,10):
+#     re += str(random.randint(100,800))
+#     re += ','
+#     re += str(random.randint(100,600))
+#     re += ','
+#     re += str(random.randint(100,800))
+#     re += ','
+#     re += str(random.randint(100,600))
+#     re += '\n'
+# with open('data/Linesbuffer.txt','w',encoding='utf-8') as file:
+#     file.write(re)
+#     print("写入完毕")
 
 
 
