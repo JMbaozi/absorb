@@ -6,6 +6,8 @@ from CloudModel import plot_2d_cloud_model, plot_cloud_model
 from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMAllData,Drawgrid2dDEM,DrawgridSlope,Drawgrid2dDEMAspectOfSlope
 from Drawkoch import DrawKoch
 from Kmenas import ShowKmeans
+from graph import MSTdata,MSTkruskal,MSTprim
+
 
 win_width = 1000
 win_height = 700
@@ -109,6 +111,11 @@ class Application(Frame):
         self.filemenu_buffer.add_command(label="线缓冲区",command=self.BufferLines)
         self.filemenu_buffer.add_command(label="面缓冲区",command=self.BufferShapes)
         self.filemenu_buffer.add_separator()
+        self.filemenu_mst = Menu(self.menubar,tearoff=False)
+        self.filemenu_mst.add_command(label="加载有权无向图",command=MSTdata)
+        self.filemenu_mst.add_command(label="kruskal算法",command=MSTkruskal)
+        self.filemenu_mst.add_command(label="prim算法",command=MSTprim)
+        self.filemenu_mst.add_separator()
         self.menubar.add_cascade(label="打开",menu=self.filemenu_openfile)
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
@@ -119,6 +126,7 @@ class Application(Frame):
         self.menubar.add_cascade(label="空间实体量测",menu=self.filemenu_spatialmeasure)
         self.menubar.add_cascade(label="K均值聚类",menu=self.filemenu_kmeans)
         self.menubar.add_cascade(label="缓冲区",menu=self.filemenu_buffer)
+        self.menubar.add_cascade(label="最小代价树",menu=self.filemenu_mst)
         root.config(menu=self.menubar)
         # 创建功能按钮
         self.btn_area = Button(self,text='面积',command=self.ShowShapeArea)
