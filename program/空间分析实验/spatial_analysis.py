@@ -7,7 +7,7 @@ from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMAllData,Drawgrid2dDEM,Dra
 from Drawkoch import DrawKoch
 from Kmenas import ShowKmeans
 from graph import MSTdata,MSTkruskal,MSTprim
-
+from TIN import ShowTIN
 
 win_width = 1000
 win_height = 700
@@ -119,6 +119,9 @@ class Application(Frame):
         self.filemenu_mst.add_command(label="kruskal算法",command=self.ShowMSTkruskal)
         self.filemenu_mst.add_command(label="prim算法",command=self.ShowMSTprim)
         self.filemenu_mst.add_separator()
+        self.filemenu_tin = Menu(self.menubar,tearoff=False)
+        self.filemenu_tin.add_command(label="生成三角网",command=ShowTIN)
+        self.filemenu_tin.add_separator()
         self.menubar.add_cascade(label="打开",menu=self.filemenu_openfile)
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
         self.menubar.add_cascade(label="清屏",command=self.Clear)
@@ -130,6 +133,7 @@ class Application(Frame):
         self.menubar.add_cascade(label="K均值聚类",menu=self.filemenu_kmeans)
         self.menubar.add_cascade(label="缓冲区",menu=self.filemenu_buffer)
         self.menubar.add_cascade(label="最小代价树",menu=self.filemenu_mst)
+        self.menubar.add_cascade(label="TIN三角网",menu=self.filemenu_tin)
         root.config(menu=self.menubar)
         # 创建功能按钮
         self.btn_area = Button(self,text='面积',command=self.ShowShapeArea)

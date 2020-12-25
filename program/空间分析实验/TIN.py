@@ -7,6 +7,7 @@ import numpy as np
 from scipy.interpolate import interp1d
 from random import randint
 EPSILON = 1/10000000000
+import time
 
 # 点类
 
@@ -72,7 +73,7 @@ class Triangle:
 
 def ReadDataTXT(Str_Path):
     point_list = []
-    with open(Str_Path) as f:
+    with open(Str_Path,encoding='utf-8') as f:
         title = f.readline()
         print(title.rstrip())
         while(1):
@@ -316,10 +317,13 @@ def Draw_TIN(Point_List, Line_List):
 
 
 # ********调试********
-path = "data/等高线点数据.txt"
-point_list = ReadDataTXT(path)
-Draw_Point(point_list)
-Net = CreatTIN(point_list)
-Draw_TIN(point_list, Net[0])
-window.mainloop()
+def ShowTIN():
+    path = "data/等高线点数据.txt"
+    point_list = ReadDataTXT(path)
+    Draw_Point(point_list)
+    Net = CreatTIN(point_list)
+    Draw_TIN(point_list, Net[0])
+
 '''*******************所有代码在此之上********************'''
+ShowTIN()
+window.mainloop()
