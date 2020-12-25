@@ -80,15 +80,12 @@ graph = Graph(maps)
 
 
 def MSTdata():
-    print('邻接矩阵为\n%s' % graph.maps)
-    print('节点数据为%d，边数为%d\n' % (graph.nodenum, graph.edgenum))
-
+    s = ""
+    s = '邻接矩阵为\n'+str(graph.maps)+'\n'+'节点数据为:'+str(graph.nodenum)+'边数为:'+str(graph.edgenum)+'\n'
+    return s,graph.maps
 
 def MSTkruskal():
-    print('------最小生成树kruskal算法------')
-    print(graph.kruskal())
-
+    return graph.kruskal()
 
 def MSTprim():
-    print('------最小生成树prim算法')
-    print(graph.prim())
+    return graph.prim()

@@ -224,5 +224,15 @@
 #     return mst
 
 
+# a = [1,2,3]
+# b = []
+# b += a[0:2]
+# print(b)
 
+# s = ''
+# a = 2
+# b = 3
+# s += f'节点数据为%d，边数为%d\n'.format(a, b)
+
+# print(s)
 

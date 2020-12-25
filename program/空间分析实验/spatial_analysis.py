@@ -55,6 +55,9 @@ class Application(Frame):
         self.Points_x_kmeans = []#K均值聚类的点数据x值
         self.Points_y_kmeans = []#K均值聚类的点数据y值
         ################################################
+        # 图点数据
+        self.TreeData = [[331,312],[422,422],[562,448],[630,360],[588,250],[436,205]]
+        ################################################
         self.fgcolor = 'black'
         self.master = master
         self.pack()
@@ -112,9 +115,9 @@ class Application(Frame):
         self.filemenu_buffer.add_command(label="面缓冲区",command=self.BufferShapes)
         self.filemenu_buffer.add_separator()
         self.filemenu_mst = Menu(self.menubar,tearoff=False)
-        self.filemenu_mst.add_command(label="加载有权无向图",command=MSTdata)
-        self.filemenu_mst.add_command(label="kruskal算法",command=MSTkruskal)
-        self.filemenu_mst.add_command(label="prim算法",command=MSTprim)
+        self.filemenu_mst.add_command(label="加载有权无向图",command=self.GetMSTdata)
+        self.filemenu_mst.add_command(label="kruskal算法",command=self.ShowMSTkruskal)
+        self.filemenu_mst.add_command(label="prim算法",command=self.ShowMSTprim)
         self.filemenu_mst.add_separator()
         self.menubar.add_cascade(label="打开",menu=self.filemenu_openfile)
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)
@@ -607,9 +610,66 @@ class Application(Frame):
         self.drawpad.create_polygon(p,fill="",outline="red")
         self.text_result.insert('insert','面缓冲区建立成功！\n')
         # for i in range(len(self.Points_x_shape)):
-            
+    
 
-
+    # 得到有权无向图初始数据
+    def GetMSTdata(self):
+        self.Clear()
+        s = ""
+        data = []
+        s,data = MSTdata()
+        result = []#存放相邻点
+        size = len(data)#树节点个数
+        print(data)
+        for i in range(size):
+            for j in range(len(data[i])):
+                k = data[i][j]
+                if(k!=0 and k!=9999):
+                    t = [i,j]
+                    result.append(t)
+        print(result)
+        for i in range(len(result)):
+            line = []
+            line += self.TreeData[result[i][0]]
+            line += self.TreeData[result[i][1]]
+            print(line)
+            self.drawpad.create_line(line,fill="blue")
+        self.text_result.insert('insert',"有权无向图绘制完成！\n")
+        self.text_result.insert('insert',s)
+    # MSTkruskal算法
+    def ShowMSTkruskal(self):
+        self.Clear()
+        kruskal = []
+        kruskal = MSTkruskal()
+        result = []#存放相邻点
+        print(kruskal)
+        for each in kruskal:
+            result.append(each[0:2])
+        print(result)
+        for i in range(len(result)):
+            line = []
+            line += self.TreeData[result[i][0]]
+            line += self.TreeData[result[i][1]]
+            print(line)
+            self.drawpad.create_line(line,fill="blue")
+        self.text_result.insert('insert',"kruskal算法MST绘制完成！\n")
+    # MSTprim算法
+    def ShowMSTprim(self):
+        self.Clear()
+        prim = []
+        prim = MSTprim()
+        result = []#存放相邻点
+        print(prim)
+        for each in prim:
+            result.append(each[0:2])
+        print(result)
+        for i in range(len(result)):
+            line = []
+            line += self.TreeData[result[i][0]]
+            line += self.TreeData[result[i][1]]
+            print(line)
+            self.drawpad.create_line(line,fill="blue")
+        self.text_result.insert('insert',"prims算法MST绘制完成！\n")
 
 
     # 测试
