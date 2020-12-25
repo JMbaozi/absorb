@@ -7,7 +7,7 @@ from IDW import IDWdraw3dpoints,IDWdraw3dsurface,GetDEMAllData,Drawgrid2dDEM,Dra
 from Drawkoch import DrawKoch
 from Kmenas import ShowKmeans
 from graph import MSTdata,MSTkruskal,MSTprim
-from TIN import ShowTIN
+# from TIN import ShowTIN
 
 win_width = 1000
 win_height = 700
@@ -120,7 +120,7 @@ class Application(Frame):
         self.filemenu_mst.add_command(label="prim算法",command=self.ShowMSTprim)
         self.filemenu_mst.add_separator()
         self.filemenu_tin = Menu(self.menubar,tearoff=False)
-        self.filemenu_tin.add_command(label="生成三角网",command=ShowTIN)
+        # self.filemenu_tin.add_command(label="生成三角网",command=ShowTIN)
         self.filemenu_tin.add_separator()
         self.menubar.add_cascade(label="打开",menu=self.filemenu_openfile)
         self.menubar.add_cascade(label="图形",menu=self.filemenu_draw)

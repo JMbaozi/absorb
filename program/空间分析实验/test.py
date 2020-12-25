@@ -243,9 +243,9 @@ import random
 42,39-21,38431294.160,3739137.010,-122.81
 
 re = ""
-for i in range(43,100):
+for i in range(43,500):
     t = ""
-    t = str(i)+','+str(i)+'-'+str(i-20)+','+str(random.uniform(38430080,38431499))+','+str(random.uniform(3737000.010,3739247.010))+','+str(random.uniform(-200.81,-110.81))+'\n'
+    t = str(i)+','+str(i)+'-'+str(i-20)+','+str(random.uniform(38420080,38431499))+','+str(random.uniform(3737000.010,3739247.010))+','+str(random.uniform(-200.81,-110.81))+'\n'
     re += t
 with open('data/test.txt','w',encoding='utf-8') as file:
     file.write(re)
