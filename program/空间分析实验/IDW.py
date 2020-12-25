@@ -1,6 +1,8 @@
 # 反距离权重插值IDW算法
 # https://blog.csdn.net/BigBoySunshine/article/details/81867502?utm_source=blogxgwz4
 
+from tkinter import filedialog
+from tkinter.filedialog import FileDialog
 import numpy as np
 import math
 import copy
@@ -68,7 +70,8 @@ need_num =50   # know[0:need_num],需要使用的已知点个数为 need_num + 1
 def getDemData():
     points = []  # 临时高程点坐标值列表：[x,y,z]
     flag = 0  # 判断是否需要读取
-    with open('data/dem.txt', 'r', encoding='utf-8') as file:
+    filename = filedialog.askopenfilename()
+    with open(filename, 'r', encoding='utf-8') as file:
         data = file.readlines()
         for each in data:
             flag += 1
@@ -119,7 +122,7 @@ def GetDEMAllData():
 
 # 绘制已知点三维散点图
 def IDWdraw3dpoints():
-    getDemData()
+    # getDemData()
     IDW_draw_3d_points(x_konw[0:need_num], y_konw[0:need_num], z_konw[0:need_num])
 
 
