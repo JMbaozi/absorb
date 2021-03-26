@@ -107,3 +107,37 @@
 
 
 # 7 改变地图范围
+# import arcpy.mapping as mapping
+# mxd = mapping.MapDocument(r"E:\ArcPyStudy\Data\ArcpyBook\Ch2\Crime_Ch2_new.mxd")
+# for df in mapping.ListDataFrames(mxd):
+#     if(df.name == 'Crime'):
+#         layers = mapping.ListLayers(mxd,'Crime Density by School District',df)
+#         for lyr in layers:
+#             query = '"NAME"=\'Lackland ISD\''
+#             lyr.definitionQuery = query
+#             df.extent = lyr.getExtent()
+
+
+# 8 添加、插入图层到地图文档
+# (1)添加图层
+# import arcpy.mapping as mapping
+# mxd = mapping.MapDocument(r"E:\ArcPyStudy\Data\ArcpyBook\Ch2\Crime_Ch2_new.mxd")
+# df = mapping.ListDataFrames(mxd)[0]
+# layer = mapping.Layer(r"E:\ArcPyStudy\Data\ArcpyBook\data\School_Districts.lyr")
+# mapping.AddLayer(df,layer,"AUTO_ARRANGE")
+# (2)插入图层
+# import arcpy.mapping as mapping
+# mxd = mapping.MapDocument(r"E:\ArcPyStudy\Data\ArcpyBook\Ch2\Crime_Ch2_new.mxd")
+# df = mapping.ListDataFrames(mxd,"Crime")[0]
+# refLayer = mapping.ListLayers(mxd,"Burg*",df)[0]  # 指定图层
+# insertLayer = mapping.Layer(r"E:\ArcPyStudy\Data\ArcpyBook\data\CityOfSanAntonio.gdb\Crimes2009")
+# mapping.InsertLayer(df,refLayer,insertLayer,"BEFORE")
+
+
+# 9 更新图层的符号系统
+# import arcpy.mapping as mapping
+# mxd = mapping.MapDocument(r"E:\ArcPyStudy\Data\ArcpyBook\Ch2\Crime_Ch2_new.mxd")
+# df = mapping.ListDataFrames(mxd,"Crime")[0]
+# updateLayer = mapping.ListLayers(mxd,"Crime Density by School District",df)[0]
+# sourceLayer = mapping.Layer(r"E:\ArcPyStudy\Data\ArcpyBook\data\CrimeDensityGradSym.lyr")
+# mapping.UpdateLayer(df,updateLayer,sourceLayer,True)
