@@ -30,7 +30,8 @@ def download(num):
     ele_first_img.click()
     time.sleep(1)
     for i in range(1,num+1):
-        ele_current_img = b.find_element_by_id('mainImageWindow')
+        # 存在问题！！！
+        ele_current_img = b.find_element_by_xpath('//*[@id="mainImageWindow"]/div[1]/div/div/div')
         img_src = ele_current_img.get_attribute('src')
         r = requests.get(img_src)
         if r.status_code == 200:
