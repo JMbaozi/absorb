@@ -18,7 +18,7 @@ def download(imglist,num):
     ele_all_size=b.find_element_by_id('sizeFilter')  # 全部尺寸
     ActionChains(b).move_to_element(ele_all_size).perform()  # 鼠标悬停
     time.sleep(1)
-    ele_max_size=b.find_element_by_xpath('//*[@id="sizeFilter"]/div/div[2]/ul/li[3]')   # 大尺寸选项XPath
+    ele_max_size=b.find_element_by_xpath('//*[@id   ="sizeFilter"]/div/div[2]/ul/li[3]')   # 大尺寸选项XPath
     ActionChains(b).move_to_element(ele_max_size).perform()
     time.sleep(1)
     ele_max_size.click()
@@ -39,7 +39,6 @@ def download(imglist,num):
             with open(path,'wb') as f:
                 f.write(r.content)
                 time.sleep(1)
-                f.close()
                 print('爬取成功')
             ele_next_img=b.find_element_by_xpath('/html/body/div[1]/div[2]/div/span[2]/span')   # 下一张图片
             ele_next_img.click()
