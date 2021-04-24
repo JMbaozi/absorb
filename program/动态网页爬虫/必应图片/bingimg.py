@@ -31,7 +31,7 @@ def download(num):
     time.sleep(1)
     for i in range(1,num+1):
         # 存在问题！！！
-        ele_current_img = b.find_element_by_id('b_content')
+        ele_current_img = b.find_element_by_xpath('/html/body/div[2]/div/div[1]/div/div[1]/div[2]/div[1]/div[1]/div/div/div/img')
         img_src = ele_current_img.get_attribute("src")
         print(img_src)
         r = requests.get(img_src)
