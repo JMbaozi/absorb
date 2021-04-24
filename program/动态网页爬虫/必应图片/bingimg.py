@@ -31,8 +31,9 @@ def download(num):
     time.sleep(1)
     for i in range(1,num+1):
         # 存在问题！！！
-        ele_current_img = b.find_element_by_xpath('//*[@id="mainImageWindow"]/div[1]/div/div/div')
-        img_src = ele_current_img.get_attribute('src')
+        ele_current_img = b.find_element_by_id('b_content')
+        img_src = ele_current_img.get_attribute("src")
+        print(img_src)
         r = requests.get(img_src)
         if r.status_code == 200:
             path = r'C:\Users\JMbaozi\Documents\GitHub\absorb\program\动态网页爬虫\必应图片\KDA\%d.jpg' % i
