@@ -17,7 +17,6 @@
 import arcpy.mapping as mapping
 mxd = mapping.MapDocument("CURRENT")
 mxd.title = "NEW"
-print(mxd_new.title)
 layers = mapping.ListLayers(mxd)
 for lyr in layers:
     print(lyr)
