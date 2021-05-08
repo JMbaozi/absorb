@@ -49,7 +49,7 @@ try:
             latitude = float(vals[0])
             longitude = float(vals[1])
             confidence = int(vals[2])
-            rowValue = [(latitude,longitude),confidence]
+            rowValue = [(longitude,latitude),confidence]
             cur.insertRow(rowValue)
             print("Record number " + str(cntr) + " written to feature class")
             cntr += 1
@@ -63,7 +63,7 @@ finally:
 import arcpy
 arcpy.env.workspace = r"E:\ArcPyStudy\Data\ArcpyBook\Ch8\WildfireData\WildlandFires.mdb"
 try:
-    create a new field to hold the values
+    # create a new field to hold the values
     arcpy.AddField_management("FireIncidents","CONFID_RATING","TEXT","10")
     print("CONFID_RATING field added to FireIncidents")
     with arcpy.da.UpdateCursor("FireIncidents",("CONFIDENCEVALUE","CONFID_RATING")) as cursor:
