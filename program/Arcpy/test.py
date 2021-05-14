@@ -218,3 +218,57 @@
 #     print("type: " + sr.type)
 # except Exception as e:
 #     print(e.message)
+
+
+s = input("输入字符串s:")
+daxie,xiaoxie,shuzi,fuhao = 0,0,0,0
+for each in s:
+    if 'A' <= each <= 'Z':
+        daxie += 1
+    elif 'a' <= each <= 'z':
+        xiaoxie += 1
+    elif '0' <= each  <= '9':
+        shuzi += 1
+    else:
+        fuhao += 1
+print("大写个数：" + str(daxie))
+print("小写个数：" + str(xiaoxie))
+print("数字个数：" + str(shuzi))
+print("符号个数：" + str(fuhao))
+
+# 4 ☆使用InsertCursor插入行
+import arcpy,os
+arcpy.env.workspace = r"E:\ArcPyStudy\Data\ArcpyBook\Ch8\WildfireData\WildlandFires.mdb"
+f = open(r"E:\ArcPyStudy\Data\ArcpyBook\Ch8\WildfireData\NorthAmericaWildfires_2007275.txt",'r')
+lstFires = f.readlines()
+try:
+    with arcpy.da.InsertCursor("FireIncidents",("SHAPE@XY","CONFIDENCEVALUE")) as cur:
+        cntr = 1
+        for fire in lstFires:
+            if 'Latitude' in fire:
+                continue
+            vals = fire.split(",")
+            latitude = float(vals[0])
+            longitude = float(vals[1])
+            confidence = int(vals[2])
+            rowValue = [(longitude,latitude),confidence]
+            cur.insertRow(rowValue)
+            print("Record number " + str(cntr) + " written to feature class")
+            cntr += 1
+except Exception as e:
+    print(e.message)
+finally:
+    f.close()
+
+# ☆3 使用脚本实现一个工具的输出作为另一个工具的输入（工具链）
+import arcpy
+arcpy.env.workspace = r'E:\ArcPyStudy\Data\ArcpyBook\data\TravisCounty'
+streams = r'E:\ArcPyStudy\Data\ArcpyBook\data\TravisCounty\Streams.shp'
+streamsBuffer = r'StreamsBuffer.shp'
+distance = '2640 Feet'
+schools2mile = 'Schools.shp'
+schoolsLyrFile = 'Schools2Mile_lyr'
+arcpy.Buffer_analysis(streams,streamsBuffer,distance,'FULL','ROUND','ALL')
+arcpy.MakeFeatureLayer_management(schools2mile,schoolsLyrFile)
+arcpy.SelectLayerByLocation_management(schoolsLyrFile,'INTERSECT',streamsBuffer)
+print("Done")
