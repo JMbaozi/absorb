@@ -2,7 +2,7 @@
 # 1、	使用SearchCursor检索要素；
 # 2、	使用where子句筛选记录；
 # 3、	使用几何令牌返回几何的部分信息；
-# 4、	使用InsertCursor插入行；
+# 4、 ☆使用InsertCursor插入行；
 # 5、	使用UpdateCursor更新行；
 # 6、	使用UpdateCursor删除行；
 # 7、	在编辑会话中插入和更新行；
@@ -34,7 +34,7 @@ with arcpy.da.SearchCursor("coa_parcels.shp",("PY_FULL_OW","SHAPE@XY")) as curso
         print("Parcel owner: {0} has a location of:{1}").format(row[0],row[1])
 
 
-# 4 使用InsertCursor插入行
+# 4 ☆使用InsertCursor插入行
 import arcpy,os
 arcpy.env.workspace = r"E:\ArcPyStudy\Data\ArcpyBook\Ch8\WildfireData\WildlandFires.mdb"
 f = open(r"E:\ArcPyStudy\Data\ArcpyBook\Ch8\WildfireData\NorthAmericaWildfires_2007275.txt",'r')
