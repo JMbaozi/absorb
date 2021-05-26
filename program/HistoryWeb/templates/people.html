@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>某个朝代</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1B242F;
+        }
+
+        .map_style {
+            height: 50%;
+            width: 33%;
+            float: right;
+            background-color: red;
+
+        }
+
+        .all_data {
+            height: 50%;
+            width: 33%;
+            margin: auto;
+            background-color: blue;
+        }
+
+        .sort_hushu {
+            height: 50%;
+            width: 33%;
+            float: left;
+            background-color: green;
+        }
+
+        .hushu_pie_data {
+            height: 40%;
+            width: 33%;
+            float: right;
+            margin-top: 2%;
+            background-color: pink;
+
+        }
+
+        .koushu_pie_data {
+            height: 40%;
+            width: 33%;
+            float: right;
+            margin-top: 2%;
+            background-color: #9c38ff;
+
+        }
+
+        .hukoushu_pie_data {
+            height: 40%;
+            width: 33%;
+            float: right;
+            margin-top: 2%;
+            background-color: #9c38ff;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="map" class="map_style">一个朝代地图 右上{{ data }}</div>
+    <div id="sort_hushu" class="sort_hushu">一个朝代户数排序 左上</div>
+    <div id="all_data " class="all_data">一个朝代所有数据 居中</div>
+    <div id="hushu_pie_data" class="hushu_pie_data">一个朝代郡县户数饼状图 右下一</div>
+    <div id="koushu_pie_data" class="koushu_pie_data">一个朝代郡县口数饼状图 右下二</div>
+    <div id="hukoushu_pie_data" class="hukoushu_pie_data">一个朝代郡县户口饼状图 右下三</div>
+
+</body>
+
+</html>

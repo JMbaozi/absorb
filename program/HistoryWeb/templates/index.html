@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/asster/css/base_css.css">
+    <link rel="stylesheet" href="../static/asster/libs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/asster/libs/css/ol.css">
+
+    <script src="../static/asster/js/base_js.js"></script>
+    <script src="../static/asster/libs/js/jquery.js"></script>
+    <script src="../static/asster/libs/js/bootstrap.min.js"></script>
+    <script src="../static/asster/libs/js/ol.js"></script>
+</head>
+<body onload="init()">
+     <input type="button" id="btn" value="button" >
+    <div id="map"></div>
+    <script type="text/javascript">
+      var btn=document.getElementById("btn");
+      btn.onclick=function (){
+         window.location.href="{{ url_for('people_all') }}";
+      }
+  </script>
+
+
+</body>
+</html>
+
+
+  
