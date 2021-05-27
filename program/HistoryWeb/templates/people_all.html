@@ -19,6 +19,84 @@
             background-color: #1B242F;
         }
 
+        .top {
+            /* 设置宽度高度背景颜色 */
+            height: auto;
+            /*高度改为自动高度*/
+            width: 100%;
+            /* float: left; */
+            margin-left: 0;
+            background: rgb(189, 181, 181);
+            position: relative;
+            /*固定在顶部*/
+            top: 0;
+            /*离顶部的距离为0*/
+            margin-bottom: 5px;
+        }
+
+        .top ul {
+            /* 清除ul标签的默认样式 */
+            width: auto;
+            /*宽度也改为自动*/
+            list-style-type: none;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-left: 5%;
+            /* margin-top: 0;          */
+            padding: 0;
+
+        }
+
+        .top li {
+            float: left;
+            /* 使li内容横向浮动，即横向排列  */
+            margin-right: 2%;
+            /* 两个li之间的距离*/
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top li a {
+            /* 设置链接内容显示的格式*/
+            display: block;
+            /* 把链接显示为块元素可使整个链接区域可点击 */
+            color: white;
+            text-align: center;
+            padding: 3px;
+            overflow: hidden;
+            text-decoration: none;
+            /* 去除下划线 */
+
+        }
+
+        .top li a:hover {
+            /* 鼠标选中时背景变为黑色 */
+            background-color: #111;
+        }
+
+        .top ul li ul {
+            /* 设置二级菜单 */
+            margin-left: -0.2px;
+            background: rgb(189, 181, 181);
+            position: relative;
+            display: none;
+            /* 默认隐藏二级菜单的内容 */
+
+        }
+
+        .top ul li ul li {
+            /* 二级菜单li内容的显示 */
+
+            float: none;
+            text-align: center;
+        }
+
+        .top ul li:hover ul {
+            /* 鼠标选中二级菜单内容时 */
+            display: block;
+        }
+
+
         .all_data {
             height: 50%;
             width: 50%;
@@ -26,7 +104,7 @@
             background-color: blue;
         }
 
-        .sort_hushu {
+        .sort_data {
             height: 50%;
             width: 50%;
             float: left;
@@ -38,34 +116,33 @@
             width: 100%;
             float: right;
             margin-top: 2%;
-            background-color: pink;
+            background-color: white;
         }
     </style>
-
-
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script>
-    <!-- Uncomment this line if you want to dataTool extension
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/extension/dataTool.min.js"></script>
-    -->
-    <!-- Uncomment this line if you want to use gl extension
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
-    -->
-    <!-- Uncomment this line if you want to echarts-stat extension
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
-    -->
-    <!-- Uncomment this line if you want to use map
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/map/js/china.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/map/js/world.js"></script>
-    -->
-    <!-- Uncomment these two lines if you want to use bmap extension
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<Your Key Here>"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/extension/bmap.min.js"></script>
-    -->
 </head>
 
 <body>
-    <div id="sort_hushu" class="sort_hushu">所有朝代人数排序 左上</div>
+    <div class="top">
+        <center>
+            <ul>
+                <li><a href="#">一级菜单</a></li>
+                <li><a href="#">一级菜单</a></li>
+                <li><a href="#">一级菜单</a></li>
+                <li><a href="#"><b>一级菜单</b></a></li>
+                <li><a href="#">一级菜单</a></li>
+                <li>
+                    <a href="#">一级菜单</a>
+                    <ul>
+                        <li><a href="#">二级菜单</a></li>
+                        <li><a href="#">二级菜单</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </center>
+    </div>
+    <div id="sort_data" class="sort_data">所有朝代人数排序 左上</div>
     <div id="all_data " class="all_data">所有朝代数据 居中</div>
     <input type="button" id="btn" value="button">
     <div id="zhexian_all" class="zhexian_all">所有朝代人数折线与柱状图 点击柱状图切换朝代</div>
@@ -76,27 +153,134 @@
         }
     </script>
     <script type="text/javascript">
-        var dom = document.getElementById("sort_hushu");
+        var dom = document.getElementById("sort_data");
         var myChart = echarts.init(dom);
         var app = {};
         var option;
         option = {
+            title: {
+                text: '各朝代人数排序',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['人口总数']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
             xAxis: {
-                type: 'category',
-                data: {{xlabel|tojson}}
+                type: 'value',
+                boundaryGap: [0, 0.01]
             },
             yAxis: {
-                type: 'value'
+                type: 'category',
+                data: {{ Dynasty_sort | tojson }}
             },
-            series: [{
-                data: {{ylabel}},
-                type: 'bar'
-            }]
+        series: [
+            {
+                name: '人口总数',
+                type: 'bar',
+                data: {{ Population_sort }}
+                },
+        ]
         };
 
         if (option && typeof option === 'object') {
             myChart.setOption(option);
         }
+
+    </script>
+
+    <script type="text/javascript">
+        var dom = document.getElementById("zhexian_all");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            legend: {
+                data: ['总人口', '总户数', '人每户']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: {{ Dynastylabel| tojson}},
+        axisPointer: {
+            type: 'shadow'
+        }
+                }
+            ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '人数(百万人/户)',
+                min: 0,
+                max: 35,
+                interval: 2,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            {
+                type: 'value',
+                name: '人每户',
+                min: 0,
+                max: 10,
+                interval: 1,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            }
+        ],
+            series: [
+                {
+                    name: '总人口',
+                    type: 'bar',
+                    data: {{ Populationlabelweight }}
+                },
+                {
+                    name: '总户数',
+                    type: 'bar',
+                    data: {{ Householdlabelweight }}
+                },
+                {
+                    name: '人每户',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: {{ familylabel }}
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
     </script>
 </body>
 
