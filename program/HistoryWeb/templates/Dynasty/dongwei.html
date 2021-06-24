@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>某个朝代</title>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script>
+
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1B242F;
+        }
+
+        .map_style {
+            height: 50%;
+            width: 33%;
+            float: right;
+            background-color: white;
+
+        }
+
+        .all_data {
+            height: 50%;
+            width: 33%;
+            margin: auto;
+            background-color: blue;
+        }
+
+        .sort_hushu {
+            height: 50%;
+            width: 33%;
+            float: left;
+            background-color: white;
+        }
+
+        .hushu_pie_data {
+            height: 40%;
+            width: 33%;
+            float: left;
+            margin-top: 2%;
+            background-color: pink;
+
+        }
+
+        .koushu_pie_data {
+            height: 40%;
+            width: 33%;
+            margin: auto;
+            margin-top: 2%;
+            background-color: #9c38ff;
+
+        }
+
+        .hukoushu_pie_data {
+            height: 40%;
+            width: 33%;
+            float: right;
+            margin-top: 2%;
+            background-color: skyblue;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="map" class="map_style">一个朝代地图 右上</div>
+    <div id="sort_hushu" class="sort_hushu">一个朝代户数排序 左上</div>
+    <div id="all_data " class="all_data">一个朝代所有数据 居中</div>
+    <div id="hushu_pie_data" class="hushu_pie_data">一个朝代郡县户数饼状图 右下一</div>
+    <div id="hukoushu_pie_data" class="hukoushu_pie_data">一个朝代郡县户口饼状图 右下三</div>
+    <div id="koushu_pie_data" class="koushu_pie_data">一个朝代郡县口数饼状图 右下二</div>
+
+
+
+    <script type="text/javascript">
+        var dom = document.getElementById("sort_hushu");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '郡县户数排序',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['户口总数']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: {{ DongweiDynasty_sort | tojson }}
+            },
+        series: [
+            {
+                name: '户口总数',
+                type: 'bar',
+                data: {{ DongweiHousehold_sort }}
+                },
+        ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+    </script>
+
+
+    <script type="text/javascript">
+        var dom = document.getElementById("map");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        myChart.showLoading();
+
+        $.get(ROOT_PATH + 'data/geo/qing.json', function (geoJson) {
+
+            myChart.hideLoading();
+
+            echarts.registerMap('qing', geoJson);
+
+            myChart.setOption(option = {
+                title: {
+                    text: '香港18区人口密度 （2011）',
+                    subtext: '人口密度数据来自Wikipedia',
+                    sublink: 'http://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E8%A1%8C%E6%94%BF%E5%8D%80%E5%8A%83#cite_note-12'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}<br/>{c} (p / km2)'
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        dataView: { readOnly: false },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                visualMap: {
+                    min: 800,
+                    max: 50000,
+                    text: ['High', 'Low'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['lightskyblue', 'yellow', 'orangered']
+                    }
+                },
+                series: [
+                    {
+                        name: '香港18区人口密度',
+                        type: 'map',
+                        mapType: 'qing', // 自定义扩展图表类型
+                        // map: 'qing',
+                        label: {
+                            show: true
+                        },
+                        data: [
+                            { name: '河南', value: 20057.34 },
+                            { name: '济宁直肃州', value: 15477.48 },
+                            { name: '曹州府', value: 31686.1 },
+                            { name: '衮州', value: 6992.6 },
+                            { name: '沂州府', value: 44045.49 },
+                            { name: '曹州府', value: 40689.64 },
+                            { name: '衮州', value: 37659.78 },
+                            { name: '泰安府', value: 45180.97 },
+                            { name: '临清直肃州', value: 55204.26 },
+                            { name: '东昌府', value: 21900.9 },
+                            { name: '莱州府', value: 4918.26 },
+                            { name: '青州府', value: 5881.84 },
+                            { name: '济南府', value: 4178.01 },
+                            { name: '登州府', value: 2227.92 },
+                            { name: '直隶州', value: 2180.98 },
+                            { name: '直隶州', value: 9172.94 },
+                            { name: '武定府', value: 3368 },
+                        ],
+                        // 自定义名称映射
+                        nameMap: {
+                            '河南': '河南',
+                            '济宁直肃州': '济宁直肃州',
+                            '曹州府': '曹州府',
+                            '衮州': '衮州',
+                            '沂州府': '沂州府',
+                            '曹州府': '曹州府',
+                            '衮州': '衮州',
+                            '泰安府': '泰安府',
+                            '临清直肃州': '临清直肃州',
+                            '东昌府': '东昌府',
+                            '莱州府': '莱州府',
+                            '青州府': '青州府',
+                            '济南府': '济南府',
+                            '登州府': '登州府',
+                            '直隶州': '直隶州',
+                            '直隶州': '直隶州',
+                            '武定府': '武定府',
+                        }
+                    }
+                ]
+            });
+        });
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+    </script>
+
+    <!-- 郡县户数饼状图 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("hushu_pie_data");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县户数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '户数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: {{DongweiHouseholds|tojson}},
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+    </script>
+
+    <!-- 郡县人口数饼状图 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("koushu_pie_data");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县人口数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '人口数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: {{DongweiHouseholds|tojson}},
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+    </script>
+
+    <!-- 郡县户口数饼状图 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("hukoushu_pie_data");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县户口数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '户口数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: {{DongweiHouseholds|tojson}},
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+    </script>
+
+</body>
+
+</html>
