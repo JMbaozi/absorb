@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>维基百科地图视图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script>
+        var dojoConfig = {
+            isDebug: true,
+            async: true,
+            packages: [{
+                "name": "ext",
+                "location": location.pathname.replace(/\/[^/]+$/, "") + "/ext"
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="WikipediaMapViewer.js"></script>
+</head>
+<body class="tundra">
+    <!--布局容器-->
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
+         data-dojo-props="design:'headline'">
+        
+        <!--顶部区域-->
+        <div id="header" data-dojo-type="dijit/layout/ContentPane"
+           data-dojo-props="region:'top'" >
+            <div style="margin:10px"><center>维基百科地图视图</center></div>
+        </div>
+        
+        <!--左部区域-->
+        <div data-dojo-type="dijit/layout/BorderContainer" 
+            data-dojo-props="region:'left',design:'headline',splitter:true" style="width:40%;">
+            <div id="leftTop" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+                <div style="margin:5px;">
+                    <b>显示文章数目：</b>
+                    <input id="maxCount" data-dojo-type="dijit/form/TextBox" value="25" />
+                    <div id="refreshBtn" data-dojo-type="dijit/form/Button">刷新</div>
+                </div>
+            </div>
+            <div id="wikiInfo" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'"></div>
+            <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+        </div>
+  
+        <!--中央区域-->
+        <div data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'center'" style="width:60%; background-color:whitesmoke;">
+            <iframe id="wikiPage" src="http://www.wikipedia.org" width="99.9%" height="99.9%" frameborder="0"></iframe>
+        </div>
+    </div>
+</body>
+</html>

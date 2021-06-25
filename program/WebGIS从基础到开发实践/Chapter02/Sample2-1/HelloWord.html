@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>第一个JavaScript API应用</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>        
+        require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"], function (Map, ArcGISTiledMapServiceLayer) {
+            // 以下是创建地图与加入底图的代码
+            var map = new Map("mapDiv");
+            var agoServiceURL = "http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer";
+            var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL, { displayLevels: [0, 1, 2, 3, 4, 5, 6, 7] });
+            map.addLayer(agoLayer);
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="mapDiv"></div>
+</body>
+</html>

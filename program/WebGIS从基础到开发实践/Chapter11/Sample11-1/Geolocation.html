@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户地理位置</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="Geolocation.js"></script>
+</head>
+<body>
+    <div class="panel">
+        <div class="titlearea">
+            <span id="titleMessage" class="title-message">显示当前地理位置</span>
+        </div>
+        <div class="controls">
+            <div class="buttons"> 
+                <button id="btnGeolocation" class="btn btn-primary">定位</button>
+                <button id="btnClear" class="btn">清除</button>
+            </div>
+        </div>
+    </div>
+    <div id="mapDiv"></div>
+    <div id="progress" class="progress hidden"></div>
+</body>
+</html>

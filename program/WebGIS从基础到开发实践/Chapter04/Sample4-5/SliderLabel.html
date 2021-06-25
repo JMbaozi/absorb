@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%; 
+            height: 100%;
+        }
+        /* 对于比例滚动条上的标签，claro样式默认为黑色，这里将其指定为白色*/
+        .claro .dijitRuleLabel {
+            color: white;
+        }
+        .claro .dijitRuleMark {
+            border: 1px solid #fff;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        var map;
+        require([
+          "esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/number", "dojo/domReady!"
+        ], function (Map, ArcGISTiledMapServiceLayer, number) {
+            var layer = new ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
+            layer.on("load", function () {
+                var labels = [];
+                var lods = layer.tileInfo.lods;
+                for (var i = 0, il = lods.length; i < il; i++) {
+                    if (i % 2) {
+                        labels.push(number.format(lods[i].scale.toFixed()));
+                    }
+                }
+
+                map = new Map("mapDiv", {
+                    center: [-79.805, 26.116],
+                    zoom: 3,
+                    sliderStyle: "large",
+                    sliderLabels: labels
+                });
+                map.addLayer(layer);
+            });
+        });
+    </script>
+</head>
+<body class="claro">
+    <div id="mapDiv">
+    </div>
+</body>
+</html>

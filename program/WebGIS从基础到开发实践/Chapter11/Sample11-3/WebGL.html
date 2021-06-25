@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>原生WebGL API介绍</title>
+    <script id="vertex" type="x-shader">
+        attribute vec2 aVertexPosition;
+        void main() {
+            gl_Position = vec4(aVertexPosition, 0.0, 1.0);
+        }
+    </script> 	
+	<script id="fragment" type="x-shader">
+        #ifdef GL_ES
+        precision highp float;
+        #endif
+        
+        uniform vec4 uColor;
+        void main() {
+            gl_FragColor = uColor;
+        }
+	</script> 	
+	<script type="text/javascript">
+	    function init() {
+	        var canvas = document.getElementById("mycanvas");
+	        var gl = canvas.getContext("experimental-webgl");
+	        gl.viewport(0, 0, canvas.width, canvas.height);
+	        gl.clearColor(0, 0.5, 0, 1);
+	        gl.clear(gl.COLOR_BUFFER_BIT);
+
+	        // Compiling and linking shaders
+	        var v = document.getElementById("vertex").firstChild.nodeValue;
+	        var f = document.getElementById("fragment").firstChild.nodeValue;
+
+	        var vs = gl.createShader(gl.VERTEX_SHADER);
+	        gl.shaderSource(vs, v);
+	        gl.compileShader(vs);
+
+	        var fs = gl.createShader(gl.FRAGMENT_SHADER);
+	        gl.shaderSource(fs, f);
+	        gl.compileShader(fs);
+
+	        program = gl.createProgram();
+	        gl.attachShader(program, vs);
+	        gl.attachShader(program, fs);
+	        gl.linkProgram(program);
+
+            // 设置坐标
+	        var aspect = canvas.width / canvas.height;
+	        var vertices = new Float32Array([
+                -0.5, 0.5 * aspect, 0.5, 0.5 * aspect, 0.5, -0.5 * aspect,  // 三角形1
+                -0.5, 0.5 * aspect, 0.5, -0.5 * aspect, -0.5, -0.5 * aspect   // 三角形2
+	        ]);
+
+	        vbuffer = gl.createBuffer();
+	        gl.bindBuffer(gl.ARRAY_BUFFER, vbuffer);
+	        gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+	        itemSize = 2;
+	        numItems = vertices.length / itemSize;
+
+	        // Setting uniforms and attributes
+	        gl.useProgram(program);
+
+	        program.uColor = gl.getUniformLocation(program, "uColor");
+	        gl.uniform4fv(program.uColor, [0.0, 0.3, 0.0, 1.0]);
+
+	        program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+	        gl.enableVertexAttribArray(program.aVertexPosition);
+	        gl.vertexAttribPointer(program.aVertexPosition, itemSize, gl.FLOAT, false, 0, 0);
+
+	        // Drawing
+	        gl.drawArrays(gl.TRIANGLES, 0, numItems);
+	    }
+	</script>
+</head>
+<body onload="init()">
+    <canvas id="mycanvas" width="400" height="250"></canvas>
+</body>
+</html>

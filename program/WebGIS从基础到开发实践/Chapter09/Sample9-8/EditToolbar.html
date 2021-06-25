@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>  
+<head>
+    <meta charset="utf-8">
+    <title>绘图与编辑工具条</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="EditToolbar.js"></script>
+</head>
+<body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
+        data-dojo-props="design:'headline', gutters:'false'">
+        <div id="header" data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'top'" style="">
+            <button data-dojo-type="dijit/form/Button">徒手线</button>
+            <button data-dojo-type="dijit/form/Button">徒手多边形</button>
+            <div id="tool_move" data-dojo-type="dijit/form/ToggleButton" 
+                data-dojo-props="checked:'true', iconClass:'dijitCheckBoxIcon'">
+                移动
+            </div>
+            <div id="tool_vertices" data-dojo-type="dijit/form/ToggleButton" 
+                data-dojo-props="checked:'true', iconClass:'dijitCheckBoxIcon'">
+                编辑结点
+            </div>
+            <div id="tool_scale" data-dojo-type="dijit/form/ToggleButton" 
+                data-dojo-props="checked:'true', iconClass:'dijitCheckBoxIcon'">
+                拉伸
+            </div>
+            <div id="tool_rotate" data-dojo-type="dijit/form/ToggleButton" 
+                data-dojo-props="checked:'true', iconClass:'dijitCheckBoxIcon'">
+                旋转
+            </div>
+            <button id="options" data-dojo-type="dijit/form/DropDownButton" 
+                data-dojo-props="value:'options'">
+                <span>选项</span> 
+                <div data-dojo-type="dijit/Menu" id="optionsMenu">
+                    <div id="vtx_ca" data-dojo-type="dijit/CheckedMenuItem" 
+                        data-dojo-props="checked:'true'">允许增加结点</div>
+                    <div id="vtx_cd" data-dojo-type="dijit/CheckedMenuItem" 
+                        data-dojo-props="checked:'true'">允许删除结点</div>
+                    <div id="uniform_scaling" data-dojo-type="dijit/CheckedMenuItem" 
+                        data-dojo-props="checked:'true'">保持长宽比例</div>
+                </div>
+            </button> 
+        </div>
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'center'">
+        </div>
+    </div>
+</body>
+</html>

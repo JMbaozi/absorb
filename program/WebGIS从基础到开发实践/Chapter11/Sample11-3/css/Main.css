@@ -1,0 +1,53 @@
+﻿html, body, #mapDiv { height: 100%; width: 100%; margin: 0; padding: 0; }
+
+#threeDiv {
+    overflow: hidden; position: absolute; display: none;z-index:5;
+}
+
+#3dEagleEye {
+    position:absolute;right:0px;bottom:0px;height:100px;width:150px;border:4px double #999999;z-index:1001;
+}
+
+#skyImage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -100%;
+}
+
+@keyframes fadeOut 
+{
+    0% {
+        transform-origin: 50% 50%;
+        transform: perspective(600px) rotateX(0deg) scale3d(1, 1, 1);
+    }
+    100% {
+        transform-origin: 50% 50%;
+        transform: perspective(600px) rotateX(60deg) scale3d(2, 1, 1);
+    }
+}
+
+@keyframes slideIn 
+{
+    0% {
+        top: -100%;
+    }
+    100% {
+        top: -50%
+    }
+}
+
+@keyframes scaleOut 
+{
+    0% {
+        transform-origin: 50% 50%;
+    }
+    50% {
+        transform-origin: 50% 50%;
+        transform: scale(0.2);
+    }
+    100% {
+        transform-origin: 50% 50%;
+        transform: scale(0);
+    }
+}

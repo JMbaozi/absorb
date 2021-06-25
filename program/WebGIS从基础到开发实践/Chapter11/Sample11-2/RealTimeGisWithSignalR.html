@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>多人协作编辑实例</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.0.3.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+    <script src="http://js.arcgis.com/3.9/init.js"></script>
+    <script src="Scripts/RealTimeGisWithSignalR.js"></script>
+</head>
+<body class="claro">
+    <button data-dojo-type="dijit/form/Button">点</button>
+    <button data-dojo-type="dijit/form/Button">线</button>
+    <button data-dojo-type="dijit/form/Button">多边形</button>
+    <button data-dojo-type="dijit/form/Button">取消绘图</button>
+
+    姓名：<input type="text" id="txtUserName" /><button onclick="btnUpdateUserName_Click()">更新</button>
+
+    <div id="map" style="width: 800px; height: 400px; border: 2px solid #000;" class="claro"></div>
+    <br />
+
+    <div id="graphicsLayersCount"></div>
+    <div id="legendDiv"></div>
+</body>
+</html>

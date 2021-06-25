@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>页面布局</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <style>       
+        html, body, #main{	
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+	<script type="text/javascript">
+	    dojoConfig = {
+	        isDebug: true,
+	        async: true
+	    };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        require(["dojo/parser", "esri/map", "esri/layers/ArcGISTiledMapServiceLayer",
+            "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+            "dijit/layout/AccordionContainer", "dojo/domReady!"],
+            function (parser, Map, ArcGISTiledMapServiceLayer) {
+                parser.parse();
+
+                var map = new Map("mapDiv");
+                var agoServiceURL = "http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer";
+                var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL, { displayLevels: [0, 1, 2, 3, 4, 5, 6, 7] });
+                map.addLayer(agoLayer);
+            });
+    </script>
+</head>
+<body class="tundra">
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false"  id="main">
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" 
+            style="background-color: #b39b86; height: 10%;">
+            放置单位或公司标志、本应用系统名称等
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left', splitter:'true'"
+            style="background-color: #acb386; width: 100px;">
+            一般为菜单
+        </div>
+        <div id="mapDiv" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+            style="background-color: #f5ffbf; padding: 10px;">            
+        </div> 
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right', splitter:'true'"
+            style="background-color: #acb386; width: 100px;">
+            <div id="accordionContainer" data-dojo-type="dijit/layout/AccordionContainer" 
+                style="padding: 0px; overflow: hidden; z-index: 29;">
+                <div data-dojo-type="dijit/layout/ContentPane" title="查询" style="overflow: hidden;">
+                    <div id="findServicesDiv">
+                    </div>
+                </div>
+                <div id="identifyResultsPane" data-dojo-type="dijit/layout/ContentPane" style="overflow: hidden;" title="查询结果">
+                    <div id="resultsDiv">
+                    </div>
+                    <br>
+                </div>
+                <div id="parcelResultsPane" data-dojo-type="dijit/layout/ContentPane" title="缓冲区分析">
+                </div>
+                <div data-dojo-type="dijit/layout/ContentPane" style="width: 100%" title="图层控制">
+                    <br>
+                    <div id="layerConfigDiv">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom', splitter:'true'"
+            style="background-color: #b39b86; height: 50px;">
+            版权信息等
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>non-behavioral widget</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        require(["dojo/_base/declare", "dijit/_Widget", "dojo/dom-construct"], function(declare, _Widget, domConstruct) {
+        	declare("MyFirstWidget", _Widget, {
+            	buildRendering: function() {
+            		// 创建该小部件的DOM树
+            		this.domNode = domConstruct.create("button", { innerHTML: "提交" });
+			}
+       	 });
+        });
+
+        require(["dojo/parser", "dojo/domReady!"], function(parser){
+        	parser.parse();
+        });
+    </script>
+</head>
+<body class="tundra">
+    <span data-dojo-type="MyFirstWidget">
+        最简单地行为性小部件
+    </span>
+</body>
+</html>
+

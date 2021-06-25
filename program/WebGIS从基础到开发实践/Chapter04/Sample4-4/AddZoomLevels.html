@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>增大缩放级别</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript" src="js/MapExtends.js"></script>
+    <script type="text/javascript">
+        var map, agoLayer;
+        require(["dojo/parser", "esri/map", "esri/geometry/Extent", "esri/layers/ArcGISTiledMapServiceLayer", "esri/layers/FeatureLayer", "dijit/registry", "dijit/form/Button", "dojo/domReady!"],
+            function (parser, Map, Extent, ArcGISTiledMapServiceLayer, FeatureLayer, registry) {
+                parser.parse();
+
+                var initExtent = new Extent({
+                    xmax: -13624229.32056175,
+                    xmin: -13625120.886837104,
+                    ymax: 4548374.604660432,
+                    ymin: 4547966.144290476,
+                    "spatialReference": {
+                        "wkid": 102100
+                    }
+                });
+                map = new Map("mapDiv", {
+                    extent: initExtent,
+                    logo: false
+                });
+                var agoServiceURL = "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+                agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+                map.addLayer(agoLayer);
+
+                var featureLayer = new FeatureLayer("http://servicesbeta.esri.com/arcgis/rest/services/SanFrancisco/SFStreetTreesRendered/MapServer/0", {
+                    mode: FeatureLayer.MODE_ONDEMAND
+                });
+                map.addLayer(featureLayer);
+
+                map.on('extent-change', showScaleInfo);
+
+                registry.byId("addNums").on("click", function () {
+                    var oldLevels = map.getNumLevels();
+                    map.addNumLevels(4);
+                    var currentLevelsNum = map.getNumLevels();
+                    alert("原总缩放级别为" + oldLevels + ";增加后总缩放级别为" + currentLevelsNum);
+                });
+
+                function showScaleInfo(evt) {
+                    var scaletext = map.getLevel();
+                    document.getElementById("scaleInfo").innerHTML = scaletext;
+                }
+
+            });      
+    </script>
+</head>
+<body class="tundra">
+    <div id="mapDiv" style="position:relative; width:100%; height:100%; border:1px solid #000;">
+        <button data-dojo-type="dijit/form/Button" id="addNums">
+            增加放大级别数
+        </button>
+        <div id="scaleInfo0" style="position: absolute; left: 100px; visibility:visible; bottom: 2px; z-index: 100;">当前缩放级别：</div>
+        <div id="scaleInfo" style="position: absolute; left: 210px; visibility:visible; bottom: 2px; z-index: 100;"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color:darkgray;
+}
+.infowindow .window .top .right .user .titlebar .title {
+    color: darkred;
+    font-family: Tahoma;
+    font-weight: bold;
+    font-size: 11pt;
+}
+.infowindow .window .top .right .user .content {
+    font-family: Tahoma;
+    font-size: 8pt;
+}
+
+#mainWindow {
+    width:100%; height:100%;
+}
+
+#header {
+    font-size: x-large;
+    font-weight: bold;
+    background-color: #CCFFCC;
+}
+
+#leftTop {
+    font-size: large;
+    background-color: #CCFFCC;
+    border: solid thin silver;
+}
+
+#map {
+    height:45%; width:100%;
+}
+
+#maxCount {
+    color:red; width:50px; text-align:center
+}
+#refreshBtn {
+    color:black; font-size:small
+}
+#wikiInfo {
+    color: black;
+    height: 49%;
+    width: 100%;
+}

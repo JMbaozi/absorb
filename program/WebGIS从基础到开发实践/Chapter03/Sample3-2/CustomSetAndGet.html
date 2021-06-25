@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>自定义的属性获取与设置</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <script type="text/javascript">
+	    dojoConfig = {
+	        isDebug: true,
+	        async: true
+	    };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        require(["dojo/_base/declare", "dijit/_Widget", "dojo/dom-style"], function(declare, _Widget, domStyle) {
+        	declare("HidePane", _Widget, {
+            	// 参数
+            	open: true,
+
+            	_setOpenAttr: function(/*Boolean*/ open) {
+            		this.open = open;
+            		if(open == true) {
+            			domStyle.set(this.domNode, "display", "block");
+            		} else {
+            			domStyle.set(this.domNode, "display", "none");
+            		}
+            	}
+       	 });
+        });
+
+        require(["dojo/parser", "dojo/domReady!"], function(parser){
+        	parser.parse();
+        });  
+        
+        function showPanel() {
+        	pane.set('open', true);
+        }
+        
+        function hidePanel() {
+        	pane.set('open', false);
+        }     
+    </script>
+</head>
+<body class="tundra">
+    <span data-dojo-type="HidePane" data-dojo-props="open: 'false'" data-dojo-id="pane">
+        该面板初始被隐藏
+    </span>
+    <button onclick="showPanel()">
+        显示
+    </button>
+    <button onclick="hidePanel()">
+        隐藏
+    </button>
+
+</body>
+</html>
+

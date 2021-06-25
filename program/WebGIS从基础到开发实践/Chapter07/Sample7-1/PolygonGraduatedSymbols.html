@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>等级符号专题图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+        }
+        #info {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font: 14px sans-serif;
+            background: #fff;
+            width: 160px;
+            text-align: center;
+            border-radius: 0 0 0 10px;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "esri/layers/FeatureLayer", "esri/dijit/Legend", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+        "esri/Color", "esri/renderers/ClassBreaksRenderer", "esri/renderers/ScaleDependentRenderer", "esri/InfoTemplate", "dojo/_base/array", "dojo/dom", "dojo/query", "dojo/domReady!"
+        ], function (Map, ArcGISTiledMapServiceLayer, FeatureLayer, Legend, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Color, ClassBreaksRenderer, ScaleDependentRenderer, InfoTemplate, array, dom, query) {
+            var map = new Map("map", {
+                center: [-98.5795, 39.828175],
+                zoom: 5
+            });
+
+            var url = "http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/";
+            var baseMap = new ArcGISTiledMapServiceLayer(url);
+            map.addLayer(baseMap);
+
+            var layer = new FeatureLayer("http://services.arcgis.com/q9RcWJ6LLzkv8ZMi/ArcGIS/rest/services/USACountiesHighPerformance/FeatureServer/0", {
+                outFields: ["*"],
+                infoTemplate: new InfoTemplate("${NAME}, ${STATE_NAME}", "1999年人口: ${POP1999}")
+            });
+
+            var renderer = new ClassBreaksRenderer(null, "POP1999");
+            var outline = new SimpleLineSymbol().setWidth(0.5).setColor(new Color([43, 101, 236, 1]));
+            var color = new Color([43, 101, 236, 0.75]);
+                
+            var classBreaks = [
+                { minValue: 0, maxValue: 20000, size: 2 },
+                { minValue: 20000, maxValue: 50000, size: 4 },
+                { minValue: 50000, maxValue: 100000, size: 6 },
+                { minValue: 100000, maxValue: 1000000, size: 9 },
+                { minValue: 1000000, maxValue: 10000000, size: 10 }
+            ];
+            array.forEach(classBreaks, function (classBreak) {
+                renderer.addBreak(classBreak.minValue, classBreak.maxValue, new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, classBreak.size, outline, color));
+            });
+            renderer.backgroundFillSymbol = new SimpleFillSymbol().setColor(new Color([0, 0, 0, 0])).setOutline(new SimpleLineSymbol().setWidth(1));
+            layer.setRenderer(renderer);
+            map.addLayers([layer]);
+
+            var legend = new Legend({
+                map: map,
+                layerInfos: [{
+                    layer: layer,
+                    title: "图例"
+                }]
+            }, "legend");
+
+            map.on("layers-add-result", function (layer) {
+                legend.startup();
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="info">
+      <div id="legend"></div>
+    </div>
+</body>
+</html>  

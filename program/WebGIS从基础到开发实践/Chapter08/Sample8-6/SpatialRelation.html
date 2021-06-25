@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>几何服务：空间关系</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="SpatialRelation.js"></script>
+</head>
+<body class="claro">
+    <div>
+        <button id="polygonBtn">多边形</button>
+        <button id="removeBtn">删除多边形</button>
+        选择空间关系：
+        <select id="relation">
+            <option value="SPATIAL_REL_WITHIN">包含</option>
+            <option value="SPATIAL_REL_INTERSECTION">相交</option>
+            <option value="SPATIAL_REL_DISJOINT">分离</option>
+        </select>
+    </div>
+    
+    <div id="map" style="width:700px; height:512px; border:2px solid #000;"></div>
+</body>
+</html>

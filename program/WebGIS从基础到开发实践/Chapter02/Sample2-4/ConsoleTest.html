@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>模块与包</title>
+    <script>
+      var dojoConfig = {
+      	baseUrl: "js/",
+      	packages: [{
+        		name: "com",
+        		location: "com"
+    		}]
+	};
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        require(["com/WebGIS2/Graphics/Shape", "dojo/domReady!"], function (Shape) {
+            var shape = new Shape();
+            shape.setColor(0x0000FF);
+            console.log("形状的颜色为：" + shape.color);
+        });
+    </script>
+</head>
+<body class="tundra">
+    <p>
+        这是一用于基于控制台开发测试的文件。
+    </p>
+</body>
+</html>

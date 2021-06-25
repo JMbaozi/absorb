@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>三维建筑</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            padding:0;
+            margin:0;
+            height:100%;
+            width:100%;
+        }
+    </style>
+    <script type="text/javascript">
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                "name": "bism",
+                "location": location.pathname.replace(/\/[^/]+$/, "") + "/js/bism"
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="js/osmbuildings.js"></script>
+    <script type="text/javascript">
+        var map;
+        require([
+            "esri/map",
+            "esri/geometry/Extent",
+            "esri/layers/ArcGISTiledMapServiceLayer",
+            "bism/ExtrudedFeatureLayer",
+            "dojo/domReady!"
+        ], function (
+            Map, Extent, ArcGISTiledMapServiceLayer, ExtrudedFeatureLayer
+        ) {
+            var initExtent = new Extent({
+                "xmin": -8999771.26,
+                "ymin": 4194823.59,
+                "xmax": -8999296.37,
+                "ymax": 4195140.18,
+                "spatialReference": {
+                    "wkid": 102100
+                }
+            })
+            map = new Map("map", {
+                extent: initExtent
+            });
+
+            var basemap = new ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer");
+            map.addLayer(basemap);
+            map.on('load', function (theMap) {
+                var buildings = new ExtrudedFeatureLayer('http://maps.ci.charlotte.nc.us/ArcGIS/rest/services/SS/UptownBuildings/MapServer/0', {
+                    'heightAttribute': 'hgt'
+                });
+                map.addLayer(buildings);
+            });
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="map">
+    </div>
+</body>
+</html>

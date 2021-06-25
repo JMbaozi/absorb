@@ -1,0 +1,5 @@
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter01\Sample1-1\bin\Sample1-1.dll
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter01\Sample1-1\bin\Sample1-1.pdb
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter01\Sample1-1\obj\Debug\Sample1-1.csprojResolveAssemblyReference.cache
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter01\Sample1-1\obj\Debug\Sample1-1.dll
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter01\Sample1-1\obj\Debug\Sample1-1.pdb

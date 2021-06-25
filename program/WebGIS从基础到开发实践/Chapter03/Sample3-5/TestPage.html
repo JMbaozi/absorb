@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>测试</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <link rel="stylesheet" href="js/webgis2book/widgets/themes/darkangel/darkangel.css" />
+    <link rel="stylesheet" href="js/webgis2book/widgets/themes/darkangel/override.css" />
+    <script>
+        var dojoConfig = {
+            locale: 'en',
+            isDebug: true,
+            async: true,
+            packages: [{
+                "name": "webgis2book",
+                "location": location.pathname.replace(/\/[^/]+$/, "") + "/js/webgis2book"
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        var map;
+        var testWidget = null;
+
+        require(["dojo/parser", "dojo/_base/window", "dojo/dom-style", "dojo/topic", "dijit/registry",
+            "esri/map", "esri/layers/ArcGISTiledMapServiceLayer",
+            "webgis2book/widgets/_BaseWidget", "webgis2book/widgets/Menu", "webgis2book/widgets/MenuItem",
+            "webgis2book/widgets/WidgetContainer", "webgis2book/widgets/MenuFrame",
+            "dojo/domReady!"],
+            function (parser, win, domStyle, topic, registry, Map, ArcGISTiledMapServiceLayer, _BaseWidget, Menu) {
+                parser.parse();
+
+                map = new Map("mapDiv");
+                var agoServiceURL = "http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer";
+                var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+                map.addLayer(agoLayer);
+
+                createWidget();
+                createMenu();
+
+                function createWidget() {
+                    testWidget = new _BaseWidget();
+                    testWidget.setTitle("小部件测试");
+                    testWidget.setMap(map);
+                    testWidget.startup();
+                }
+
+                function createMenu() {
+                    var menuFrame = registry.byId('menuFrame');
+                    var logoUrl = require.toUrl("webgis2book/widgets/assets/images/logo.png");
+                    menuFrame.setFrameIcon(logoUrl);
+                    menuFrame.setTitle("菜单");
+
+                    var params = { label: "工具", icon: "assets/images/icons/i_globe.png", id: "menuMap", positionAsPct: 20, visible: true };
+                    var toolMenu = new Menu(params);
+                    toolMenu.addMenuItem({ label: "小部件测试", icon: "assets/images/icons/i_highway.png", visible: true, onMenuItemClick: testMenuItemClick });
+                    menuFrame.addChild(toolMenu);
+                    toolMenu.startup();
+
+                    var params2 = { label: "帮助", icon: "assets/images/icons/i_help.png", id: "menuHelp", positionAsPct: 40, visible: true };
+                    var helpMenu = new Menu(params2);
+                    helpMenu.addMenuItem({ label: "资源", icon: "assets/images/icons/i_resources.png", visible: true });
+                    menuFrame.addChild(helpMenu);
+                    helpMenu.startup();
+                }
+
+                function testMenuItemClick(evt) {
+                    topic.publish("showWidget", testWidget);
+                }
+
+            });
+    </script>
+</head>
+<body class="tundra">
+    <div id="mapDiv" style="position: relative; height: 1000px; border: 1px solid #000;">
+        <div data-dojo-type="webgis2book/widgets/MenuFrame" id='menuFrame' style="left: 100px;"></div>
+        <div data-dojo-type="webgis2book/widgets/WidgetContainer" id='widgetContainer'></div>
+    </div>
+</body>
+</html>

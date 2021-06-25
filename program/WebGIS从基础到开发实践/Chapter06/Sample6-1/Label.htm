@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Label Points</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <style>
+        html, body{
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        var dojoConfig = {
+            packages: [{
+                name: "myApp",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/js/myApp"
+            }]
+        };    
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        var map, tb, markerSymbol, lineSymbol, fillSymbol;
+        var bMapIsDegrees = true;
+        var geometryService = null;
+        var displayDistUnits = "Kilometers", displayDistUnitsAbbr = "km";
+        var displayAreaUnits = "Kilometers", displayAreaUnitsAbbr = "sq km";
+        var fontFace = "Arial";
+
+        require(["dojo/parser", "dijit/registry", "esri/geometry/Point",
+            "esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "esri/toolbars/draw", "esri/graphic", "esri/SpatialReference",
+            "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+            "esri/symbols/TextSymbol",
+            "esri/Color", "esri/tasks/ProjectParameters", "esri/tasks/AreasAndLengthsParameters",
+            "esri/tasks/GeometryService", "myApp/measure",
+            "dojo/domReady!"],
+            function (parser, registry, Point, Map, ArcGISTiledMapServiceLayer, Draw, Graphic, SpatialReference,
+                SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Color, ProjectParameters,
+                AreasAndLengthsParameters, GeometryService, measure) {
+                parser.parse();
+
+                map = new Map("mapDiv");
+                var agoServiceURL = "http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer";
+                var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+                map.addLayer(agoLayer);
+
+                markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_X, 25,
+                          new SimpleLineSymbol(SimpleLineSymbol.STYLE_DOT,
+                          new Color([0, 0, 255]), 2));
+
+                lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+                              new Color([255, 0, 0]), 2);
+
+                fillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                  new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2),
+                  new Color([0, 0, 255, 0.5])
+                );
+
+                var geometryUrl = "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer";
+                geometryService = new GeometryService(geometryUrl);
+
+                map.on("load", createToolbar);
+
+                registry.forEach(function (d) {
+                    if (d.declaredClass === "dijit.form.Button") {
+                        d.on("click", activateTool);
+                    }
+                });
+
+                function createToolbar(themap) {
+                    toolbar = new Draw(map);
+                    toolbar.on("draw-end", addToMap);
+                }
+
+                function activateTool() {
+                    var tool = null;
+                    switch (this.label) {
+                        case "点":
+                            tool = "POINT";
+                            break;
+                        case "多点":
+                            tool = "MULTIPOINT";
+                            break;
+                        case "线":
+                            tool = "POLYLINE";
+                            break;
+                        case "徒手线":
+                            tool = "FREEHAND_POLYLINE";
+                            break;
+                        case "多边形":
+                            tool = "POLYGON";
+                            break;
+                    }
+                    toolbar.activate(Draw[tool]);
+                    map.hideZoomSlider();
+                }
+
+                function addToMap(evt) {
+                    map.graphics.clear();
+
+                    var geometry = evt.geometry;
+                    var symbol;
+                    // 将用户绘制的几何对象加入到地图中
+                    switch (geometry.type) {
+                        case "point":
+                            symbol = markerSymbol;
+                            break;
+                        case "multipoint":
+                            symbol = markerSymbol;
+                            break;
+                        case "polyline":
+                            symbol = lineSymbol;
+                            break;
+                        case "polygon":
+                            symbol = fillSymbol;
+                            break;
+                    }
+
+                    var graphic = new Graphic(geometry, symbol);
+                    map.graphics.add(graphic);
+
+                    // 增加标注
+                    addLabel(geometry);
+                }
+
+                function addLabel(geometry) {
+                    var x, y, g;
+                    switch (geometry.type) {
+                        case "point":
+                            x = measure.round(geometry.x, 2);
+                            y = measure.round(geometry.y, 2);
+                            g = getPointLabel(x + ", " + y, geometry);
+                            map.graphics.add(g);
+                            break;
+
+                        case "multipoint":
+                            for (var i in geometry.points) {
+                                var coords = geometry.points[i];
+                                x = measure.round(coords[0], 2);
+                                y = measure.round(coords[1], 2);
+                                g = getPointLabel(x + ", " + y, new Point(coords, geometry.spatialReference));
+                                map.graphics.add(g);
+                            }
+                            break;
+
+                        case "polyline":
+                            if (displayDistUnits) {
+                                var length = measure.calculateLength(geometry, bMapIsDegrees);
+                                for (var i in geometry.paths) {
+                                    if (bMapIsDegrees) {
+                                        mapUnits = "Meters";
+                                    }
+                                    var len = measure.convertDistanceUnits(length[i], mapUnits, displayDistUnits);
+                                    var text = measure.significantDigits(len, 4) + " " + displayDistUnitsAbbr;
+                                    g = getPathLabel(text, geometry, i);
+                                    map.graphics.add(g);
+                                }
+                            }
+                            break;
+
+                        case "polygon":
+                            if (displayDistUnits || displayAreaUnits) {
+                                var measureFunc = function (result) {
+                                    for (var i in result.areas) {
+                                        var perimeter = result.lengths[i];
+                                        var area = result.areas[i];
+                                        // 标注周长
+                                        if (displayDistUnits) {
+                                            var peri = measure.convertDistanceUnits(perimeter, mapUnits, displayDistUnits);
+                                            var text = measure.significantDigits(peri, 4) + " " + displayDistUnitsAbbr;
+                                            map.graphics.add(getPathLabel(text, geometry, i));
+                                        }
+                                        // 标注面积
+                                        if (displayAreaUnits) {
+                                            var a = measure.convertAreaUnits(area, mapUnits, displayAreaUnits);
+                                            text = measure.significantDigits(a, 6) + " " + displayAreaUnitsAbbr;
+                                            map.graphics.add(getAreaLabel(text, geometry, i));
+                                        }
+                                    }
+                                };
+
+                                var polyGraphic = new Graphic(geometry);
+                                if (bMapIsDegrees) {
+                                    mapUnits = "Meters";
+                                    var outSR = new SpatialReference({
+                                        wkid: 54034 //World_Cylindrical_Equal_Area
+                                    });
+                                    var params = new ProjectParameters();
+                                    params.geometries = [geometry];
+                                    params.outSR = outSR;
+
+                                    geometryService.project(params, function (geometries) {
+                                        var areasAndLengthParams = new AreasAndLengthsParameters();
+                                        areasAndLengthParams.lengthUnit = GeometryService.UNIT_METER;
+                                        areasAndLengthParams.areaUnit = GeometryService.UNIT_SQUARE_METERS;
+                                        areasAndLengthParams.polygons = geometries;
+                                        geometryService.areasAndLengths(areasAndLengthParams, measureFunc);
+                                    });
+                                }
+                                else {
+                                    geometryService.areasAndLengths([geometry], measureFunc);
+                                }
+                            }
+                            break;
+                    }
+                }
+
+                function getFont() {
+                    var size = 10;
+                    var f = new esri.symbol.Font(size + "pt",
+                          esri.symbol.Font.STYLE_NORMAL,
+                          esri.symbol.Font.VARIANT_NORMAL,
+                          esri.symbol.Font.WEIGHT_BOLD,
+                          fontFace);
+                    return f;
+                }
+
+                function getPointLabel(text, point) {
+                    var sym = new TextSymbol(text, getFont(), new Color([255, 0, 0]));
+                    sym.setAlign(TextSymbol.ALIGN_START);
+                    var g = new Graphic(point, sym);
+                    return g;
+                }
+
+                function getPathLabel(text, polyline, pathIndex) {
+                    try {
+                        var sym = new TextSymbol(text, getFont(), new Color([255, 0, 0]));
+                        if (polyline.paths) {
+                            var path = polyline.paths[pathIndex];
+                        }
+                        else {
+                            var path = polyline.rings[pathIndex];
+                        }
+                        var idx = Math.floor(path.length / 2);
+                        var p1 = polyline.getPoint(pathIndex, idx - 1);
+                        var p2 = polyline.getPoint(pathIndex, idx);
+                        var point = measure.getMidPoint(p1, p2);
+                        var angle = measure.getAngle(p1, p2);
+                        sym.setAngle(angle);
+                        sym.setOffset(0, 2);
+                        var g = new Graphic(point, sym);
+                        return g;
+                    }
+                    catch (err) {
+                        console.error("创建标注出错：", err);
+                    }
+                }
+
+                function getAreaLabel(text, polygon, ringIndex) {
+                    try {
+                        var sym = new TextSymbol(text, getFont(), new Color([255, 0, 0]));
+                        var point = measure.getRingExtent(polygon, ringIndex).getCenter();
+                        var g = new Graphic(point, sym);
+                        return g;
+                    }
+                    catch (err) {
+                        console.error("创建面积标注出错：", err);
+                    }
+                }
+            }
+        );
+    </script>
+</head>
+
+<body class="tundra">
+    <button data-dojo-type="dijit/form/Button">点</button>
+    <button data-dojo-type="dijit/form/Button">多点</button>
+    <button data-dojo-type="dijit/form/Button">线</button>
+    <button data-dojo-type="dijit/form/Button">徒手线</button>
+    <button data-dojo-type="dijit/form/Button">多边形</button>
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        var map, agoServiceURL, agoLayer;
+        require(["dojo/parser", "esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "dojo/request/script", "dijit/registry", "dojo/json", "dijit/form/Button", "dojo/domReady!"],
+            function (parser, Map, ArcGISDynamicMapServiceLayer, script, registry, json) {
+                parser.parse();
+
+                map = new Map("mapDiv", {
+                    logo: false
+                });
+                var agoServiceURL = "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer";
+                agoLayer = new ArcGISDynamicMapServiceLayer(agoServiceURL);
+                map.addLayer(agoLayer);
+
+                map.on('load', function () {
+                    for (var i = 0; i < agoLayer.layerInfos.length; i++) {
+                        getLayerJson(agoServiceURL, i);
+                    }
+                });
+
+                registry.byId("layerInfo").on("click", showLayerInfos);
+
+                function getLayerJson(url, id) {
+                    script.get(url + "/" + id + "/?f=json", {
+                        jsonp: "callback"
+                    }).then(function (data) {
+                        setLayerExtent(data);
+                    }, function (err) {
+                        console.log(err);
+                        return err;
+                    });
+                };
+
+                function setLayerExtent(layerJson) {
+                    var layerInfo = agoLayer.layerInfos[layerJson.id]; 
+                    if (layerInfo)
+                        layerInfo.extent = layerJson.extent;
+                };
+
+                function showLayerInfos() {
+                    alert(json.stringify(agoLayer.layerInfos));
+                };
+
+            });
+    </script>
+</head>
+<body class="tundra">
+    <div id="mapDiv">
+        <button data-dojo-type="dijit/form/Button" id="layerInfo">
+            显示子图层信息
+        </button>
+    </div>
+</body>
+</html>

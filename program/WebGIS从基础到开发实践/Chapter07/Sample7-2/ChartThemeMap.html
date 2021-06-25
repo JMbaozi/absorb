@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>直方图专题图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link href="ChartInfoWindow.css" rel="stylesheet" />
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        var dojoConfig = {            
+            packages: [{
+                name: "CustomModules",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/js/CustomModules"
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        require(["esri/map", "esri/layers/FeatureLayer", "esri/layers/ArcGISTiledMapServiceLayer", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+            "esri/renderers/SimpleRenderer", "esri/Color",
+            "CustomModules/ChartInfoWindow", "CustomModules/CustomTheme", "CustomModules/geometryUtils",
+            "dojo/_base/array", "dojo/dom-construct", "dojo/_base/window",
+            "dojox/charting/Chart", "dojox/charting/action2d/Highlight", "dojox/charting/action2d/Tooltip", "dojox/charting/plot2d/ClusteredColumns",
+            "dojo/domReady!"
+        ], function (
+          Map, FeatureLayer, ArcGISTiledMapServiceLayer,
+          SimpleLineSymbol, SimpleFillSymbol,
+          SimpleRenderer, Color, ChartInfoWindow, CustomTheme, geometryUtils,
+          array, domConstruct, win,
+          Chart, Highlight, Tooltip
+        ) {
+            var map = new Map("map", {
+                center: [-95.625, 39.243],
+                zoom: 4,
+                slider: false
+            });
+            var agoServiceURL = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+            var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+            map.addLayer(agoLayer);
+
+            var featureLayer = new FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer/1", {
+                mode: FeatureLayer.MODE_SNAPSHOT,
+                outFields: ["WHITE", "BLACK", "AMERI_ES", "ASIAN_PI", "OTHER"]
+            });
+            var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
+            var renderer = new SimpleRenderer(defaultSymbol);
+            featureLayer.setRenderer(renderer);
+            featureLayer.on("update-end", function (evt) {
+                var showFields = ["WHITE", "BLACK", "AMERI_ES", "ASIAN_PI", "OTHER"];
+                createChartInfoWindow(featureLayer, showFields);
+            });
+            map.addLayer(featureLayer);
+
+            function createChartInfoWindow(layer, showFields) {
+                var layerId = layer.id;
+
+                var max = maxAttribute(layer.graphics, showFields);
+                var featureSums = [];
+                array.forEach(layer.graphics, function (graphic) {
+                    var sum = 0;
+                    for (var i = 0, j = showFields.length; i < j; i++) {
+                        sum += graphic.attributes[showFields[i]];
+                    }
+
+                    featureSums.push(sum);
+                });
+                var sumMax = -10000;
+                array.forEach(featureSums, function (featureSum) {
+                    if (sumMax < featureSum) sumMax = featureSum;
+                });
+
+                var optinalChart = null;
+                array.forEach(layer.graphics, function (graphic, index) {
+                    var infoWindow = new ChartInfoWindow({
+                        domNode: domConstruct.create('div', null, document.getElementById('map'))
+                    });
+                    infoWindow.setMap(map);
+
+                    var nodeChart = null;
+
+                    nodeChart = domConstruct.create("div", { id: 'nodeTest' + index, style: "width:50px;height:100px" }, win.body());
+                    var chart = makeChart(nodeChart, layer.graphics[index].attributes, showFields, max);
+                    optinalChart = chart;
+                    infoWindow.resize(50, 101);
+
+                    var labelPt = geometryUtils.getPolygonCenterPoint(graphic.geometry);
+                    infoWindow.setContent(nodeChart);
+                    infoWindow.__mcoords = labelPt;
+                    infoWindow.show(map.toScreen(labelPt));
+                });
+            }
+
+            function maxAttribute(graphics, showFields) {
+                var max = -100000;
+                array.forEach(graphics, function (graphic) {
+                    var attributes = graphic.attributes;
+                    for (var i = 0, j = showFields.length; i < j; i++) {
+                        if (max < attributes[showFields[i]]) {
+                            max = attributes[showFields[i]];
+                        }
+                    }
+                });
+
+                return max;
+            }
+
+            function makeChart(node, attributes, showFields, max) {
+                var chart = new Chart(node, { margins: { l: 0, r: 0, t: 0, b: 0 } }).
+                                setTheme(CustomTheme).
+                                addPlot("default", { type: "Columns", gap: 0 });
+                var serieValues = [];
+                var length = showFields.length;
+                for (var i = 0; i < length; i++) {
+                    serieValues = [];
+                    for (var m = 0; m < i; m++) {
+                        serieValues.push(0);
+                    }
+                    serieValues.push(attributes[showFields[i]]);
+                    chart.addSeries(showFields[i], serieValues, { stroke: { color: "black" } });
+                }
+
+                serieValues = [];
+                for (var k = 0; k < length; k++) {
+                    serieValues.push(0);
+                }
+                serieValues.push(max);
+                chart.addSeries("隐藏", serieValues, { stroke: { color: new Color([0x3b, 0x44, 0x4b, 0]) }, fill: "transparent" });
+
+                var anim1 = new Highlight(chart, "default", {
+                    highlight: function (e) {
+                        if (e.a == 0 && e.r == 0 && e.g == 0 && e.b == 0) {
+                        }
+                        else {
+                            return "lightskyblue";
+                        }
+                    }
+                });
+                var anim2 = new Tooltip(chart, "default", {
+                    text: function (o) {
+                        var fieldName = o.chart.series[o.index].name;
+                        if (fieldName == "隐藏") return "";
+                        return (fieldName + "：" + o.y);
+                    }
+                });
+                chart.render();
+
+                return chart;
+            }
+        });
+    </script>
+</head>
+<body class="claro">
+    <div id="map"></div>
+</body>
+</html>

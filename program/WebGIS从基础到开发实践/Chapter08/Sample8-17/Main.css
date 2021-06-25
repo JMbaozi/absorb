@@ -1,0 +1,30 @@
+﻿/* NOTE: for a full screen layout, must set body size equal to the viewport. */
+      html, body { height: 100%; width: 100%; margin: 0; padding: 0; }      
+      /* set title font properties */
+      .infowindow .window .top .right .user .titlebar .title { color:darkred; font-family:Tahoma; font-weight:bold; font-size:11pt; }
+      /* set content font properties */
+      .infowindow .window .top .right .user .content { font-family:Tahoma; font-size:8pt; }     
+
+      .iconPath {
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        text-align: center;
+        background-image: url('./images/SurfacePath.gif');
+      }
+    
+      .iconProfile {
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        text-align: center;
+        background-image: url('./images/SurfaceProfile.gif');
+      }
+    
+      .iconClearProfile {
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        text-align: center;
+        background-image: url('./images/profile_blank.gif');
+      }

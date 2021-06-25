@@ -1,0 +1,1003 @@
+﻿{ "type":"FeatureCollection", "features": [
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [116.46,39.92]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "beijing",
+        "payroll" : 17801.0,
+        "ballpark" : "Chase Field",
+        "city" : "北京",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "东城区", "position" : "Catcher", "salary" : 1447.9 },
+        { "name" : "西城区" , "position" : "Outfield", "salary" : 2578.6},
+        { "name" : "海淀区" , "position" : "Left Field", "salary" : 3497.9 },
+        { "name" : "朝阳区" , "position" : "Relief Pitcher", "salary" : 3519.0 },
+        { "name" : "丰台区" , "position" : "Relief Pitcher", "salary" : 922.5 },
+        { "name" : "石景山区" , "position" : "Right Field", "salary" : 343.6 },
+        { "name" : "昌平区" , "position" : "Starting Pitcher", "salary" : 500.0 },
+        { "name" : "大兴区" , "position" : "2nd Base", "salary" : 1215.0 },
+        { "name" : "通州区" , "position" : "Starting Pitcher", "salary" : 448.0 },
+        { "name" : "顺义区" , "position" : "Starting Pitcher", "salary" : 1103.2 },
+        { "name" : "房山区" , "position" : "Relief Pitcher", "salary" : 445.0 },
+        { "name" : "门头沟区" , "position" : "1st Base", "salary" : 115.5 },
+        { "name" : "怀柔区" , "position" : "Center Field", "salary" : 186.5 },
+        { "name" : "平谷区" , "position" : "3rd Base", "salary" : 153.2 },
+        { "name" : "延庆县" , "position" : "Shortstop", "salary" : 83.5 },
+        { "name" : "密云县" , "position" : "Shortstop", "salary" : 178.5 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [121.48,31.22]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "shanghai",
+        "payroll" : 20101.3,
+        "ballpark" : "Turner Field",
+        "city" : "上海",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "浦东新区" , "position" : "Second Base", "salary"  : 5929.9 },
+        { "name" : "闵行区" , "position" : "Center Field", "salary"  : 1594.2 },
+        { "name" : "黄浦区" , "position" : "Catcher", "salary"  : 1368.4 },
+        { "name" : "杨浦区" , "position" : "Right Field", "salary"  : 1201.1 },
+        { "name" : "徐汇区" , "position" : "Starting Pitcher", "salary"  : 1006.6 },
+        { "name" : "嘉定区" , "position" : "Starting Pitcher", "salary"  : 969.7 },
+        { "name" : "松江区" , "position" : "", "salary"  : 886.6 },
+        { "name" : "宝山区" , "position" : "", "salary"  : 824.2 },
+        { "name" : "长宁区" , "position" : "", "salary"  : 752.7 },
+        { "name" : "青浦区" , "position" : "", "salary"  : 732.3 },
+        { "name" : "虹口区" , "position" : "", "salary"  : 659.2 },
+        { "name" : "普陀区" , "position" : "", "salary"  : 657.6 },
+        { "name" : "奉贤区" , "position" : "", "salary"  : 624.6 },
+        { "name" : "静安区" , "position" : "", "salary"  : 617.5 },
+        { "name" : "金山区" , "position" : "", "salary"  : 553.5 },
+        { "name" : "闸北区" , "position" : "", "salary"  : 505.5 },
+        { "name" : "崇明县" , "position" : "", "salary"  : 236.3 }
+      ]
+    }
+  }, 
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [117.2,39.13]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "tianjin",
+        "payroll" : 12885.2,
+        "ballpark" : "Oriole Park",
+        "city" : "天津",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "滨海新区" , "position" : "Right Field", "salary"  : 7205.2 },
+        { "name" : "河西区" , "position" : "Second Base", "salary"  : 655.3 },
+        { "name" : "和平区" , "position" : "Center Field", "salary"  : 645.0 },
+        { "name" : "西青区" , "position" : "Shortstop", "salary"  : 610.2 },
+        { "name" : "北辰区" , "position" : "Starting Pitcher", "salary"  : 588.5 },
+        { "name" : "东丽区" , "position" : "Starting Pitcher", "salary"  : 571.0 },
+        { "name" : "武清区" , "position" : "", "salary"  : 536.0 },
+        { "name" : "南开区" , "position" : "", "salary"  : 468.2 },
+        { "name" : "津南区" , "position" : "", "salary"  : 450.0 },
+        { "name" : "静海县" , "position" : "", "salary"  : 387.0 },
+        { "name" : "宝坻区" , "position" : "", "salary"  : 380.0 },
+        { "name" : "蓟县" , "position" : "", "salary"  : 333.0 },
+        { "name" : "河东区" , "position" : "", "salary"  : 323.2 },
+        { "name" : "宁河县" , "position" : "", "salary"  : 303.2 },
+        { "name" : "河北区" , "position" : "", "salary"  : 181.3 },
+        { "name" : "红桥区" , "position" : "", "salary"  : 137.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [106.54,29.59]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "chongqing",
+        "payroll" : 11459.0,
+        "ballpark" : "Fenway Park",
+        "city" : "重庆",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "渝北区" , "position" : "Starting Pitcher", "salary"  : 879.3 },
+        { "name" : "九龙坡区" , "position" : "Designated Hitter", "salary"  : 776.3 },
+        { "name" : "渝中区" , "position" : "Starting Pitcher", "salary"  : 766.0 },
+        { "name" : "万州区" , "position" : "Center Field", "salary"  : 662.9 },
+        { "name" : "沙坪坝区" , "position" : "First Base", "salary"  : 658.1 },
+        { "name" : "涪陵区" , "position" : "Second Base", "salary"  : 630.5 },
+        { "name" : "江北区" , "position" : "Center Field", "salary"  : 527.8 },
+        { "name" : "南岸区" , "position" : "Shortstop", "salary"  : 465.6 },
+        { "name" : "江津区" , "position" : "", "salary"  :426.0 },
+        { "name" : "巴南区" , "position" : "", "salary"  : 420.9 },
+        { "name" : "永川区" , "position" : "", "salary"  : 402.7 },
+        { "name" : "合川区" , "position" : "", "salary"  : 347.5 },
+        { "name" : "长寿区" , "position" : "", "salary"  : 336.4 },
+        { "name" : "北碚区" , "position" : "", "salary"  : 334.8 },
+        { "name" : "綦江区" , "position" : "", "salary"  : 286.7 },
+        { "name" : "璧山县" , "position" : "", "salary"  : 252.9 },
+        { "name" : "大足区" , "position" : "", "salary"  : 246.7 },
+        { "name" : "荣昌县" , "position" : "", "salary"  : 229.8 },
+        { "name" : "开县" , "position" : "", "salary"  : 229.6 },
+        { "name" : "铜梁县" , "position" : "", "salary"  : 226.2 },
+        { "name" : "南川区" , "position" : "", "salary"  : 176.2 },
+        { "name" : "垫江县" , "position" : "", "salary"  : 168.8 },
+        { "name" : "潼南县" , "position" : "", "salary"  : 162.8 },
+        { "name" : "忠县" , "position" : "", "salary"  : 156.8 },
+        { "name" : "梁平县" , "position" : "", "salary"  : 156.7 },
+        { "name" : "黔江区" , "position" : "", "salary"  : 148.0 },
+        { "name" : "奉节县" , "position" : "", "salary"  : 144.6 },
+        { "name" : "大渡口区" , "position" : "", "salary"  : 127.1 },
+        { "name" : "云阳县" , "position" : "", "salary"  : 126.6 },
+        { "name" : "丰都县" , "position" : "", "salary"  : 111.1 },
+        { "name" : "秀山县" , "position" : "", "salary"  : 106.1 },
+        { "name" : "武隆县" , "position" : "", "salary"  : 98.4 },
+        { "name" : "石柱县" , "position" : "", "salary"  : 93.1 },
+        { "name" : "酉阳县" , "position" : "", "salary"  : 89.3 },
+        { "name" : "彭水县" , "position" : "", "salary"  : 85.8 },
+        { "name" : "巫山县" , "position" : "", "salary"  : 70.4 },
+        { "name" : "巫溪县" , "position" : "", "salary"  : 53.1 },
+        { "name" : "城口县" , "position" : "", "salary"  : 40.8 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [91.11,29.97]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "xizang",
+        "payroll" : 695.6,
+        "ballpark" : "U.S. Cellular Field",
+        "city" : "西藏",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "拉萨" , "position" : "Starting Pitcher", "salary"  : 262.6 },
+        { "name" : "日喀则" , "position" : "Starting Pitcher", "salary"  : 124.5 },
+        { "name" : "昌都" , "position" : "Designated Hitter", "salary"  : 91.7 },
+        { "name" : "山南" , "position" : "Center Field", "salary"  : 72.6 },
+        { "name" : "林芝" , "position" : "First Base", "salary"  : 70.6 },
+        { "name" : "那曲" , "position" : "Starting Pitcher", "salary"  : 65.6 },
+        { "name" : "阿里" , "position" : "Relief Pitcher", "salary"  : 24.2 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [87.68,43.77]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "xinjiang",
+        "payroll" : 7466.3,
+        "ballpark" : "Wrigley Field",
+        "city" : "新疆",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "乌鲁木齐" , "position" : "Left Field", "salary"  : 2060.0 },
+        { "name" : "巴音郭勒" , "position" : "Starting Pitcher", "salary"  : 906.0 },
+        { "name" : "昌吉" , "position" : "Starting Pitcher", "salary"  : 826.0 },
+        { "name" : "克拉玛依" , "position" : "Relief Pitcher", "salary"  : 810.0 },
+        { "name" : "伊犁州直" , "position" : "Starting Pitcher", "salary"  : 610.0 },
+        { "name" : "喀什" , "position" : "", "salary"  : 517.0 },
+        { "name" : "阿克苏" , "position" : "", "salary"  : 455.0 },
+        { "name" : "塔城" , "position" : "", "salary"  : 413.0 },
+        { "name" : "哈密" , "position" : "", "salary"  : 274.6 },
+        { "name" : "吐鲁番" , "position" : "", "salary"  : 244.6 },
+        { "name" : "石河子" , "position" : "", "salary"  : 209.0 },
+        { "name" : "博尔塔拉" , "position" : "", "salary"  : 183.0 },
+        { "name" : "阿勒泰" , "position" : "", "salary"  : 180.0 },
+        { "name" : "五家渠" , "position" : "", "salary"  : 165.0 },
+        { "name" : "阿拉尔" , "position" : "", "salary"  : 163.0 },
+        { "name" : "和田" , "position" : "", "salary"  : 145.0 },
+        { "name" : "克孜勒苏" , "position" : "", "salary"  : 60.0 },
+        { "name" : "图木舒克" , "position" : "", "salary"  : 53.7 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [106.27,38.47]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "ningxia",
+        "payroll" : 2326.6,
+        "ballpark" : "Progressive Field",
+        "city" : "宁夏",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "银川" , "position" : "Relief Pitcher", "salary"  : 1140.8 },
+        { "name" : "石嘴山" , "position" : "First Base", "salary"  : 407.8 },
+        { "name" : "吴忠" , "position" : "Third Base", "salary"  : 312.1 },
+        { "name" : "中卫" , "position" : "Center Field", "salary"  : 247.0 },
+        { "name" : "固原" , "position" : "Shortstop", "salary"  : 154.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [111.65,40.82]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "neimenggu",
+        "payroll" : 15988.3,
+        "ballpark" : "Great American Ballpark",
+        "city" : "内蒙古",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "鄂尔多斯" , "position" : "First Base", "salary"  : 3660.5 },
+        { "name" : "包头" , "position" : "Second Base", "salary"  : 3409.5 },
+        { "name" : "呼和浩特" , "position" : "Starting Pitcher", "salary"  : 2525.6 },
+        { "name" : "通辽" , "position" : "", "salary"  : 1800.0 },
+        { "name" : "赤峰" , "position" : "Right Field", "salary"  : 1569.4 },
+        { "name" : "呼伦贝尔" , "position" : "", "salary"  : 1368.0 },
+        { "name" : "锡林郭勒盟" , "position" : "", "salary"  : 820.2 },
+        { "name" : "巴彦淖尔" , "position" : "", "salary"  : 815.5 },
+        { "name" : "乌兰察布" , "position" : "", "salary"  : 780.0 },
+        { "name" : "乌海" , "position" : "", "salary"  : 560 },
+        { "name" : "阿拉善盟" , "position" : "", "salary"  : 454.8 },
+        { "name" : "兴安盟" , "position" : "", "salary"  : 385.2 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [108.33,22.84]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "guangxi",
+        "payroll" : 13031.0,
+        "ballpark" : "Comerica Park",
+        "city" : "广西",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "南宁" , "position" : "First Base", "salary"  : 2503.6 },
+        { "name" : "柳州" , "position" : "Third Base", "salary"  : 1846.0 },
+        { "name" : "桂林" , "position" : "Starting Pitcher", "salary"  : 1492.1 },
+        { "name" : "玉林" , "position" : "Right Field", "salary"  : 1120.5 },
+        { "name" : "梧州" , "position" : "Catcher", "salary"  : 831.0 },
+        { "name" : "百色" , "position" : "", "salary"  : 746.2 },
+        { "name" : "钦州" , "position" : "", "salary"  : 724.5 },
+        { "name" : "贵港" , "position" : "", "salary"  : 677.4 },
+        { "name" : "北海" , "position" : "", "salary"  : 630.8 },
+        { "name" : "崇左" , "position" : "", "salary"  : 530.8 },
+        { "name" : "来宾" , "position" : "", "salary"  : 519.2 },
+        { "name" : "河池" , "position" : "", "salary"  : 497.5 },
+        { "name" : "防城港" , "position" : "", "salary"  : 457.5 },
+        { "name" : "贺州" , "position" : "", "salary"  : 393.9 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [126.63,45.75]
+    },
+    "properties" : {
+      "team" : {
+        "payroll" : 13691.6,
+        "ballpark" : "Coors Field",
+        "city" : "黑龙江",
+        "league" : "National League",
+        "year" : "2013",
+        "name": "heilongjiang"
+      },
+      "children" : [
+        { "name" : "哈尔滨" , "position" : "Starting Pitcher", "salary"  : 4587.1 },
+        { "name" : "大庆" , "position" : "Right Field", "salary"  : 4152.3 },
+        { "name" : "齐齐哈尔" , "position" : "Shortstop", "salary"  : 1153.8 },
+        { "name" : "牡丹江" , "position" : "Left Field", "salary"  : 1092.7 },
+        { "name" : "绥化" , "position" : "First Base", "salary"  : 1058.0 },
+        { "name" : "佳木斯" , "position" : "Relief Pitcher", "salary"  : 707.6 },
+        { "name" : "鸡西" , "position" : "Relief Pitcher", "salary"  : 582.3 },
+        { "name" : "双鸭山" , "position" : "", "salary"  : 565.4 },
+        { "name" : "黑河" , "position" : "Center Fielder", "salary"  : 366.2 },
+        { "name" : "鹤岗" , "position" : "", "salary"  : 357.6 },
+        { "name" : "七台河" , "position" : "", "salary"  : 298.9 },
+        { "name" : "伊春" , "position" : "", "salary"  : 260.0 },
+        { "name" : "大兴安岭" , "position" : "", "salary"  : 146.9 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [125.35,43.88]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "jilin",
+        "payroll" : 11937.8,
+        "ballpark" : "Minute Maid Park",
+        "city" : "吉林",
+        "league": "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "长春" , "position" : "Starting Pitcher", "salary"  : 4506.6 },
+        { "name" : "吉林" , "position" : "First Base", "salary"  : 2690.0 },
+        { "name" : "松原" , "position" : "Relief Pitcher", "salary"  : 1605.0 },
+        { "name" : "四平" , "position" : "", "salary"  : 1186.0 },
+        { "name" : "通化" , "position" : "", "salary"  : 910.0 },
+        { "name" : "延边" , "position" : "", "salary"  : 765.1 },
+        { "name" : "白山" , "position" : "", "salary"  : 654.0 },
+        { "name" : "白城" , "position" : "", "salary"  : 650.0 },
+        { "name" : "辽源" , "position" : "", "salary"  : 625.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [123.38,41.8]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "liaoning",
+        "payroll" : 24801.3,
+        "ballpark" : "Dodger Stadium",
+        "city" : "辽宁",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "大连" , "position" : "First Base", "salary"  : 7002.8 },
+        { "name" : "沈阳" , "position" : "Center Field", "salary"  : 6700.0 },
+        { "name" : "鞍山" , "position" : "", "salary"  : 2687.1 },
+        { "name" : "营口" , "position" : "Starting Pitcher", "salary"  : 1390.0 },
+        { "name" : "盘锦" , "position" : "Starting Pitcher", "salary"  : 1330.0 },
+        { "name" : "锦州" , "position" : "", "salary"  : 1270.0 },
+        { "name" : "抚顺" , "position" : "", "salary"  : 1230.0 },
+        { "name" : "本溪" , "position" : "", "salary"  : 1130.0 },
+        { "name" : "丹东" , "position" : "", "salary"  : 1022.0 },
+        { "name" : "铁岭" , "position" : "", "salary"  : 1015.0 },
+        { "name" : "辽阳" , "position" : "", "salary"  : 1000.0 },
+        { "name" : "向阳" , "position" : "", "salary"  : 964.0 },
+        { "name" : "葫芦岛" , "position" : "", "salary"  : 715.0 },
+        { "name" : "阜新" , "position" : "", "salary"  : 560.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [114.48,38.03]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "hebei",
+        "payroll" : 26575.0,
+        "ballpark" : "Kauffman Stadium",
+        "city" : "河北",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "唐山" , "position" : "", "salary"  : 5861.6 },
+        { "name" : "石家庄" , "position" : "", "salary"  : 4500.2 },
+        { "name" : "邯郸" , "position" : "", "salary"  : 3023.7 },
+        { "name" : "沧州" , "position" : "", "salary"  : 2811.9 },
+        { "name" : "保定" , "position" : "", "salary"  : 2720.9 },
+        { "name" : "廊坊" , "position" : "", "salary"  : 1793.8 },
+        { "name" : "邢台" , "position" : "", "salary"  : 1532.0 },
+        { "name" : "张家口" , "position" : "", "salary"  : 1233.7 },
+        { "name" : "承德" , "position" : "", "salary"  : 1180.9 },
+        { "name" : "秦皇岛" , "position" : "", "salary"  : 1139.2 },
+        { "name" : "衡水" , "position" : "", "salary"  : 1027.5 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [112.53,37.87]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "shanxi",
+        "payroll" : 12112.8,
+        "ballpark" : "Marlins Park",
+        "city" : "山西",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "太原" , "position" : "", "salary"  : 2311.4 },
+        { "name" : "长治" , "position" : "", "salary"  : 1328.0 },
+        { "name" : "吕梁" , "position" : "", "salary"  : 1230.4 },
+        { "name" : "临汾" , "position" : "", "salary"  : 1220.5 },
+        { "name" : "运城" , "position" : "", "salary"  : 1068.1 },
+        { "name" : "晋城" , "position" : "", "salary"  : 1011.6 },
+        { "name" : "朔州" , "position" : "", "salary"  : 1007.1 },
+        { "name" : "晋中" , "position" : "", "salary"  : 985.9 },
+        { "name" : "大同" , "position" : "", "salary"  : 931.3 },
+        { "name" : "沂州" , "position" : "", "salary"  : 620.9 },
+        { "name" : "阳泉" , "position" : "", "salary"  : 602.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [101.74,36.56]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "qinghai",
+        "payroll" : 1884.5,
+        "ballpark" : "Angel Stadium",
+        "city" : "青海",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "西宁" , "position" : "Center Field", "salary"  : 851.1 },
+        { "name" : "海西" , "position" : "Left Field", "salary"  : 570.3 },
+        { "name" : "海东" , "position" : "Starting Pitcher", "salary"  : 271.3 },
+        { "name" : "海南" , "position" : "First Base", "salary"  : 104.4 },
+        { "name" : "海北" , "position" : "", "salary"  : 96.0 },
+        { "name" : "黄南" , "position" : "", "salary"  : 55.2 },
+        { "name" : "玉树" , "position" : "", "salary"  : 46.3 },
+        { "name" : "果洛" , "position" : "", "salary"  : 30.6 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [117,36.65]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "shandong",
+        "payroll" : 50013.2,
+        "ballpark" : "Miller Park",
+        "city" : "山东",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "青岛" , "position" : "Second Base", "salary"  : 7302.1 },
+        { "name" : "烟台" , "position" : "Right Field", "salary"  :  5280 },
+        { "name" : "济南" , "position" : "Third Base", "salary"  : 4812.7 },
+        { "name" : "潍坊" , "position" : "Left Field", "salary"  : 4012.0 },
+        { "name" : "淄博" , "position" : "Starting Pitcher", "salary"  : 3557.2 },
+        { "name" : "济宁" , "position" : "Relief Pitcher", "salary"  : 3210.0 },
+        { "name" : "临沂" , "position" : "Center Field", "salary"  : 3012.8 },
+        { "name" : "东营" , "position" : "Starting Pitcher", "salary"  : 3000.7 },
+        { "name" : "泰安" , "position" : "Relief Pitcher", "salary"  : 2604.0 },
+        { "name" : "威海" , "position" : "Relief Pitcher", "salary"  : 2330.0 },
+        { "name" : "德州" , "position" : "Shortstop", "salary"  : 2230.0 },
+        { "name" : "聊城" , "position" : "Center Field", "salary"  : 2150.0 },
+        { "name" : "滨州" , "position" : "Catcher", "salary"  : 2015.0 },
+        { "name" : "菏泽" , "position" : "Relief Pitcher", "salary"  : 1770.0 },
+        { "name" : "枣庄" , "position" : "Shortstop", "salary"  : 1700.0 },
+        { "name" : "日照" , "position" : "Center Field", "salary"  : 1360.0 },
+        { "name" : "莱芜" , "position" : "Catcher", "salary"  : 630.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [113.65,34.76]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "henan",
+        "payroll" : 29810.1,
+        "ballpark" : "Target Field",
+        "city" : "河南",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "郑州" , "position" : "Catcher", "salary"  : 5547.0 },
+        { "name" : "洛阳" , "position" : "", "salary"  : 3001.1},
+        { "name" : "南阳" , "position" : "", "salary"  : 2367.2 },
+        { "name" : "许昌" , "position" : "", "salary"  : 1739.0 },
+        { "name" : "新乡" , "position" : "", "salary"  : 1618.9 },
+        { "name" : "安阳" , "position" : "", "salary"  : 1592.9 },
+        { "name" : "周口" , "position" : "", "salary"  : 1592.4 },
+        { "name" : "焦作" , "position" : "", "salary"  : 1576.3 },
+        { "name" : "平顶山" , "position" : "", "salary"  : 1502.0 },
+        { "name" : "商丘" , "position" : "", "salary"  : 1418.3 },
+        { "name" : "信阳" , "position" : "", "salary"  : 1408.7 },
+        { "name" : "驻马店" , "position" : "", "salary"  : 1387.0 },
+        { "name" : "开封" , "position" : "", "salary"  : 1212.1 },
+        { "name" : "三门峡" , "position" : "", "salary"  : 1148.8 },
+        { "name" : "濮阳" , "position" : "", "salary"  : 994.5 },
+        { "name" : "漯河" , "position" : "", "salary"  : 812.4 },
+        { "name" : "鹤壁" , "position" : "", "salary"  : 553.4 },
+        { "name" : "济源" , "position" : "", "salary"  : 440.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [118.78,32.04]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "jiangsu",
+        "payroll" : 54058.2,
+        "ballpark" : "Citi Field",
+        "city" : "江苏",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "苏州" , "position" : "Starting Pitcher", "salary"  : 12011.7 },
+        { "name" : "无锡" , "position" : "", "salary"  : 7568.2 },
+        { "name" : "南京" , "position" : "", "salary"  : 7201.6 },
+        { "name" : "南通" , "position" : "", "salary"  : 4558.7 },
+        { "name" : "徐州" , "position" : "", "salary"  : 4016.6 },
+        { "name" : "常州" , "position" : "", "salary"  : 3969.8 },
+        { "name" : "盐城" , "position" : "", "salary"  : 3120.0 },
+        { "name" : "扬州" , "position" : "", "salary"  : 2933.2 },
+        { "name" : "泰州" , "position" : "", "salary"  : 2701.7 },
+        { "name" : "镇江" , "position" : "", "salary"  : 2630.1 },
+        { "name" : "淮安" , "position" : "", "salary"  : 1920.9 },
+        { "name" : "连云港" , "position" : "", "salary"  : 1603.4 },
+        { "name" : "宿迁" , "position" : "", "salary"  : 1516.8 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [117.27,31.86]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "anhui",
+        "payroll" : 17212.1,
+        "ballpark" : "Yankee Stadium",
+        "city" : "安徽",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "合肥" , "position" : "Third Base", "salary"  : 4188.6 },
+        { "name" : "芜湖" , "position" : "First Base", "salary"  : 1873.6 },
+        { "name" : "安庆" , "position" : "Starting Pitcher", "salary"  : 1359.7 },
+        { "name" : "马鞍山" , "position" : "", "salary"  : 1232.0 },
+        { "name" : "滁州" , "position" : "Shortstop", "salary"  : 970.7 },
+        { "name" : "阜阳" , "position" : "", "salary"  : 962.5 },
+        { "name" : "六安" , "position" : "", "salary"  : 918.2 },
+        { "name" : "宿州" , "position" : "", "salary"  : 915.0 },
+        { "name" : "蚌埠" , "position" : "", "salary"  : 890.2 },
+        { "name" : "淮南" , "position" : "", "salary"  : 781.8 },
+        { "name" : "宣城" , "position" : "", "salary"  : 757.5 },
+        { "name" : "亳州" , "position" : "", "salary"  : 715.7 },
+        { "name" : "铜陵" , "position" : "", "salary"  : 621.3 },
+        { "name" : "淮北" , "position" : "", "salary"  : 620.5 },
+        { "name" : "黄山" , "position" : "", "salary"  : 424.9 },
+        { "name" : "池州" , "position" : "", "salary"  : 417.4 }
+      ]
+    }
+  }, 
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [120.19,30.26]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "zhejiang",
+        "payroll" : 34606.3,
+        "ballpark" : "Citizens Bank Park",
+        "city" : "浙江",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "杭州" , "position" : "Starting Pitcher", "salary"  : 7804.0 },
+        { "name" : "宁波" , "position" : "Starting Pitcher", "salary"  : 6524.7 },
+        { "name" : "温州" , "position" : "", "salary"  : 3650.1 },
+        { "name" : "嘉兴" , "position" : "", "salary"  : 2884.9 },
+        { "name" : "湖州" , "position" : "", "salary"  : 1662.0 },
+        { "name" : "绍兴" , "position" : "", "salary"  : 3620.1 },
+        { "name" : "金华" , "position" : "", "salary"  : 2700.1 },
+        { "name" : "义乌" , "position" : "", "salary"  : 802.9 },
+        { "name" : "衢州" , "position" : "", "salary"  : 982.8 },
+        { "name" : "舟山" , "position" : "", "salary"  : 852.0 },
+        { "name" : "台州" , "position" : "", "salary"  : 2927.3 },
+        { "name" : "丽水" , "position" : "", "salary"  : 885.2 } 
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [119.3,26.08]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "fujian",
+        "payroll" : 19701.8,
+        "ballpark" : "O.co Coliseum",
+        "city" : "福建",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "泉州" , "position" : "", "salary"  : 4726.5 },
+        { "name" : "福州" , "position" : "", "salary"  : 4218.3 },
+        { "name" : "厦门" , "position" : "", "salary"  : 2817.1 },
+        { "name" : "漳州" , "position" : "", "salary"  : 2017.8 },
+        { "name" : "龙岩" , "position" : "", "salary"  : 1375.0 },
+        { "name" : "三明" , "position" : "", "salary"  : 1343.0 },
+        { "name" : "莆田" , "position" : "", "salary"  : 1202.8 },
+        { "name" : "宁德" , "position" : "", "salary"  : 1077.7 },
+        { "name" : "南平" , "position" : "", "salary"  : 996.8 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [115.89,28.68]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "jiangxi",
+        "payroll" : 12948.5,
+        "ballpark" : "PNC Park",
+        "city" : "江西",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "南昌" , "position" : "", "salary"  : 3000.5 },
+        { "name" : "赣州" , "position" : "", "salary"  : 1508.4 },
+        { "name" : "九江" , "position" : "", "salary"  : 1420.1 },
+        { "name" : "上饶" , "position" : "", "salary"  : 1265.4 },
+        { "name" : "宜春" , "position" : "", "salary"  : 1247.6 },
+        { "name" : "吉安" , "position" : "", "salary"  : 1006.3 },
+        { "name" : "新余" , "position" : "", "salary"  : 830.3 },
+        { "name" : "抚州" , "position" : "", "salary"  : 825.0 },
+        { "name" : "萍乡" , "position" : "", "salary"  : 733.1 },
+        { "name" : "景德镇" , "position" : "", "salary"  : 628.3 },
+        { "name" : "鹰潭" , "position" : "", "salary"  : 482.2 }
+      ]
+    }
+  }, 
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [113,28.21]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "hunan",
+        "payroll" : 22154.2,
+        "ballpark" : "Safeco Field",
+        "city" : "湖南", 
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "长沙" , "position" : "Starting Pitcher", "salary"  : 6399.9 },
+        { "name" : "岳阳" , "position" : "", "salary"  : 2199.9 },
+        { "name" : "常德" , "position" : "", "salary"  : 2038.5 },
+        { "name" : "衡阳" , "position" : "", "salary"  : 1957.7 },
+        { "name" : "株洲" , "position" : "", "salary"  : 1759.4 },
+        { "name" : "郴州" , "position" : "", "salary"  : 1517.3 },
+        { "name" : "湘潭" , "position" : "", "salary"  : 1282.4 },
+        { "name" : "永州" , "position" : "", "salary"  : 1048.6 },
+        { "name" : "邵阳" , "position" : "", "salary"  : 1028.4 },
+        { "name" : "益阳" , "position" : "", "salary"  : 1020.28 },
+        { "name" : "娄底" , "position" : "", "salary"  : 1002.7 },
+        { "name" : "怀化" , "position" : "", "salary"  : 1001.1 },
+        { "name" : "湘西州" , "position" : "", "salary"  : 397.7 },
+        { "name" : "张家界" , "position" : "", "salary"  : 339.0 }
+      ]
+    }
+  }, 
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [114.31,30.52]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "hubei",
+        "payroll" : 22250.2,
+        "ballpark" : "PETCO Park",
+        "city" : "湖北",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "武汉" , "position" : "", "salary"  : 8003.8 },
+        { "name" : "宜昌" , "position" : "", "salary"  : 2508.9 },
+        { "name" : "襄阳" , "position" : "", "salary"  : 2502.0 },
+        { "name" : "荆州" , "position" : "", "salary"  : 1196.0 },
+        { "name" : "黄冈" , "position" : "", "salary"  : 1192.9 },
+        { "name" : "孝感" , "position" : "", "salary"  : 1105.2 },
+        { "name" : "荆门" , "position" : "", "salary"  : 1085.3 },
+        { "name" : "黄石" , "position" : "", "salary"  : 1041.0 },
+        { "name" : "十堰" , "position" : "", "salary"  : 955.7 },
+        { "name" : "咸宁" , "position" : "", "salary"  : 761.0 },
+        { "name" : "随州" , "position" : "", "salary"  : 590.5 },
+        { "name" : "鄂州" , "position" : "", "salary"  : 560.4 },
+        { "name" : "恩施" , "position" : "", "salary"  : 482.2 },
+        { "name" : "仙桃" , "position" : "", "salary"  : 444.2 },
+        { "name" : "潜江" , "position" : "", "salary"  : 441.8 },
+        { "name" : "天门" , "position" : "", "salary"  : 321.2 },
+        { "name" : "神农架" , "position" : "", "salary"  : 16.81 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [113.23,23.16]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "guangdong",
+        "payroll" : 57067.9,
+        "ballpark" : "Tropicana Field",
+        "city" : "广东",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "广州" , "position" : "", "salary"  : 13501.2 },
+        { "name" : "深圳" , "position" : "", "salary"  : 12950.1 },
+        { "name" : "佛山" , "position" : "", "salary"  : 6709.0 },
+        { "name" : "东莞" , "position" : "", "salary"  : 5010.1 },
+        { "name" : "中山" , "position" : "", "salary"  : 2441.0 },
+        { "name" : "惠州" , "position" : "", "salary"  : 2368.0 },
+        { "name" : "茂名" , "position" : "", "salary"  : 1951.2 },
+        { "name" : "江门" , "position" : "", "salary"  : 1910.1 },
+        { "name" : "湛江" , "position" : "", "salary"  : 1870.2 },
+        { "name" : "珠海" , "position" : "", "salary"  : 1503.8 },
+        { "name" : "肇庆" , "position" : "", "salary"  : 1453.8 },
+        { "name" : "汕头" , "position" : "", "salary"  : 1415.0 },
+        { "name" : "揭阳" , "position" : "", "salary"  : 1380.2 },
+        { "name" : "清远" , "position" : "", "salary"  : 1029.0 },
+        { "name" : "韶关" , "position" : "", "salary"  : 888.5 },
+        { "name" : "阳江" , "position" : "", "salary"  : 877.0 },
+        { "name" : "梅州" , "position" : "", "salary"  : 746.0 },
+        { "name" : "潮州" , "position" : "", "salary"  : 706.5 },
+        { "name" : "河源" , "position" : "", "salary"  : 615.3 },
+        { "name" : "汕尾" , "position" : "", "salary"  : 610.4 },
+        { "name" : "云浮" , "position" : "", "salary"  : 540.5 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [110.35,20.02]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "hainan",
+        "payroll" : 2855.3,
+        "ballpark" : "AT&T Park",
+        "city" : "海南",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "海口" , "position" : "", "salary"  : 820.6 },
+        { "name" : "三亚" , "position" : "Starting Pitcher", "salary"  : 330.8 },
+        { "name" : "儋州" , "position" : "Starting Pitcher", "salary"  : 176.8 },
+        { "name" : "澄迈" , "position" : "", "salary"  : 170.5 },
+        { "name" : "文昌" , "position" : "", "salary"  : 158.6 },
+        { "name" : "琼海" , "position" : "", "salary"  : 145.1 },
+        { "name" : "万宁" , "position" : "", "salary"  : 135.0 },
+        { "name" : "东方" , "position" : "", "salary"  : 114.1 },
+        { "name" : "临高" , "position" : "", "salary"  : 103.4 },
+        { "name" : "昌江" , "position" : "", "salary"  : 81.1 },
+        { "name" : "乐东" , "position" : "", "salary"  : 72.4 },
+        { "name" : "陵水" , "position" : "", "salary"  : 71.6 },
+        { "name" : "定安" , "position" : "", "salary"  : 55.2 },
+        { "name" : "屯昌" , "position" : "", "salary"  : 43.3 },
+        { "name" : "白沙" , "position" : "", "salary"  : 31.4 },
+        { "name" : "保亭" , "position" : "", "salary"  : 26.5 },
+        { "name" : "琼中" , "position" : "", "salary"  : 25.9 },
+        { "name" : "五指山" , "position" : "", "salary"  : 16.6 } 
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [103.73,36.03]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "gansu",
+        "payroll" : 5650.2,
+        "ballpark" : "Rangers Ballpark in Arlington",
+        "city" : "甘肃",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "兰州" , "position" : "Third Base", "salary"  : 1570.0 },
+        { "name" : "酒泉" , "position" : "", "salary"  : 576.0 },
+        { "name" : "庆阳" , "position" : "", "salary"  : 534.1 },
+        { "name" : "白银" , "position" : "", "salary"  : 435.0 },
+        { "name" : "天水" , "position" : "", "salary"  : 416.0 },
+        { "name" : "平凉" , "position" : "", "salary"  : 325.0 },
+        { "name" : "武威" , "position" : "", "salary"  : 320.0 },
+        { "name" : "张掖" , "position" : "", "salary"  : 288.0 },
+        { "name" : "嘉峪关" , "position" : "", "salary"  : 251.8 },
+        { "name" : "金昌" , "position" : "", "salary"  : 243.0 },
+        { "name" : "陇南" , "position" : "", "salary"  : 223.4 },
+        { "name" : "定西" , "position" : "", "salary"  : 215.0},
+        { "name" : "临夏" , "position" : "", "salary"  : 148.5 },
+        { "name" : "甘南" , "position" : "", "salary"  : 96.8 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [108.95,34.27]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "shaanxi",
+        "payroll" : 14451.2,
+        "ballpark" : "Busch Stadium",
+        "city" : "陕西",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "西安" , "position" : "Left Field", "salary"  : 4369.4 },
+        { "name" : "榆林" , "position" : "", "salary"  : 2769.2 },
+        { "name" : "咸阳" , "position" : "", "salary"  : 1616.8 },
+        { "name" : "宝鸡" , "position" : "", "salary"  : 1409.9 },
+        { "name" : "延安" , "position" : "", "salary"  : 1271.0 },
+        { "name" : "渭南" , "position" : "", "salary"  : 1212.5 },
+        { "name" : "汉中" , "position" : "", "salary"  : 772.3 },
+        { "name" : "安康" , "position" : "", "salary"  : 513.6 },
+        { "name" : "商洛" , "position" : "", "salary"  : 439.8 },
+        { "name" : "铜川" , "position" : "", "salary"  : 282.9 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [104.06,30.67]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "sichuan",
+        "payroll" : 23849.8,
+        "ballpark" : "Rogers Stadium",
+        "city" : "四川",
+        "league" : "American League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "成都" , "position" : "", "salary"  : 8138.9 },
+        { "name" : "绵阳" , "position" : "", "salary"  : 1346.4 },
+        { "name" : "德阳" , "position" : "", "salary"  : 1280.2 },
+        { "name" : "宜宾" , "position" : "", "salary"  : 1242.8 },
+        { "name" : "南充" , "position" : "", "salary"  : 1180.4 },
+        { "name" : "达州" , "position" : "", "salary"  : 1135.5 },
+        { "name" : "凉山州" , "position" : "", "salary"  : 1122.7 },
+        { "name" : "乐山" , "position" : "", "salary"  : 1037.8 },
+        { "name" : "泸州" , "position" : "", "salary"  : 1030.5 },
+        { "name" : "资阳" , "position" : "", "salary"  : 984.7 },
+        { "name" : "内江" , "position" : "", "salary"  : 978.2 },
+        { "name" : "自贡" , "position" : "", "salary"  : 884.8 },
+        { "name" : "眉山" , "position" : "", "salary"  : 775.2 },
+        { "name" : "广安" , "position" : "", "salary"  : 752.2 },
+        { "name" : "雅安" , "position" : "", "salary"  : 398.1 },
+        { "name" : "巴中" , "position" : "", "salary"  : 390.4 },
+        { "name" : "阿坝州" , "position" : "", "salary"  : 203.7 },
+        { "name" : "甘孜州" , "position" : "", "salary"  : 175.0 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [106.71,26.57]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "guizhou",
+        "payroll" : 6802.2,
+        "ballpark" : "Nationals Park",
+        "city" : "贵州",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "贵阳" , "position" : "Right Field", "salary"  : 1700.3 },
+        { "name" : "遵义" , "position" : "", "salary"  : 1370.0 },
+        { "name" : "毕节" , "position" : "", "salary"  : 872.4 },
+        { "name" : "六盘水" , "position" : "", "salary"  : 738.7 },
+        { "name" : "黔南" , "position" : "", "salary"  : 530.0 },
+        { "name" : "黔东南" , "position" : "", "salary"  : 474.5 },
+        { "name" : "黔西南" , "position" : "", "salary"  : 458.7 },
+        { "name" : "铜仁" , "position" : "", "salary"  : 447.0 },
+        { "name" : "安顺" , "position" : "", "salary"  : 350.7 }
+      ]
+    }
+  },
+  {
+    "geometry" : {
+      "type": "Point",
+      "coordinates" : [102.73,25.04]
+    },
+    "properties" : {
+      "team" : {
+        "name" : "yunnan",
+        "payroll" : 10309.8,
+        "ballpark" : "Nationals Park",
+        "city" : "云南",
+        "league" : "National League",
+        "year" : "2013"
+      },
+      "children" : [
+        { "name" : "昆明" , "position" : "Right Field", "salary"  : 3011.1 },
+        { "name" : "曲靖" , "position" : "", "salary"  : 1451.3 },
+        { "name" : "玉溪" , "position" : "", "salary"  : 1000.2 },
+        { "name" : "红河" , "position" : "", "salary"  : 905.4 },
+        { "name" : "大理" , "position" : "", "salary"  : 672.1 },
+        { "name" : "楚雄" , "position" : "", "salary"  : 570.0 },
+        { "name" : "昭通" , "position" : "", "salary"  : 555.6 },
+        { "name" : "文山" , "position" : "", "salary"  : 478.0 },
+        { "name" : "保山" , "position" : "", "salary"  : 389.0 },
+        { "name" : "普洱" , "position" : "", "salary"  : 366.0 },
+        { "name" : "临沧" , "position" : "", "salary"  : 352.0 },
+        { "name" : "西双版纳" , "position" : "", "salary"  : 232.6 },
+        { "name" : "丽江" , "position" : "", "salary"  : 212.0 },
+        { "name" : "德宏" , "position" : "", "salary"  : 201.7 },
+        { "name" : "迪庆" , "position" : "", "salary"  : 113.6 },
+        { "name" : "怒江" , "position" : "", "salary"  : 74.0 }
+      ]
+    }
+  }
+  ]
+}

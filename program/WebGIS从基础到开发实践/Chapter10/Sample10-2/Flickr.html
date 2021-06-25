@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>混搭Flickr的相册服务</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="Flickr.js"></script>
+</head>
+<body class="tundra">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
+         data-dojo-props="design:'headline'">
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'center'" style="overflow:hidden;">
+        </div>
+        <div class="bg" style="position:fixed;bottom:10px;right:10px;">
+            实时绘制来自Flickr的公有GeoRSS提要
+        </div>
+        <div class="bg" id="info" style="position:fixed;top:10px;right:10px;">
+        </div>
+        <div class="bg" style="position:fixed;bottom:10px;left:10px;">
+            标签<input type="text" size="10" value="nature" id="searchbox"/>
+            <span style="cursor:pointer;border:1px solid #ccc;padding:2px;margin-left:5px;font-size:8pt" onclick="app.search()">过滤</span>
+        </div>
+    </div>
+</body>
+</html>

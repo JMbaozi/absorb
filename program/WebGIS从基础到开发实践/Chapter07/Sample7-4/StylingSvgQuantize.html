@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Quantize</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/jsapi.css"/>
+
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 0.90em;
+        }
+
+        path[data-classification="0"] {
+            fill: none;
+            stroke: #f5cb00;
+            stroke-width: 3;
+            stroke-opacity: 1;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        path[data-classification="1"] {
+            fill: none;
+            stroke: #f67682;
+            stroke-width: 5;
+            stroke-opacity: 0.85;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        path[data-classification="2"] {
+            fill: none;
+            stroke: #f75e64;
+            stroke-width: 8;
+            stroke-opacity: 0.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        path[data-classification="3"] {
+            fill: none;
+            stroke: #f72d3f;
+            stroke-width: 11;
+            stroke-opacity: 0.45;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        path[data-classification="4"] {
+            fill: none;
+            stroke: #F70019;
+            stroke-width: 22;
+            stroke-opacity: 0.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        #legend svg {
+            vertical-align: middle;
+        }
+    </style>
+    <script src="http://d3js.org/d3.v3.min.js"></script>    
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        require([
+            "esri/map", "esri/layers/ArcGISTiledMapServiceLayer",
+            "esri/layers/FeatureLayer",
+            "dojo/_base/array",
+            "dojo/number",
+            "dojo/domReady!"
+        ], function (Map, ArcGISTiledMapServiceLayer, FeatureLayer, array, number) {
+
+            var map = new Map("map");
+            var agoServiceURL = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+            var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+            map.addLayer(agoLayer);
+
+            var earthquakes = new FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/Since_1970/MapServer/0", {
+                id: "earthquakes",
+                styling: false
+            });
+
+            var quantize;
+            if (earthquakes.surfaceType === "svg") {                
+                quantize = d3.scale.quantize().domain([0, 9]).range(d3.range(5));
+
+                earthquakes.on("graphic-draw", function (evt) {
+                    var attrs = evt.graphic.attributes;
+                    var magnitude = (attrs && attrs.Magnitude) || undefined;
+                    var range = quantize(magnitude);
+                    evt.node.setAttribute("data-classification", range);
+                });
+                createLegend();
+            } else {
+                alert("本浏览器不支持SVG。");
+                document.getElementById("legend").innerHTML = "本浏览器不支持SVG。";
+            }
+            map.addLayer(earthquakes);
+
+            function createLegend() {
+                var swatchTemplate = '<div>' + '<svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M 11 11 L 12 11 L 12 12 L 11 12 Z" data-classification="${classification}" />' +
+                    '</svg>' + '<span>${label}</span>' + '</div>';
+
+                var html = "", inverted, data;
+                var legend = document.getElementById("legend");
+                array.forEach(quantize.range(), function (rangeVal) {
+                    inverted = quantize.invertExtent(rangeVal);
+                    data = {
+                        label: number.format(inverted[0], { places: 2 }) + " - " + number.format(inverted[1], { places: 2 }),
+                        classification: rangeVal
+                    };
+                    html += esri.substitute(data, swatchTemplate);
+                });
+                legend.innerHTML = legend.innerHTML + html;
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="map" style="height: 100%; width: 100%;">
+        <div style="font-family: Lucida Grande,Helvetica,Arial,Verdana,sans-serif; font-size: 14px; position: absolute; right: 30px; top: 20px; z-index: 100; padding: 5px; border: 2px solid #666666; border-radius: 5px; background-color: white;">
+            <div id="legend">
+                <div style="padding: 6px; text-align: center;">
+                    地震强度
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

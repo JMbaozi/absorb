@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>测试</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <link rel="stylesheet" href="js/webgis2book/widgets/themes/darkangel/darkangel.css" />
+    <link rel="stylesheet" href="js/webgis2book/widgets/themes/darkangel/override.css" />
+    <script>
+        var dojoConfig = {
+            locale: 'en',
+            isDebug: true,
+            async: true,            
+            packages: [{
+                "name": "webgis2book",
+                "location": location.pathname.replace(/\/[^/]+$/, "") + "/js/webgis2book"
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+
+        require(["dojo/parser", "dojo/_base/window", "dojo/dom-style",
+            "esri/map", "esri/layers/ArcGISTiledMapServiceLayer",
+            "webgis2book/widgets/_BaseWidget", "webgis2book/widgets/MoveableWidgetFrame", "dojo/domReady!"],
+            function (parser, win, domStyle, Map, ArcGISTiledMapServiceLayer, _BaseWidget, MoveableWidgetFrame) {
+            parser.parse();
+
+            var map = new Map("mapDiv");
+            var agoServiceURL = "http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer";
+            var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL, { displayLevels: [0, 1, 2, 3, 4, 5, 6, 7] });
+            map.addLayer(agoLayer);
+
+            var tocWidget = new _BaseWidget();
+            tocWidget.setTitle("小部件测试");
+            tocWidget.setMap(map);
+            tocWidget.startup();
+            
+            var frame = new MoveableWidgetFrame();
+            frame.setWidget(tocWidget);
+            domStyle.set(frame.domNode, "top", "100px");
+            domStyle.set(frame.domNode, "left", "100px");
+            frame.placeAt(win.body());
+            frame.startup();
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="mapDiv" style="position: relative; height: 1000px; border: 1px solid #000;">
+    </div>
+</body>
+</html>

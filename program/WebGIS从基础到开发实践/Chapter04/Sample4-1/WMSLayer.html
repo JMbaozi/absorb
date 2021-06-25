@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+   <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Map with WMS</title> 
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css"> 
+    <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/esri/css/esri.css">
+    <style>
+      html, body, #map {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #FFF;
+        overflow: hidden;
+        font-family: "Trebuchet MS";
+      }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script> 
+    
+    <script>
+        var map;
+
+        require(["esri/map", "esri/layers/WMSLayer", "esri/config"],
+          function (Map, WMSLayer, esriConfig, parser) {
+
+              esriConfig.defaults.io.proxyUrl = "proxy.ashx";
+
+              map = new Map("map");
+
+              var wmsLayer = new WMSLayer("http://sms.webmap.cn/scripts/openserv.exe?map=/sms_ogc/sms500.map", {
+                  format: "png"
+              });
+
+              map.addLayer(wmsLayer);
+          });
+    </script> 
+</head> 
+  
+  <body> 
+      <div id="map">
+      </div>
+  </body> 
+</html>

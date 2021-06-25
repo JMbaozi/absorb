@@ -1,0 +1,21 @@
+﻿.dj_ie .infowindow .window .top .right .user .content {
+    position: relative;
+}
+.dj_ie .simpleInfoWindow .content {
+    position: relative;
+}
+
+html, body, #mainWindow {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#leftPane {
+    width: 195px;
+    border: none;
+}
+#map {
+    padding: 0;
+}

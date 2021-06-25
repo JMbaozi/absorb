@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>使用图表表达属性结果</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Layout.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="ShowInChart.js"></script>
+</head>
+<body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
+      <!--HEADER SECTION-->
+      <div id="header" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'"  style="height:50px;">
+          图形化表达属性
+      </div>
+      
+      <!--CENTER SECTION-->
+      <div id="mapDiv" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="margin:5px;">
+      </div>
+
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'" style="width:35%;margin:5px;background-color:whitesmoke;">     
+        <!--Neighborhood statistics accordion container-->
+        <div id="myAccordionContainer" data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="isLayoutContainer:true" style="height:400px">
+          <div data-dojo-type="dijit/layout/ContentPane" id="paneIncome" title="收入" data-dojo-props="selected:true"></div>
+          <div data-dojo-type="dijit/layout/ContentPane" id="paneEducation" title="教育"></div>
+          <div data-dojo-type="dijit/layout/ContentPane" id="paneRace" title="种族"></div>      
+        </div>
+      </div>        
+    </div>
+</body>
+</html>

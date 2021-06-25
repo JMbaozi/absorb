@@ -1,0 +1,33 @@
+﻿html, body, #mainWindow {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000;
+    overflow: hidden;
+}
+
+.bg {
+    background: #444 url('images/back.png') repeat;
+    font-family: verdana, serif;
+    color: #fff;
+    padding: 3px 5px 3px 5px;
+    height: auto;
+    width: auto;
+    z-index: 999;
+    font-size: 9pt;
+    text-align: center;
+    margin: 0;
+}
+
+input {
+    background: #bbb;
+    color: #000;
+    font-size: 8pt;
+    border: 1px solid #ccc;
+    padding: 1px;
+    height: auto;
+}

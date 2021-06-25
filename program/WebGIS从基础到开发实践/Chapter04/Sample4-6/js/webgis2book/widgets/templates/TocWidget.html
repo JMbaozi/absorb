@@ -1,0 +1,27 @@
+﻿<div class="widgetContent">
+    <div class="widgetPanel">
+        <div id="toc" data-dojo-attach-point="tocNode" align="left"
+            style="width:90%; filter:alpha(opacity=90);-moz-opacity: 0.9; opacity: 0.9; background-color: black; overflow:auto; max-height:400px;">
+        </div>
+	    <br/>
+    
+  	    活动图层：
+  	    <select name="transparencyList" id="transparencyList" data-dojo-attach-event="onchange:updateTransparencyLayer">
+            <option value="" selected></option>
+        </select>
+        &nbsp;<br/>
+        <br/>
+        
+        <input type="button" data-dojo-attach-event="onclick:zoomToLayer" value="放大到该图层地理范围" style="font-family:Arial, Helvetica, sans-serif; font-size:10px;">
+        <br/>
+  	    <br/>
+  	    
+  	    改变图层的透明度<br>  
+        <div data-dojo-type="dijit/form/HorizontalSlider" data-dojo-attach-point="slider"
+		    data-dojo-attach-event="onChange:changeTransparency"
+		    data-dojo-props="name:'slider',value:100,maximum:100,minimum:0,pageIncrement:100,showButtons:true,intermediateChanges:true,slideDuration:500"
+		    style="width:200px; height: 20px;"
+		>		
+		</div>		
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>访问百度地图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            padding:0;
+            margin:0;
+            height:100%;
+            width:100%;
+        }
+    </style>
+    <script type="text/javascript">
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                "name": "bism",
+                "location": location.pathname.replace(/\/[^/]+$/, "") + "/js/bism"
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        var map;
+
+        require([
+            "esri/map",
+            "bism/BaiduLayer",
+            "dojo/domReady!"
+        ], function (
+            Map, BaiduLayer
+        ) {
+            var layer = new BaiduLayer();
+            map = new Map("map");
+            map.addLayer(layer);
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="map">
+    </div>
+</body>
+</html>

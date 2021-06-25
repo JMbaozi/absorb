@@ -1,0 +1,38 @@
+﻿<div class="widgetContent">
+	<div class="widgetPanel" buttonIcon="assets/images/small_icons/i_draw.png">
+		<table>
+			<tr>
+				<td colspan="2">
+					<table style="width:100%;">
+						<tr>
+							<td><div id="btnPoint" class="toolbutton" buttonIcon="assets/images/icons/i_draw_point.png" title="增加点" data-dojo-attach-event="onclick:onToolButtonClick"></div></td>
+							<td><div id="btnPolyline" class="toolbutton" buttonIcon="assets/images/icons/i_draw_line.png" title="增加线" data-dojo-attach-event="onclick:onToolButtonClick"></div></td>
+							<td><div id="btnFreehandLine" class="toolbutton" buttonIcon="assets/images/icons/i_draw_freeline.png" title="增加徒手线" data-dojo-attach-event="onclick:onToolButtonClick"></div></td>
+							<td><div id="btnPolygon" class="toolbutton" buttonIcon="assets/images/icons/i_draw_poly.png" title="增加多边形" data-dojo-attach-event="onclick:onToolButtonClick"></div></td>
+							<td><div id="btnFreehandPoly" class="toolbutton" buttonIcon="assets/images/icons/i_draw_freepoly.png" title="增加徒手多边形" data-dojo-attach-event="onclick:onToolButtonClick"></div></td>
+							<td><div id="btnText" class="toolbutton" buttonIcon="assets/images/icons/i_draw_text.png" title="增加文本" data-dojo-attach-event="onclick:onToolButtonClick"></div></td>
+							<td><div id="btnClear" class="toolbutton" buttonIcon="assets/images/icons/i_clear.png" title="清除" data-dojo-attach-event="onclick:onToolButtonClick"></div></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<th class="rowHeader">文本：</th>
+				<td><input type="text" name="textInput" data-dojo-type="dijit/form/TextBox"></td>
+			</tr>
+			<tr>
+				<th class="rowHeader">颜色：</th>
+				<td>
+					<button data-dojo-type="dijit/form/DropDownButton" data-dojo-props="showLabel:true" name="colorDropDown">
+						<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+						<div name="colorPalette" data-dojo-type="dijit/ColorPalette"></div>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<th class="rowHeader">大小：</th>
+				<td><input name="sizeInput" data-dojo-type="dijit/form/NumberSpinner" data-dojo-props="constraints:{min:1,max:48}" value="8"/></td>
+			</tr>
+		</table>
+	</div>
+</div>

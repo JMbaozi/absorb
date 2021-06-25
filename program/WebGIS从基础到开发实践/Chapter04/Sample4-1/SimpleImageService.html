@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <style>
+      html, body, #map { height: 100%; width: 100%; margin: 0; padding: 0; }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        var map;
+        require([
+          "esri/map", "esri/layers/ArcGISImageServiceLayer",
+          "esri/layers/ImageServiceParameters", "dojo/parser", "dojo/domReady!"
+        ], function (
+          Map, ArcGISImageServiceLayer,
+          ImageServiceParameters, parser
+        ) {
+            parser.parse();
+
+            map = new Map("map", {
+                center: [-79.40, 43.64]
+            });
+
+            var params = new ImageServiceParameters();
+            params.noData = 0;
+            params.format = "jpgpng";
+            var imageServiceLayer = new ArcGISImageServiceLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer", {
+                imageServiceParameters: params
+            });
+            map.addLayer(imageServiceLayer);
+        });
+    </script>
+</head>
+<body>
+    <div id="map"> </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿html, body, #mainWindow { height: 100%; width: 100%; margin: 0; padding: 0; }
+      #map{ margin: 0; padding: 0; }
+      #dashboard { 
+        background: url("images/gray_transparent.png");
+        color: #fff;
+        font-family: arial;
+        height: auto; 
+        overflow: hidden;
+        padding: 5px;
+        position: absolute;
+        right: 30px;
+        text-align: center;
+        top: 30px;
+        width: 300px;
+        z-index: 40;
+        -moz-box-shadow: 0 0 5px #888;
+        -webkit-box-shadow: 0 0 5px #888;
+        box-shadow: 0 0 5px #888;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #fff;
+      }
+
+      #dashboardWidgets {
+        background: #fff;
+        color: #888;
+        margin: 0 auto;
+        text-align: left;
+      }

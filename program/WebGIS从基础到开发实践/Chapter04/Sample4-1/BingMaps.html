@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>访问Bing地图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>        
+        var veTileLayer;
+        require(["esri/map", "esri/virtualearth/VETiledLayer", "dijit/form/Button", "dojo/domReady!"], function (Map, VETiledLayer) {
+            // 以下是创建地图与加入底图的代码
+            var map = new Map("mapDiv");
+            veTileLayer = new VETiledLayer({
+            	bingMapsKey: prompt("请输入您的Bing地图密钥"),
+            	mapStyle: VETiledLayer.MAP_STYLE_AERIAL
+            });
+            map.addLayer(veTileLayer);
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="mapDiv"></div>
+    <div style="position:absolute; left:650px; top:10px; z-Index:999;">
+        <button data-dojo-type="dijit/form/Button" onClick="veTileLayer.setMapStyle(VETiledLayer.MAP_STYLE_AERIAL);">Aerial</button>
+        <button data-dojo-type="dijit/form/Button" onClick="veTileLayer.setMapStyle(VETiledLayer.MAP_STYLE_AERIAL_WITH_LABELS)">Aerial with labels</button>
+        <button data-dojo-type="dijit/form/Button" onClick="veTileLayer.setMapStyle(VETiledLayer.MAP_STYLE_ROAD)">Roads</button>
+      </div>
+</body>
+</html>

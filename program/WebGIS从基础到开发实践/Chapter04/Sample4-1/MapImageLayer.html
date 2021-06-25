@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        var map;
+
+        require([
+        "esri/map",
+        "esri/layers/ArcGISTiledMapServiceLayer",
+        "esri/layers/MapImageLayer",
+        "esri/layers/MapImage",
+
+        "dojo/dom",
+        "dojo/on",
+        "dojo/domReady!"
+        ], function (
+        Map, ArcGISTiledMapServiceLayer, MapImageLayer, MapImage, dom, on
+        ) {
+            var agoServiceURL = "http://server.arcgisonline.com/arcgis/rest/services/ESRI_StreetMap_World_2D/MapServer";
+            var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+            map = new Map("map", {
+                center: [-122.488609, 48.189605],
+                zoom: 6
+            });
+            map.addLayer(agoLayer);
+
+            setupDropZone();
+
+            function setupDropZone() {
+                var node = dom.byId("map");
+                on(node, "dragenter", function (evt) {
+                    evt.preventDefault();
+                });
+
+                on(node, "dragover", function (evt) {
+                    evt.preventDefault();
+                });
+
+                on(node, "drop", handleDrop);
+            }
+
+            function handleDrop(evt) {
+                evt.preventDefault();
+                var files = evt.dataTransfer.files;
+                if (files.length != 2) {
+                    return;
+                }
+
+                var tfwFile;
+                if (files[0].name.indexOf(".tfw") !== -1) {
+                    pngFile = files[1];
+                    tfwFile = files[0];
+                }
+                else {
+                    pngFile = files[0];
+                    tfwFile = files[1];
+                }
+
+                readDataFromFile(pngFile, tfwFile);
+            }
+
+            function readDataFromFile(pngFile, tfwFile) {
+                var reader = new FileReader();
+                var layerName = pngFile.name.split('.')[0];
+                reader.onload = function () {
+                    // 读取TFW文件中的参数
+                    var newLineIdx = reader.result.indexOf("\n");
+                    var lines = reader.result.split("\r\n");
+
+                    var objectURL = URL.createObjectURL(pngFile);
+
+                    var img = new Image();
+                    img.onload = function () {
+                        var xminValue = parseFloat(lines[4]);
+                        var xmaxValue = xminValue + lines[0] * img.width;
+                        var ymaxValue = parseFloat(lines[5]);
+                        var yminValue = ymaxValue + lines[3] * img.height;
+
+                        var lyr = new MapImageLayer({ id: layerName, visible: true });
+                        var hrefValue = objectURL;
+                        var image = new MapImage({
+                            extent: {
+                                xmin: xminValue, ymin: yminValue,
+                                xmax: xmaxValue, ymax: ymaxValue,
+                                spatialReference: { wkid: 4326 }
+                            },
+                            href: hrefValue
+                        });
+                        lyr.addImage(image);
+
+                        map.addLayer(lyr);
+                        var fullExtent = image.extent;
+                        map.setExtent(fullExtent, true);
+
+                        URL.revokeObjectURL(objectURL);
+                    };
+                    img.src = objectURL;
+                };
+                reader.readAsText(tfwFile);
+            }
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="map" style="position:relative;width:99%; height:100%;border:1px solid #000;">
+    </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>饼图专题图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link href="ChartInfoWindow.css" rel="stylesheet" />
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        var dojoConfig = {
+            packages: [{
+                name: "CustomModules",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/js/CustomModules"
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        require(["esri/map", "esri/layers/FeatureLayer", "esri/layers/ArcGISTiledMapServiceLayer", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+            "esri/renderers/SimpleRenderer", "esri/Color",
+            "CustomModules/ChartInfoWindow", "CustomModules/CustomTheme", "CustomModules/geometryUtils",
+            "dojo/_base/array", "dojo/dom-construct", "dojo/_base/window",
+            "dojox/charting/Chart", "dojox/charting/action2d/Highlight", "dojox/charting/action2d/Tooltip", "dojox/charting/plot2d/Pie",
+            "dojo/domReady!"
+        ], function (
+          Map, FeatureLayer, ArcGISTiledMapServiceLayer,
+          SimpleLineSymbol, SimpleFillSymbol,
+          SimpleRenderer, Color, ChartInfoWindow, CustomTheme, geometryUtils,
+          array, domConstruct, win,
+          Chart, Highlight, Tooltip
+        ) {
+            var map = new Map("map", {
+                center: [-95.625, 39.243],
+                zoom: 4,
+                slider: false
+            });
+            var agoServiceURL = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+            var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+            map.addLayer(agoLayer);
+
+            var featureLayer = new FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer/1", {
+                mode: FeatureLayer.MODE_SNAPSHOT,
+                outFields: ["STATE_NAME", "WHITE", "BLACK", "AMERI_ES", "ASIAN_PI", "OTHER"]
+            });
+            var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
+            var renderer = new SimpleRenderer(defaultSymbol);
+            featureLayer.setRenderer(renderer);
+            featureLayer.on("update-end", function (evt) {
+                var showFields = ["WHITE", "BLACK", "AMERI_ES", "ASIAN_PI", "OTHER"];
+                createChartInfoWindow(featureLayer, showFields);
+            });
+            map.addLayer(featureLayer);
+
+            function createChartInfoWindow(layer, showFields) {
+                var layerId = layer.id;
+
+                var max = maxAttribute(layer.graphics, showFields);
+                var featureSums = [];
+                array.forEach(layer.graphics, function (graphic) {
+                    var sum = 0;
+                    for (var i = 0, j = showFields.length; i < j; i++) {
+                        sum += graphic.attributes[showFields[i]];
+                    }
+
+                    featureSums.push(sum);
+                });
+                var sumMax = -10000;
+                array.forEach(featureSums, function (featureSum) {
+                    if (sumMax < featureSum) sumMax = featureSum;
+                });
+
+                var optinalChart = null;
+                array.forEach(layer.graphics, function (graphic, index) {
+                    var infoWindow = new ChartInfoWindow({
+                        domNode: domConstruct.create('div', null, document.getElementById('map'))
+                    });
+                    infoWindow.setMap(map);
+
+                    var curSum = 0;
+                    for (var i = 0, j = showFields.length; i < j; i++) {
+                        curSum += layer.graphics[index].attributes[showFields[i]];
+                    }
+                    var radius = 80 * curSum / sumMax;
+                    var styleStr = "width:" + radius + "px;height:" + radius + "px";
+                    var nodeChart = domConstruct.create("div", { id: 'nodeTest' + index, style: styleStr }, win.body());
+                    var chart = makePieChart(nodeChart, layer.graphics[index].attributes, showFields);
+                    var optinal = true;
+                    for (var m = 0, n = showFields.length; m < n; m++) {
+                        if (layer.graphics[index].attributes[showFields[m]] <= 0) {
+                            optinal = false;
+                        }
+                    }
+                    if (optinal == true) {
+                        optinalChart = chart;
+                    }
+                    infoWindow.resize(radius + 2, radius + 2);
+                    infoWindow.align = "Center";
+
+                    var labelPt = geometryUtils.getPolygonCenterPoint(graphic.geometry);
+                    infoWindow.setContent(nodeChart);
+                    infoWindow.__mcoords = labelPt;
+                    infoWindow.show(map.toScreen(labelPt));
+                });
+            }
+
+            function maxAttribute(graphics, showFields) {
+                var max = -100000;
+                array.forEach(graphics, function (graphic) {
+                    var attributes = graphic.attributes;
+                    for (var i = 0, j = showFields.length; i < j; i++) {
+                        if (max < attributes[showFields[i]]) {
+                            max = attributes[showFields[i]];
+                        }
+                    }
+                });
+
+                return max;
+            }
+
+            function makePieChart(node, attributes, showFields) {
+                var chart = new Chart(node, { margins: { l: 0, r: 0, t: 0, b: 0 } }).
+                                setTheme(CustomTheme).
+                                addPlot("default", { type: "Pie" });
+                var serieValues = [];
+                var regionName = attributes["STATE_NAME"];
+                var length = showFields.length;
+                for (var i = 0; i < length; i++) {
+                    serieValues.push({ y: attributes[showFields[i]], legend: showFields[i], region: regionName });
+                }
+                chart.addSeries(showFields[i], serieValues, { stroke: { color: "black" } });
+
+                var anim1 = new Highlight(chart, "default", {
+                    highlight: function (e) {
+                        return "lightskyblue";
+                    }
+                });
+                var anim2 = new Tooltip(chart, "default", {
+                    text: function (o) {
+                        var fieldName = o.chart.series[0].data[o.x].legend;
+                        return (o.chart.series[0].data[o.x].region + " " + fieldName + "：" + o.y);
+                    }
+                });
+                chart.render();
+
+                return chart;
+            }
+        });
+    </script>
+</head>
+<body class="claro">
+    <div id="map"></div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>D3力学图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/gdp.css"/>
+    <script>
+        var dojoConfig = {
+            packages: [{
+                name: "CustomModules",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/js/CustomModules"
+            }]
+        };
+    </script>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="GdpofProvinces.js"></script>
+</head>
+<body class="claro">
+    <div id="map"></div>
+    <div id="team">
+      <div id="team-inner">
+        <div id="intro">
+          <span style="color: green">
+            <span style="color: #d50032">2012年全国</span> 国民生产总值 <br /> 达到 <span class="number"> 519322</span> 亿人民币. 
+          </span>
+        </div>
+        <div id="payroll" class="info">
+          <div id="team-logo"></div>
+          <div id="team-name"></div>
+          <div id="payroll-container">
+            <div id="payroll-titles">
+              <span id="payroll-title">GDP</span>
+              <span id="rank-title">排名</span>
+            </div>
+            <div id="team-payroll"></div>
+            <div id="team-payroll-rank"></div>
+          </div>
+        </div>
+        <div id="salary" class="info">
+          <div id="player-name"></div>
+          <div id="salary-titles">
+            <span id="salary-title">GDP</span>
+          </div>
+          <div id="player-salary"></div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

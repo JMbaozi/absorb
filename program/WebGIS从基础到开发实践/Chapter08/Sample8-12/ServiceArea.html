@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>服务区</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="ServiceArea.js"></script>
+</head>
+<body class="claro">
+    <table width="500px">
+		<tr>
+			<td>驱车时间（分钟）：</td>
+			<td><input id="driveTime1" data-dojo-type="dijit/form/NumberSpinner" data-dojo-props="constraints:{min:1,max:5}" value="1" style="width:5em;"/></td>
+			<td><input id="driveTime2" data-dojo-type="dijit/form/NumberSpinner" data-dojo-props="constraints:{min:2,max:10}" value="3" style="width:5em;"/></td>
+			<td><input id="driveTime3" data-dojo-type="dijit/form/NumberSpinner" data-dojo-props="constraints:{min:3,max:15}" value="5" style="width:5em;"/></td>
+		</tr>
+    </table>
+    
+    <div id="map" style="width:700px; height:512px; border:2px solid #000;" class="tundra"></div>
+</body>
+</html>

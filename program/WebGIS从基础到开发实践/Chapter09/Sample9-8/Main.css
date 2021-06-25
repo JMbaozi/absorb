@@ -1,0 +1,15 @@
+﻿html, body, #mainWindow {
+    font-family: sans-serif;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    height: 58px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    color: #400D12;
+}

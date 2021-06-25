@@ -1,0 +1,84 @@
+.tundra .dijitSliderIncrementIconV {
+	background-image: url(images/spriteRoundedIconsSmall.png);
+}
+
+.tundra .dijitSliderTopBumper {
+	background: transparent url(images/sliderEmptyVertical.png);
+	border: 0;
+}
+
+.tundra .dijitSliderRemainingBarV {
+	background: transparent url(images/sliderEmptyVertical.png);
+	border: 0;
+}
+
+.tundra .dijitSliderFocused .dijitSliderImageHandleV {
+	background-image: url(images/sliderThumbFocus.png);
+}
+
+.tundra .dijitSliderImageHandleV {
+	background-image: url(images/sliderThumb.png);
+}
+
+.tundra .dijitSliderProgressBarV {
+	background: transparent url(images/sliderFullVertical.png);
+	border: 0;
+}
+
+.tundra .dijitSliderBottomBumper {
+	background: transparent url(images/sliderFullVertical.png);
+	border: 0;
+}
+
+.tundra .dijitSliderDecrementIconV {
+	background-image: url(images/spriteRoundedIconsSmall.png);
+}
+
+.tundra .dijitSliderFocused .dijitSliderProgressBarV, .tundra .dijitSliderFocused .dijitSliderBottomBumper {
+	background: transparent url(images/sliderFullVertical.png);
+}
+
+.dijitReset {
+	color: #333;
+}
+
+.tundra .dijitToolbar {
+	background-image: url(images/titleBar.png);
+}
+
+.tundra .dijitTreeLabelFocused {
+	background-color: #333;
+}
+
+
+.tundra .dijitSliderImageHandleH {
+	background-image: url(images/preciseSliderThumb.png);
+}
+
+.tundra .dijitSliderFocused .dijitSliderImageHandleH {
+	background-image: url(images/preciseSliderThumb.png);
+}
+
+.tundra .dijitSliderRemainingBarH {
+	background: transparent url(images/sliderEmpty.png);
+	border: 0;
+}
+
+.tundra .dijitSliderProgressBarH {
+	background: transparent url(images/sliderFull.png);
+	border: 0;
+}
+
+.tundra .dijitSliderLeftBumper {
+	background: transparent url(images/sliderFull.png);
+	border: 0;
+}
+
+.tundra .dijitSliderRightBumper {
+	background: transparent url(images/sliderEmpty.png);
+	border: 0;
+}
+
+.tundra .dijitSliderFocused .dijitSliderProgressBarH, .tundra .dijitSliderFocused .dijitSliderLeftBumper {
+	background: transparent url(images/sliderFull.png);
+}

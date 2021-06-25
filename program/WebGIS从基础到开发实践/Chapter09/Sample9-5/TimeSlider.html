@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>时间滑块小部件</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/nihilo/nihilo.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>	
+	<script src="TimeSlider.js"></script>
+</head>
+<body class="nihilo">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer"
+        data-dojo-props="design:'headline',gutters:true">
+        <div id="map" data-dojo-type="dijit/layout/ContentPane"
+            data-dojo-props="region:'center'" class="shadow">
+        </div>
+        <div id="footer" class="roundedCorners" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'">
+            <div id="timeSliderDiv"></div>
+            <div id="timeSliderLabel">选择时间点来查看鱼的数目</div>
+            <div id="fishRadioButtons">
+                <input data-dojo-type="dijit/form/RadioButton" id="val0" name="group1"
+                    checked="checked" value="0" type="radio"/>
+                <label for="val0" style="color:#888;">Chinook&nbsp;&nbsp;</label>
+                <input data-dojo-type="dijit/form/RadioButton" id="val1"  name="group1"
+                    value="1" type="radio"/>
+                <label for="val1" style="color:#888;">Steelhead&nbsp;&nbsp;</label>
+                <input data-dojo-type="dijit/form/RadioButton" id="val2"  name="group1"
+                    value="2" type="radio"/>
+                <label for="val2" style="color:#888;">Sockeye&nbsp;&nbsp;</label>
+                <input data-dojo-type="dijit/form/RadioButton" id="val3"  name="group1"
+                    value="3" type="radio"/>
+                <label for="val3" style="color:#888;">Shad&nbsp;&nbsp;</label>
+            </div>
+        </div>
+        <div id="leftPane" class="roundedCorners" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'">
+            <div id ="legendContainer">
+                <div id="fishLegendDiv"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

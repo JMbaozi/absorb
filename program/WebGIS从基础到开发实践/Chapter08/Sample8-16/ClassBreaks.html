@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="ClassBreaks.js"></script>
+</head>
+
+<body class="tundra">
+    <div data-dojo-type="dijit.layout.BorderContainer"
+         data-dojo-props="design:'headline',gutters:false"
+         style="width: 100%; height: 100%; margin: 0;">
+      <div id="map" data-dojo-type="dijit.layout.ContentPane"
+           data-dojo-props="region:'center'">
+        <div id="feedback">
+          <div id="legendWrapper"></div>
+          <div id="fieldWrapper">
+            当前选择字段：
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

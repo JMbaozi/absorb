@@ -1,0 +1,4 @@
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter07\Sample7-4\bin\Sample7-4.dll
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter07\Sample7-4\bin\Sample7-4.pdb
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter07\Sample7-4\obj\Debug\Sample7-4.dll
+D:\LiuGuang\working\books\ArcGIS API for JavaScript\Code\Chapter07\Sample7-4\obj\Debug\Sample7-4.pdb

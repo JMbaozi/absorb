@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>non-behavioral widget</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script type="text/javascript">
+        require(["dojo/_base/declare", "dijit/_Widget", "dijit/_TemplatedMixin", "dojo/dom-construct"], function(declare, _Widget, _TemplatedMixin, domConstruct) {
+        	declare("Counter", [_Widget, _TemplatedMixin], {
+            	// 计数器
+			_i: 0,
+
+            	templateString: "<div>" + "<button data-dojo-attach-event='onclick: increment'>增加计数</button>" + "&nbsp; 当前计数: <span data-dojo-attach-point='counter'>0</span>" + "</div>",
+			
+			increment: function() {
+				this.counter.innerHTML = ++this._i;
+			}
+       	 });
+        });
+
+        require(["dojo/parser", "dojo/domReady!"], function(parser){
+        	parser.parse();
+        });
+    </script>
+</head>
+<body class="tundra">
+    <span data-dojo-type="Counter"> 
+    </span>
+</body>
+</html>
+

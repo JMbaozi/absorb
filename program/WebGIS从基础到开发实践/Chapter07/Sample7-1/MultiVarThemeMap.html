@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>多变量专题图</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <style>
+        html, body, #border-container {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script>
+        require([
+        "esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "esri/layers/FeatureLayer", "esri/dijit/Legend",
+        "esri/renderers/SimpleRenderer", "esri/symbols/SimpleMarkerSymbol",
+        "esri/Color", "dojo/_base/array", "dojo/parser", "esri/InfoTemplate",
+        "esri/symbols/SimpleLineSymbol",
+        "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+        "dojo/domReady!"
+        ], function (
+        Map, ArcGISTiledMapServiceLayer, FeatureLayer, Legend, SimpleRenderer, SimpleMarkerSymbol,
+        Color, arrayUtils, parser, InfoTemplate, SimpleLineSymbol
+      ) {
+            parser.parse();
+
+            var map = new Map("map", {
+                logo:false,
+                zoom: 5
+            });
+
+            var baseMapUrl = "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/";
+            var baseMap = new ArcGISTiledMapServiceLayer(baseMapUrl);
+            map.addLayer(baseMap);
+
+            var layer = new FeatureLayer("http://tmservices1.esri.com/arcgis/rest/services/LiveFeeds/NOAA_METAR_current_wind_speed_direction/MapServer/0", {
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["*"],
+                infoTemplate: new InfoTemplate("${STATION_NAME}, ${COUNTRY}", "<table><tr><td>Temperature</td><td>${TEMP}F</td></tr><tr><td>Dew point</td><td>${DEW_POINT}</td></tr><tr><td>Relative humidity</td><td>${R_HUMIDITY}</td></tr><tr><td>Wind</td><td>from ${WIND_DIRECT} degrees at ${WIND_SPEED}mph</td></tr><tr><td>Visibility</td><td>${VISIBILITY}</td></tr><tr><td>Pressure</td><td>${PRESSURE}mb</td></tr><tr><td>Coulds</td><td>${SKY_CONDTN}</td></tr><tr><td>Weather</td><td>${WEATHER}</td></tr><tr><td>Heat index</td><td>${HEAT_INDEX}</td></tr></table><hr><i>${UTC_DATETIME}</i>")
+            });
+            map.addLayers([layer]);
+
+            var marker = new SimpleMarkerSymbol().setPath("M14.5,29 23.5,0 14.5,9 5.5,0z").setOutline(new SimpleLineSymbol().setWidth(0.5));
+            var renderer = new SimpleRenderer(marker);
+
+            renderer.setRotationInfo({
+                field: "WIND_DIRECT"
+            });
+            renderer.setProportionalSymbolInfo({
+                field: "WIND_SPEED",
+                minSize: 6,
+                maxSize: 25,
+                minDataValue: 5,
+                maxDataValue: 50,
+                valueUnit: "unknown"
+            });
+            renderer.setColorInfo({
+                field: "TEMP",
+                minDataValue: -20,
+                maxDataValue: 130,
+                colors: [
+                  new Color([0, 104, 214]), new Color([20, 120, 220]), new Color([39, 136, 226]),
+                  new Color([59, 152, 232]), new Color([78, 169, 237]), new Color([98, 185, 243]),
+                  new Color([131, 197, 181]), new Color([164, 210, 120]), new Color([197, 222, 58]),
+                  new Color([205, 188, 80]), new Color([212, 155, 102]), new Color([220, 121, 124]),
+                  new Color([216, 87, 115]), new Color([211, 53, 106]), new Color([206, 19, 97])
+                ]
+            });
+            layer.setRenderer(renderer);
+
+            // 设置图例
+            map.on("layers-add-result", function (evt) {
+                var layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
+                    return { layer: layer.layer, title: "温度(F)" };
+                });
+                if (layerInfo.length > 0) {
+                    var legendDijit = new Legend({
+                        map: map,
+                        layerInfos: layerInfo
+                    }, "legend");
+                    legendDijit.startup();
+                }
+            });
+        });
+    </script>
+</head>
+<body class="claro">
+    <div id="border-container" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false">
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'" style="width: 100px;"><div id="legend"></div></div>
+      <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding: 0;"></div>
+    </div>
+</body>
+</html>

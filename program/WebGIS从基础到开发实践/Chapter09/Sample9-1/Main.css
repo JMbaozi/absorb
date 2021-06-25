@@ -1,0 +1,60 @@
+﻿html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #fff;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+label {
+    display: inline-block;
+    padding: 5px 5px 0 5px;
+    font-weight: 400;
+    font-size: 12pt;
+}
+      .button {
+        width: 100%;
+        margin: 3px auto;
+        text-align: center;
+      }
+      #mainWindow {
+        width: 100%; height: 100%; margin: 0;
+      }
+      #rightPane{
+        margin: 0;
+        padding: 10px;
+        background-color: #fff;
+        color: #421b14;
+        width: 120px;
+      }
+
+      .ds { background: #000; overflow: hidden; position: absolute; z-index: 2; }
+      #ds-h div { width: 100%; }
+      #ds-l div, #ds-r div { height: 100%; }
+      #ds-r div { right: 0; }
+      #ds .o1 { filter: alpha(opacity=10); opacity: .1; }
+      #ds .o2 { filter: alpha(opacity=8); opacity: .08; }
+      #ds .o3 { filter: alpha(opacity=6); opacity: .06; }
+      #ds .o4 { filter: alpha(opacity=4); opacity: .04; }
+      #ds .o5 { filter: alpha(opacity=2); opacity: .02; }
+      #ds .h1 { height: 1px; }
+      #ds .h2 { height: 2px; }
+      #ds .h3 { height: 3px; }
+      #ds .h4 { height: 4px; }
+      #ds .h5 { height: 5px; }
+      #ds .v1 { width: 1px; }
+      #ds .v2 { width: 2px; }
+      #ds .v3 { width: 3px; }
+      #ds .v4 { width: 4px; }
+      #ds .v5 { width: 5px; }
+
+      /* make all dijit buttons the same width */
+      .dijitButton .dijitButtonNode, #drawingWrapper, #printButton {
+        width: 100px;
+      }
+      .esriPrint {
+        padding: 0;
+      }

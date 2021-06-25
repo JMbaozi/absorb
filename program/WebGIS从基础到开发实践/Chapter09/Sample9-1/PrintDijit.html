@@ -1,0 +1,34 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>打印小部件</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/nihilo/nihilo.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="PrintDijit.js"></script>
+  </head>
+  <body class="nihilo">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
+         data-dojo-props="design:'headline',gutters:false">
+      <div id="map" class="shadow" 
+           data-dojo-type="dijit/layout/ContentPane"
+           data-dojo-props="region:'center'">            
+      </div>
+      <div id="rightPane" data-dojo-type="dijit/layout/ContentPane"
+           data-dojo-props="region:'right'">
+        <div id="printButton"></div>
+        <hr />
+        
+        <div id="drawingWrapper">
+          增加图形：
+          <div id="point" class="drawing">点</div>
+          <div id="freehandpolyline" class="drawing">徒手线</div>
+          <div id="freehandpolygon" class="drawing">徒手多边形</div>
+          <div id="circle" class="drawing">圆</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

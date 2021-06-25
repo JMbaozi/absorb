@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>高程测量</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="Main.css" />
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="ImageMeasure.js"></script>
+</head>
+<body  class="claro" style="background-color:lightgray">
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%; background-color:white">
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" style="width:100%; border:solid medium gray;">
+            <center>
+                <label for="result">高程（米）：</label>
+                <input type="text" name="result" data-dojo-type="dijit/form/TextBox" id="result" />
+                <div data-dojo-type="dijit/form/Button" id="measureTool" data-dojo-props="showLabel:true, label:'测量'"></div>
+            </center>
+        </div>
+        <div id="mapParentDiv" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="width:100%;">
+            <div id="map" style="height:100%;"></div>
+        </div>
+    </div>
+</body>
+</html>
+
