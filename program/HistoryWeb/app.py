@@ -52,20 +52,53 @@ for dynasty in Dynastys:
     CountyPopulations.append(CountyPopulation)
     CountyFamilies.append(CountyFamilie)
     print("{}计算成功".format(dynasty))
-# for i in range(len(Dynastys)):
-#     print("{}共有{}户".format(Dynastys[i],str(Households[i])))
-#     print("{}共有{}人".format(Dynastys[i],str(Populations[i])))
-#     print("{}每户平均有{}人".format(Dynastys[i],str(Families[i])))
-#     print("{}共有{}个郡县".format(Dynastys[i],str(Countynum[i])))
-#     print("{}的郡县有{}".format(Dynastys[i],str(Countys[i])))
 Household_dict = dict(list(zip(Dynastys,Households)))
 Population_dict = dict(list(zip(Dynastys,Populations)))
 Familie_dict = dict(list(zip(Dynastys,Families)))
-# print(Household_dict)
-# print(Population_dict)
-# print(Familie_dict)
 ####################################################
 
+
+def DynastyAllData(num):
+    # 返回当前朝代所有数据，需要参数num:当前朝代在列表中的索引，从0开始。如：东魏为0，隋代为1。
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    CurrentHouseholds = []# 当前朝代各郡县总户数
+    CurrentPopulations = []# 当前朝代各郡县人口数  
+    CurrentFamilies = []# 当前朝代各郡县户口数
+    CurrentCountyName = Countys[num]# 当前朝代各郡县名称
+    CurrentHouseholdValue = CountyHouseholds[num]# 当前朝代各郡县户数值
+    CurrentPopulationValue = CountyPopulations[num]# 各朝代各郡县人口数值
+    CurrentPopulationMin = int(min(CurrentPopulationValue)-1000)# 当前朝代各郡县人口最小值
+    CurrentPopulationMax = int(max(CurrentPopulationValue)+1000)# 当前朝代各郡县人口最大值
+    CurrentFamiliesValue = CountyFamilies[num]# 各朝代各郡县户口数值
+    CurrentHousehold_dict = dict(list(zip(CurrentCountyName,CurrentHouseholdValue)))
+    CurrentHousehold_dict_sort = dict(sorted(CurrentHousehold_dict.items(),key=lambda item:item[1]))# 各朝代总人口从高到低排序
+    CurrentCountyName_sort = list(CurrentHousehold_dict_sort.keys())# 排序后的郡县名称列表
+    CurrentHousehold_sort = list(CurrentHousehold_dict_sort.values())# 排序后的各郡县总户数
+    for i in range(len(CurrentHouseholdValue)):
+        each_dict = {'value': CurrentHouseholdValue[i], 'name': CurrentCountyName[i]}
+        CurrentHouseholds.append(each_dict)
+    for i in range(len(CurrentHouseholdValue)):
+        each_dict = {'value': CurrentPopulationValue[i], 'name': CurrentCountyName[i]}
+        CurrentPopulations.append(each_dict)
+    for i in range(len(CurrentHouseholdValue)):
+        each_dict = {'value': CurrentFamiliesValue[i], 'name': CurrentCountyName[i]}
+        CurrentFamilies.append(each_dict)
+    CurrentAlldata = [CurrentCountyName_sort,
+                        CurrentHousehold_sort,
+                        CurrentHouseholds,
+                        CurrentPopulations,
+                        CurrentFamilies,
+                        CurrentPopulationMin,
+                        CurrentPopulationMax]
+    return CurrentAlldata# 返回当前朝代数据
+    # 数据目录：
+    # 当前朝代按照户数排序后的各郡县名称CurrentCountyName_sort
+    # 当前朝代各郡县总户数排序CurrentHousehold_sort
+    # 当前朝代各郡县总户数CurrentHouseholds
+    # 当前朝代各郡县总人口排序CurrentPopulations
+    # 当前朝代各郡县户口数排序CurrentFamilies
+    # 当前朝代各郡县人口最小值CurrentPopulationMin
+    # 当前朝代各郡县人口最小值CurrentPopulationMax
 
 
 @app.route('/')
@@ -97,53 +130,81 @@ def people_all():
 @app.route('/Dynasty')
 def Dynasty():
     # 首页显示东魏数据
-    DongweiHousehold_dict = dict(list(zip(Countys[0],CountyHouseholds[0])))
-    DongweiHouseholdValue = CountyHouseholds[0]
-    DongweiCountyName = Countys[0]
-    DongweiHouseholds = []
-    DongweiHousehold_dict_sort = dict(sorted(DongweiHousehold_dict.items(),key=lambda item:item[1]))# 各朝代总人口从高到低排序
-    DongweiDynasty_sort = list(DongweiHousehold_dict_sort.keys())# 排序后的朝代列表
-    DongweiHousehold_sort = list(DongweiHousehold_dict_sort.values())# 排序后的各朝代总人口数
-    for i in range(len(DongweiHouseholdValue)):
-        each_dict = {'value': DongweiHouseholdValue[i], 'name': DongweiCountyName[i]}
-        DongweiHouseholds.append(each_dict)
+    alldata = DynastyAllData(0)
     return render_template("Dynasty.html",
-                            DongweiHouseholds=DongweiHouseholds,
-                            DongweiDynasty_sort=DongweiDynasty_sort,
-                            DongweiHousehold_sort=DongweiHousehold_sort)
+                            DongweiCountyName_sort=alldata[0],
+                            DongweiHousehold_sort=alldata[1],
+                            DongweiHouseholds=alldata[2],
+                            DongweiPopulations=alldata[3],
+                            DongweiFamilies=alldata[4],
+                            DongweiPopulationMin=alldata[5],
+                            DongweiPopulationMax=alldata[6])
+
 
 @app.route('/Dynasty/dongwei',methods=['POST'])
 def dongwei():
-    DongweiHousehold_dict = dict(list(zip(Countys[0],CountyHouseholds[0])))
-    DongweiHouseholdValue = CountyHouseholds[0]
-    DongweiCountyName = Countys[0]
-    DongweiHouseholds = []
-    DongweiHousehold_dict_sort = dict(sorted(DongweiHousehold_dict.items(),key=lambda item:item[1]))# 各朝代总人口从高到低排序
-    DongweiDynasty_sort = list(DongweiHousehold_dict_sort.keys())# 排序后的朝代列表
-    DongweiHousehold_sort = list(DongweiHousehold_dict_sort.values())# 排序后的各朝代总人口数
-    for i in range(len(DongweiHouseholdValue)):
-        each_dict = {'value': DongweiHouseholdValue[i], 'name': DongweiCountyName[i]}
-        DongweiHouseholds.append(each_dict)
-    return jsonify(DongweiHouseholds)
-    # DongweiDynasty_sort
-    # DongweiHousehold_sort
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 0# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
 
-@app.route('/Dynasty/sui')
+@app.route('/Dynasty/sui',methods=['POST'])
 def sui():
-    SuiHousehold_dict = dict(list(zip(Countys[1],CountyHouseholds[1])))
-    SuiHouseholdValue = CountyHouseholds[1]
-    SuiCountyName = Countys[1]
-    SuiHouseholds = []
-    SuiHousehold_dict_sort = dict(sorted(SuiHousehold_dict.items(),key=lambda item:item[1]))# 各朝代总人口从高到低排序
-    SuiDynasty_sort = list(SuiHousehold_dict_sort.keys())# 排序后的朝代列表
-    SuiHousehold_sort = list(SuiHousehold_dict_sort.values())# 排序后的各朝代总人口数
-    for i in range(len(SuiHouseholdValue)):
-        each_dict = {'value': SuiHouseholdValue[i], 'name': SuiCountyName[i]}
-        SuiHouseholds.append(each_dict)
-    return render_template("Dynasty/sui.html",
-                            SuiHouseholds=SuiHouseholds,
-                            SuiDynasty_sort=SuiDynasty_sort,
-                            SuiHousehold_sort=SuiHousehold_sort)
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 1# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+@app.route('/Dynasty/tang',methods=['POST'])
+def tang():
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 2# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+@app.route('/Dynasty/beisong',methods=['POST'])
+def beisong():
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 3# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+@app.route('/Dynasty/liusong',methods=['POST'])
+def liusong():
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 4# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+@app.route('/Dynasty/jin',methods=['POST'])
+def jin():
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 5# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+@app.route('/Dynasty/yuan',methods=['POST'])
+def yuan():
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 6# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+@app.route('/Dynasty/ming',methods=['POST'])
+def ming():
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 7# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+@app.route('/Dynasty/qing',methods=['POST'])
+def qing():
+    # Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+    num = 8# 当前朝代的索引值
+    alldata = DynastyAllData(num)
+    return jsonify(alldata)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

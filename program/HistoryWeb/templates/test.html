@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>洛阳市</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script>
+   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <style>
+        html,body,#main{
+            padding: 0px;
+            margin: 0px;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="main"></div>
+<script type="text/javascript">
+    $.get("/static/jsonData/dongwei.json",function(map){
+ var myChart = echarts.init(document.getElementById('main'));
+        echarts.registerMap("luoyang",map);
+ var option = {
+            series : [ {
+                map : "luoyang",
+                type : "map",
+                aspectScale: 1.0,
+                selectedMode: 'single',//选择类型,
+                hoverable:false,//鼠标经过高亮
+                roam: true,//鼠标滚轮缩放
+                itemStyle: {
+                    normal: {
+                        borderWidth:1,
+                        borderColor:'#ffffff',//区域边框色
+                        areaColor: '#FFDAB9',//区域背景色
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#6495ED',//文字颜色
+                                fontSize:18      //文字大小
+                            }
+                        }
+                    },
+                    emphasis: {                 // 选中样式
+                        borderWidth:1,
+                        borderColor:'#00ffff',
+                        color: '#ffffff',
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#ff0000'
+                            }
+                        }
+                    }
+                }
+            } ]
+        };
+        myChart.setOption(option);
+    });
+</script>
+</body>
+</html>
