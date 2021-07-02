@@ -6,77 +6,30 @@
     <title>某个朝代</title>
     <script type="text/javascript" src="../static/asster/js/echarts.min.js"></script>
     <script src="../static/asster/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/asster/css/header.css">
+    <link rel="stylesheet" href="../static/asster/css/Dynasty.css">
     <!-- <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script> -->
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #1B242F;
-        }
-
-        .map_style {
-            height: 50%;
-            width: 33%;
-            float: right;
-            background-color: white;
-
-        }
-
-        .all_data {
-            height: 50%;
-            width: 33%;
-            margin: auto;
-            background-color: white;
-        }
-
-        .sort_hushu {
-            height: 50%;
-            width: 33%;
-            float: left;
-            background-color: white;
-        }
-
-        .hushu_pie_data {
-            height: 40%;
-            width: 33%;
-            float: left;
-            margin-top: 2%;
-            background-color: pink;
-
-        }
-
-        .koushu_pie_data {
-            height: 40%;
-            width: 33%;
-            margin: auto;
-            margin-top: 2%;
-            background-color: #9c38ff;
-
-        }
-
-        .hukoushu_pie_data {
-            height: 40%;
-            width: 33%;
-            float: right;
-            margin-top: 2%;
-            background-color: skyblue;
-
-        }
-    </style>
 </head>
 
 <body>
+    <!-- <div class="top">
+        <center> 
+            <ul>
+                <li><input type="button" id="btn_dongwei" value="东魏"></li>
+                <li><input type="button" id="btn_sui" value="隋朝"></li>
+                <li><input type="button" id="btn_tang" value="唐朝"></li>
+                <li><input type="button" id="btn_beisong" value="北宋"></li>
+                <li><input type="button" id="btn_liusong" value="刘宋"></li>
+                <li><input type="button" id="btn_jin" value="金朝"></li>
+                <li><input type="button" id="btn_yuan" value="元朝"></li>
+                <li><input type="button" id="btn_ming" value="明朝"></li>
+                <li><input type="button" id="btn_qing" value="清朝"></li>
+            </ul>
+        </center>      
+    </div> -->
     <!-- 各朝代按钮 -->
     <div>
-        <!-- Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清'] -->
+        Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
         <input type="button" id="btn_dongwei" value="东魏">
         <input type="button" id="btn_sui" value="隋朝">
         <input type="button" id="btn_tang" value="唐朝">
@@ -95,6 +48,8 @@
     <div id="hushu_pie_data" class="hushu_pie_data"></div>
     <div id="hukoushu_pie_data" class="hukoushu_pie_data"></div>
     <div id="koushu_pie_data" class="koushu_pie_data"></div>
+    <!-- <canvas id="canvas" width="1920" height="1080"></canvas> -->
+    <!-- 不建议使用css控制常宽，因为如果设置的宽高与初始比例 300:150 不同，有可能出现扭曲的现象 -->
 
 
 
@@ -255,7 +210,7 @@
             },
             tooltip: {
                 trigger: 'item',
-                formatter: '{b}<br/>{c} (p / km2)'
+                formatter: '{b}<br/>{c} (人)'
             },
             toolbox: {
                 show: true,
@@ -1130,6 +1085,60 @@
                 });
             })
         })
+    </script>
+    <script type="text/javascript">
+        class Bubble{ // ES6新增Class语法糖
+            constructor(ctx){ // 构造函数
+                this.colorList = [[254,158,159], [147,186,255], [217,153,249], [129,199,132], [255,202,98], [255,164,119]]; // 颜色方案
+                this.ctx = ctx.getContext("2d"); // 二维绘图
+                this.circleList = []; // 气泡数组
+            }
+            randomInt(a, b) { // 返回随机数
+                return Number.parseInt(Math.random() * (b - a + 1) + a);   //取a-b之间包括ab的随机值
+            }
+            newCircle(){ // 新气泡
+                if(this.randomInt(0,80)) return 0; // 控制生成气泡的数量
+                var canvasHeight = this.ctx.canvas.height; // 获取画布高度
+                var circle = {}; // 定义一个新的气泡对象
+                circle.r = this.randomInt(10,50); // 随机半径
+                circle.x = this.randomInt(0, this.ctx.canvas.width); // 初始化气泡X坐标
+                circle.xMoveSpeed = this.randomInt(-10,10); // X方向移动速度以及方向
+                circle.y = canvasHeight + circle.r; // 初始化气泡Y坐标
+                circle.yMoveSpeed = this.randomInt(5,10); // Y方向的移动速度
+                circle.color = this.colorList[this.randomInt(0,this.colorList.length-1)]; // 获取气泡颜色
+                this.circleList.push(circle); // 将对象放入数组
+            }
+            destroyCircle(){ // 销毁气泡
+                this.circleList.forEach((v,i) => {
+                    if(v.y < -v.r) this.circleList.splice(i,1); // 气泡超过上边界就销毁气泡对象
+                })
+            }
+            draw(){ // 绘制气泡
+                this.newCircle(); // 调用产生新气泡 
+                this.ctx.clearRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height); // 清空画布
+                this.ctx.save(); // 保存画布状态
+                this.circleList.forEach( v => {
+                    this.ctx.beginPath(); // 起始一条路径
+                    this.ctx.fillStyle = `rgb(${v.color[0]},${v.color[1]},${v.color[2]},0.6)`; // 设置背景颜色
+                    this.ctx.strokeStyle = `rgb(${v.color[0]},${v.color[1]},${v.color[2]})`; // 设置边线颜色
+                    this.ctx.arc(v.x,v.y,v.r,0,Math.PI * 2); // 绘制圆 x坐标 y坐标 半径 起始角度 结束角度 顺/逆时针绘制
+                    this.ctx.fill(); // 绘制填充
+                    this.ctx.stroke(); // 绘制边线
+                    v.y -= v.yMoveSpeed * 0.06; // Y轴移动
+                    v.x += v.xMoveSpeed * 0.03; // X轴移动
+                })
+                this.ctx.restore(); // 恢复画布状态
+                this.destroyCircle(); // 销毁气泡
+            }
+            start(){
+                setInterval(() => {this.draw();},10); // 定时器绘制动画效果
+            }
+        }
+        (function(){
+            var ctx = document.getElementById("canvas"); // 获取canvas对象
+            var bubble = new Bubble(ctx); // 实例化Bubble
+            bubble.start(); // 开始绘制
+        })();
     </script>
 </body>
 

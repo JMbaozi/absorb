@@ -3,14 +3,14 @@ import sqlite3
 
 def init_db(dbpath):
     sql='''
-        create table people
+        create table celebrity
         (
         id INTEGER PRIMARY  KEY autoincrement,
-        朝代 text,
-        地区 text,
-        户数 INT ,
-        口数 INT ,
-        人每户 FLOAT ,
+        人物 text,
+        简介 text,
+        地点 text ,
+        朝代 text ,
+        人物属性 text ,
         备注 text  
         ) ''' #创建表语句
     conn=sqlite3.connect(dbpath)
@@ -26,7 +26,7 @@ def saveDataSqlite(datalist,savepath):
     for index in range(len(datalist)):
         datalist[index] = '"' + str(datalist[index]) + '"'
     print(datalist)
-    sql='''  insert into people(
+    sql='''  insert into celebrity(
                     朝代,地区,户数,口数,人每户,备注)
                     VALUES (%s)'''%",".join(datalist)
     print(sql)
@@ -35,10 +35,10 @@ def saveDataSqlite(datalist,savepath):
     cur.close()
     conn.close()
 def run():
-    workbook = load_workbook('表.xlsx')
+    workbook = load_workbook('人物.xlsx')
     sheet = workbook['人口']
     data=[]
-    path="HISTORY_数据库"
+    path="CELEBRITY_DATABASE"
     init_db(path)
     for j in range(2, 148):
         for i in range(1,7):

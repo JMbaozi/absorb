@@ -1,0 +1,65 @@
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1B242F;
+        }
+
+        .map_style {
+            height: 50%;
+            width: 33%;
+            /* top: 5%; */
+            float: right;
+            background-color: white;
+
+        }
+
+        .all_data {
+            height: 50%;
+            width: 33%;
+            margin: auto;
+            /* top: 5%; */
+            background-color: white;
+        }
+
+        .sort_hushu {
+            height: 50%;
+            width: 33%;
+            float: left;
+            /* top: 5%; */
+            background-color: white;
+        }
+
+        .hushu_pie_data {
+            height: 40%;
+            width: 33%;
+            float: left;
+            margin-top: 2%;
+            background-color: pink;
+
+        }
+
+        .koushu_pie_data {
+            height: 40%;
+            width: 33%;
+            margin: auto;
+            margin-top: 2%;
+            background-color: #9c38ff;
+
+        }
+
+        .hukoushu_pie_data {
+            height: 40%;
+            width: 33%;
+            float: right;
+            margin-top: 2%;
+            background-color: skyblue;
+
+        }

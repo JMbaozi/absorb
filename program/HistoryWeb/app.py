@@ -24,7 +24,7 @@ Population_dict = {}# 人口字典
 Familie_dict = {}# 人每户字典
 ####################################################
 # 连接数据库
-db = sqlite3.connect('test\数据库\HISTORY_DATABASE')
+db = sqlite3.connect('HISTORY_DATABASE')
 print("数据库连接成功")
 cur = db.cursor()
 for dynasty in Dynastys:
