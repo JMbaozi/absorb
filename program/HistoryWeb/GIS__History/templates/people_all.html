@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>朝代人口</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1B242F;
+        }
+        .all_data {
+            height: 50%;
+            width: 50%;
+            float: right;
+        }
+
+        .sort_data {
+            height: 50%;
+            width: 50%;
+            float: left;
+            background-color: white;
+        }
+
+        .zhexian_all {
+            height: 50%;
+            width: 100%;
+            float: right;
+            margin-top: 0%;
+            background-color: white;
+        }
+        .homediv {
+            height: 100%;
+        }
+
+    </style>
+    <script type="text/javascript"src="/static/asster/js/echarts.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="top">
+        <input type="button" id="btn_dongwei" onclick="window.location.href='Dynasty'" value="总览" class="top">
+    </div>
+    <div id="homediv" class="homediv">
+        <div id="sort_data" class="sort_data">所有朝代人数排序 左上</div>
+        <div id="all_data " class="all_data"> 23</div>
+
+        <div id="zhexian_all" class="zhexian_all">所有朝代人数折线与柱状图 点击柱状图切换朝代</div>
+    </div>
+
+    <script type="text/javascript">
+        var dom = document.getElementById("sort_data");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各朝代人数排序',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['人口总数']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: {{ Dynasty_sort | tojson }}
+            },
+        series: [
+            {
+                name: '人口总数',
+                type: 'bar',
+                data: {{ Population_sort }}
+                },
+        ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        var dom = document.getElementById("zhexian_all");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            legend: {
+                data: ['总人口', '总户数', '人每户']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: {{ Dynastylabel| tojson}},
+        axisPointer: {
+            type: 'shadow'
+        }
+                }
+            ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '人数(百万人)',
+                min: 0,
+                max: 35,
+                interval: 2,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            {
+                type: 'value',
+                name: '人每户',
+                min: 0,
+                max: 10,
+                interval: 1,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            }
+        ],
+            series: [
+                {
+                    name: '总人口',
+                    type: 'bar',
+                    data: {{ Populationlabelweight }}
+                },
+                {
+                    name: '总户数',
+                    type: 'bar',
+                    data: {{ Householdlabelweight }}
+                },
+                {
+                    name: '人每户',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: {{ Familylabel }}
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+    </script>
+</body>
+
+</html>

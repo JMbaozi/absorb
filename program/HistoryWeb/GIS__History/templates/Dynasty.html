@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>某个朝代</title>
+    <script type="text/javascript" src="../static/asster/js/echarts.min.js"></script>
+    <script src="../static/asster/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/asster/css/header.css">
+    <link rel="stylesheet" href="../static/asster/css/Dynasty.css">
+    <!-- <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script> -->
+</head>
+<body>
+<div>
+          <input type="button" id="btn_dongwei" value="东魏">
+                 <input type="button" id="btn_sui" value="隋朝">
+                 <input type="button" id="btn_tang" value="唐朝">
+                 <input type="button" id="btn_beisong" value="北宋">
+                 <input type="button" id="btn_liusong" value="刘宋">
+                 <input type="button" id="btn_jin" value="金朝">
+                 <input type="button" id="btn_yuan" value="元朝">
+                 <input type="button" id="btn_ming" value="明朝">
+                 <input type="button" id="btn_qing" value="清朝">
+ </div>
+    <!-- 各朝代按钮 -->
+    <!-- <div>
+        Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
+        <input type="button" id="btn_dongwei" value="东魏">
+        <input type="button" id="btn_sui" value="隋朝">
+        <input type="button" id="btn_tang" value="唐朝">
+        <input type="button" id="btn_beisong" value="北宋">
+        <input type="button" id="btn_liusong" value="刘宋">
+        <input type="button" id="btn_jin" value="金朝">
+        <input type="button" id="btn_yuan" value="元朝">
+        <input type="button" id="btn_ming" value="明朝">
+        <input type="button" id="btn_qing" value="清朝">
+    </div> -->
+    <div id="map" class="map_style"></div>
+    <div id="sort_hushu" class="sort_hushu"></div>
+    <div id="all_data " class="all_data">
+        <img src="/static/asster/img/shandong.jpg" height="450" width="570" alt="">
+    </div>
+    <div id="hushu_pie_data" class="hushu_pie_data"></div>
+    <div id="hukoushu_pie_data" class="hukoushu_pie_data"></div>
+    <div id="koushu_pie_data" class="koushu_pie_data"></div>
+
+    <!-- 户数 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("sort_hushu");
+        var myChart_Country = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '郡县户数排序',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['户数（排序后）']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: {{ DongweiCountyName_sort | tojson }}
+            },
+        series: [
+            {
+                name: '户数（排序后）',
+                type: 'bar',
+                data: {{ DongweiHousehold_sort }}
+                        },
+        ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart_Country.setOption(option);
+        }
+
+    </script>
+
+    <!-- 朝代地图（弃用） -->
+    <!-- <script type="text/javascript">
+        var map_link = "/static/jsonData/dongwei.json";
+        $('#btn_dongwei').click(function () {
+            map_link = "/static/jsonData/dongwei.json";
+        })
+        $('#btn_sui').click(function () {
+            map_link = "/static/jsonData/sui.json";
+            console.log(map_link)
+        })
+        $.get(map_link, function (map) {
+            console.log(map_link)
+            var myChart_Map = echarts.init(document.getElementById('map'));
+            myChart_Map.hideLoading();
+            echarts.registerMap("dongwei", map);
+            var option = {
+                title: {
+                    text: '东魏地图',
+                    subtext: '数据来自网络',
+                    sublink: 'https://www.baidu.com/s?wd=东魏地图'
+                },
+                series: [{
+                    name: '朝代地图',
+                    map: "dongwei",
+                    type: "map",
+                    label: {
+                        show: true
+                    },
+                                            data: [
+                            { name: '齐州', value: 269662 },
+                            { name: '济州', value: 121991 },
+                            { name: '兖州', value: 266791 },
+                            { name: '青州', value: 191775 },
+                            { name: '光州', value: 160949 },
+                            { name: '胶州', value: 60382 },
+                            { name: '司州', value: 218644 },
+                            { name: '冀州', value: 68369 },
+                            { name: '沧州', value: 153421 },
+                            { name: '南青州', value: 45322 },
+                            { name: '北徐州', value: 40125 },
+                            { name: '东徐州', value: 3308 },
+                            { name: '徐州', value: 38592 },
+                            { name: '西兖州', value: 111782 },
+                        ],
+                        // 自定义名称映射
+                        nameMap: {
+                            '齐州': '齐州',
+                            '济州': '济州',
+                            '兖州': '兖州',
+                            '青州': '青州',
+                            '光州': '光州',
+                            '胶州': '胶州',
+                            '司州': '司州',
+                            '冀州': '冀州',
+                            '沧州': '沧州',
+                            '南青州': '南青州',
+                            '北徐州': '北徐州',
+                            '东徐州': '东徐州',
+                            '徐州': '徐州',
+                            '西兖州': '西兖州'
+                        },
+                    aspectScale: 1.0,
+                    selectedMode: 'single',//选择类型,
+                    hoverable: false,//鼠标经过高亮
+                    roam: true,//鼠标滚轮缩放
+                    itemStyle: {
+                        normal: {
+                            borderWidth: 1,
+                            borderColor: '#ffffff',//区域边框色
+                            areaColor: '#FFDAB9',//区域背景色
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    color: '#6495ED',//文字颜色
+                                    fontSize: 15      //文字大小
+                                }
+                            }
+                        },
+                        emphasis: {                 // 选中样式
+                            borderWidth: 1,
+                            borderColor: '#00ffff',
+                            color: '#00DAFF',
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    color: '#ff0000'
+                                }
+                            }
+                        },
+                    }
+                }]
+            };
+            myChart_Map.setOption(option);
+        });
+    </script> -->
+
+    <!-- 朝代地图 -->
+    <script type="text/javascript">
+        var myChart_Map = echarts.init(document.getElementById('map'));
+        // myChart_Map.hideLoading();
+        var option_map = {
+            title: {
+                text: '朝代地图',
+                subtext: '数据来自网络',
+                sublink: 'https://www.baidu.com/s?wd=古代地图'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}<br/>{c} (p / km2)'
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            visualMap: {
+                min: {{DongweiPopulationMin}},
+                max: {{DongweiPopulationMax}},
+                text: ['High', 'Low'],
+                realtime: false,
+                calculable: true,
+                inRange: {
+                    color: ['lightskyblue', 'yellow', 'orangered']
+                }
+            },
+            series: [{
+                name: '朝代地图',
+                map: "map",
+                type: "map",
+                mapType: '东魏', /* // 自定义扩展图表类型 */
+                label: {
+                    show: true
+                },
+                data: [
+                    { name: '齐州', value: 269662 },
+                    { name: '济州', value: 121991 },
+                    { name: '兖州', value: 266791 },
+                    { name: '青州', value: 191775 },
+                    { name: '光州', value: 160949 },
+                    { name: '胶州', value: 60382 },
+                    { name: '司州', value: 218644 },
+                    { name: '冀州', value: 68369 },
+                    { name: '沧州', value: 153421 },
+                    { name: '南青州', value: 45322 },
+                    { name: '北徐州', value: 40125 },
+                    { name: '东徐州', value: 3308 },
+                    { name: '徐州', value: 38592 },
+                    { name: '西兖州', value: 111782 },
+                ],
+                // 自定义名称映射
+                // nameMap: {
+                //     '齐州': '齐州',
+                //     '济州': '济州',
+                //     '兖州': '兖州',
+                //     '青州': '青州',
+                //     '光州': '光州',
+                //     '胶州': '胶州',
+                //     '司州': '司州',
+                //     '冀州': '冀州',
+                //     '沧州': '沧州',
+                //     '南青州': '南青州',
+                //     '北徐州': '北徐州',
+                //     '东徐州': '东徐州',
+                //     '徐州': '徐州',
+                //     '西兖州': '西兖州'
+                // },
+                aspectScale: 1.0,
+                selectedMode: 'single',//选择类型,
+                hoverable: false,//鼠标经过高亮
+                roam: true,//鼠标滚轮缩放
+                itemStyle: {
+                    normal: {
+                        borderWidth: 1,
+                        borderColor: '#ffffff',//区域边框色
+                        areaColor: '#FFDAB9',//区域背景色
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#6495ED',//文字颜色
+                                fontSize: 15      //文字大小
+                            }
+                        }
+                    },
+                    emphasis: {                 // 选中样式
+                        borderWidth: 1,
+                        borderColor: '#00ffff',
+                        color: '#00DAFF',
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#ff0000'
+                            }
+                        }
+                    }
+                }
+            }]
+        };
+        var map_link = "/static/jsonData/dongwei.json";
+        $.get(map_link, function (map) {
+            echarts.registerMap('map', map);
+            myChart_Map.setOption(option_map);
+        });
+        // myChart_Map.setOption(option);
+        // $(':button').click(function () {
+        //     var id = $(this).attr('id');
+        //     if (id == "btn_dongwei") {
+        //         map_link = "/static/jsonData/dongwei.json";
+        //     } else if (id == "btn_sui") {
+        //         map_link = "/static/jsonData/sui.json";
+        //     } else if (id == "btn_tang") {
+        //         map_link = "/static/jsonData/tang.json";
+        //     } else if (id == "btn_beisong") {
+        //         map_link = "/static/jsonData/beisong.json";
+        //     } else if (id == "btn_liusong") {
+        //         map_link = "/static/jsonData/liusong.json";
+        //     } else if (id == "btn_jin") {
+        //         map_link = "/static/jsonData/jin.json";
+        //     } else if (id == "btn_yuan") {
+        //         map_link = "/static/jsonData/yuan.json";
+        //     } else if (id == "btn_ming") {
+        //         map_link = "/static/jsonData/ming.json";
+        //     } else if (id == "btn_qing") {
+        //         map_link = "/static/jsonData/qing.json";
+        //     }
+            // console.log(map_link)
+            // $.get(map_link, function (map) {
+            //     echarts.registerMap('map', map);
+            //     myChart_Map.setOption(option_map);
+            // });
+        // })
+    </script>
+
+    <!-- 郡县户数饼状图 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("hushu_pie_data");
+        var myChart_Household = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县户数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '户数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: {{ DongweiHouseholds| tojson}},
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                    shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart_Household.setOption(option);
+        }
+
+    </script>
+
+    <!-- 郡县人口数饼状图 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("koushu_pie_data");
+        var myChart_Population = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县人口数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '人口数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: {{ DongweiPopulations| tojson}},
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                    shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart_Population.setOption(option);
+        }
+    </script>
+
+
+    <!-- 郡县户口数饼状图 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("hukoushu_pie_data");
+        var myChart_Families = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县户口数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '户口数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: {{ DongweiFamilies| tojson}},
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                    shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+                }
+            ]
+        };
+
+
+        if (option && typeof option === 'object') {
+            myChart_Families.setOption(option);
+        }
+
+    </script>
+
+    <!-- 东魏 -->
+    <script>
+        $('#btn_dongwei').click(function () {
+            var url = '/Dynasty/dongwei';
+            $.post(url, function (alldata) {
+                // var CountyName_sort = []
+                // var Household_sort = []
+                // var Households = []
+                // var Populations = []
+                // var Families = []
+                // var PopulationMin = 0
+                // var PopulationMax = 0
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                // myChart_Map.setOption({
+                //     series: [{
+                //         name: '朝代地图',
+                //         map: "map",
+                //         type: "map",
+                //         data: Populations
+                //     }]
+                // })
+                map_link = "/static/jsonData/dongwei.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 隋 -->
+    <script>
+        $('#btn_sui').click(function () {
+            var url = '/Dynasty/sui';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                map_link = "/static/jsonData/sui.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 唐 -->
+    <script>
+        $('#btn_tang').click(function () {
+            var url = '/Dynasty/tang';;
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/tang.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 北宋 -->
+    <script>
+        $('#btn_beisong').click(function () {
+            var url = '/Dynasty/beisong';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/beisong.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 刘宋 -->
+    <script>
+        $('#btn_liusong').click(function () {
+            var url = '/Dynasty/liusong';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/liusong.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 金 -->
+    <script>
+        $('#btn_jin').click(function () {
+            var url = '/Dynasty/jin';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/jin.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 元 -->
+    <script>
+        $('#btn_yuan').click(function () {
+            var url = '/Dynasty/yuan';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/yuan.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 明 -->
+    <script>
+        $('#btn_ming').click(function () {
+            var url = '/Dynasty/ming';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/ming.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+    <!-- 清 -->
+    <script>
+        $('#btn_qing').click(function () {
+            var url = '/Dynasty/qing';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/qing.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    </script>
+
+</body>
+
+</html>
