@@ -10,18 +10,19 @@
     <link rel="stylesheet" href="../static/asster/css/Dynasty.css">
     <!-- <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script> -->
 </head>
+
 <body>
-<div>
-          <input type="button" id="btn_dongwei" value="东魏">
-                 <input type="button" id="btn_sui" value="隋朝">
-                 <input type="button" id="btn_tang" value="唐朝">
-                 <input type="button" id="btn_beisong" value="北宋">
-                 <input type="button" id="btn_liusong" value="刘宋">
-                 <input type="button" id="btn_jin" value="金朝">
-                 <input type="button" id="btn_yuan" value="元朝">
-                 <input type="button" id="btn_ming" value="明朝">
-                 <input type="button" id="btn_qing" value="清朝">
- </div>
+    <div>
+        <input type="button" id="btn_dongwei" value="东魏">
+        <input type="button" id="btn_sui" value="隋朝">
+        <input type="button" id="btn_tang" value="唐朝">
+        <input type="button" id="btn_beisong" value="北宋">
+        <input type="button" id="btn_liusong" value="刘宋">
+        <input type="button" id="btn_jin" value="金朝">
+        <input type="button" id="btn_yuan" value="元朝">
+        <input type="button" id="btn_ming" value="明朝">
+        <input type="button" id="btn_qing" value="清朝">
+    </div>
     <!-- 各朝代按钮 -->
     <!-- <div>
         Dynastys = ['东魏','隋代','唐','北宋','刘宋','金','元','明','清']
@@ -209,92 +210,92 @@
                 left: 'right',
                 top: 'center',
                 feature: {
-                    dataView: {readOnly: false},
+                    dataView: { readOnly: false },
                     restore: {},
                     saveAsImage: {}
                 }
             },
             visualMap: {
-                min: {{DongweiPopulationMin}},
-                max: {{DongweiPopulationMax}},
-                text: ['High', 'Low'],
-                realtime: false,
+                min: {{ DongweiPopulationMin }},
+        max: { { DongweiPopulationMax } },
+        text: ['High', 'Low'],
+            realtime: false,
                 calculable: true,
-                inRange: {
-                    color: ['lightskyblue', 'yellow', 'orangered']
-                }
+                    inRange: {
+            color: ['lightskyblue', 'yellow', 'orangered']
+        }
             },
-            series: [{
-                name: '朝代地图',
-                map: "map",
-                type: "map",
-                mapType: '东魏', /* // 自定义扩展图表类型 */
-                label: {
-                    show: true
-                },
-                data: [
-                    { name: '齐州', value: 269662 },
-                    { name: '济州', value: 121991 },
-                    { name: '兖州', value: 266791 },
-                    { name: '青州', value: 191775 },
-                    { name: '光州', value: 160949 },
-                    { name: '胶州', value: 60382 },
-                    { name: '司州', value: 218644 },
-                    { name: '冀州', value: 68369 },
-                    { name: '沧州', value: 153421 },
-                    { name: '南青州', value: 45322 },
-                    { name: '北徐州', value: 40125 },
-                    { name: '东徐州', value: 3308 },
-                    { name: '徐州', value: 38592 },
-                    { name: '西兖州', value: 111782 },
-                ],
-                // 自定义名称映射
-                // nameMap: {
-                //     '齐州': '齐州',
-                //     '济州': '济州',
-                //     '兖州': '兖州',
-                //     '青州': '青州',
-                //     '光州': '光州',
-                //     '胶州': '胶州',
-                //     '司州': '司州',
-                //     '冀州': '冀州',
-                //     '沧州': '沧州',
-                //     '南青州': '南青州',
-                //     '北徐州': '北徐州',
-                //     '东徐州': '东徐州',
-                //     '徐州': '徐州',
-                //     '西兖州': '西兖州'
-                // },
-                aspectScale: 1.0,
-                selectedMode: 'single',//选择类型,
-                hoverable: false,//鼠标经过高亮
-                roam: true,//鼠标滚轮缩放
-                itemStyle: {
-                    normal: {
-                        borderWidth: 1,
-                        borderColor: '#ffffff',//区域边框色
-                        areaColor: '#FFDAB9',//区域背景色
-                        label: {
-                            show: true,
-                            textStyle: {
-                                color: '#6495ED',//文字颜色
-                                fontSize: 15      //文字大小
-                            }
+        series: [{
+            name: '朝代地图',
+            map: "map",
+            type: "map",
+            mapType: '东魏', /* // 自定义扩展图表类型 */
+            label: {
+                show: true
+            },
+            data: [
+                { name: '齐州', value: 269662 },
+                { name: '济州', value: 121991 },
+                { name: '兖州', value: 266791 },
+                { name: '青州', value: 191775 },
+                { name: '光州', value: 160949 },
+                { name: '胶州', value: 60382 },
+                { name: '司州', value: 218644 },
+                { name: '冀州', value: 68369 },
+                { name: '沧州', value: 153421 },
+                { name: '南青州', value: 45322 },
+                { name: '北徐州', value: 40125 },
+                { name: '东徐州', value: 3308 },
+                { name: '徐州', value: 38592 },
+                { name: '西兖州', value: 111782 },
+            ],
+            // 自定义名称映射
+            // nameMap: {
+            //     '齐州': '齐州',
+            //     '济州': '济州',
+            //     '兖州': '兖州',
+            //     '青州': '青州',
+            //     '光州': '光州',
+            //     '胶州': '胶州',
+            //     '司州': '司州',
+            //     '冀州': '冀州',
+            //     '沧州': '沧州',
+            //     '南青州': '南青州',
+            //     '北徐州': '北徐州',
+            //     '东徐州': '东徐州',
+            //     '徐州': '徐州',
+            //     '西兖州': '西兖州'
+            // },
+            aspectScale: 1.0,
+            selectedMode: 'single',//选择类型,
+            hoverable: false,//鼠标经过高亮
+            roam: true,//鼠标滚轮缩放
+            itemStyle: {
+                normal: {
+                    borderWidth: 1,
+                    borderColor: '#ffffff',//区域边框色
+                    areaColor: '#FFDAB9',//区域背景色
+                    label: {
+                        show: true,
+                        textStyle: {
+                            color: '#6495ED',//文字颜色
+                            fontSize: 15      //文字大小
                         }
-                    },
-                    emphasis: {                 // 选中样式
-                        borderWidth: 1,
-                        borderColor: '#00ffff',
-                        color: '#00DAFF',
-                        label: {
-                            show: true,
-                            textStyle: {
-                                color: '#ff0000'
-                            }
+                    }
+                },
+                emphasis: {                 // 选中样式
+                    borderWidth: 1,
+                    borderColor: '#00ffff',
+                    color: '#00DAFF',
+                    label: {
+                        show: true,
+                        textStyle: {
+                            color: '#ff0000'
                         }
                     }
                 }
-            }]
+            }
+        }]
         };
         var map_link = "/static/jsonData/dongwei.json";
         $.get(map_link, function (map) {

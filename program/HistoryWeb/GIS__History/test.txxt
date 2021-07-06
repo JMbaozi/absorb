@@ -1,0 +1,72 @@
+            $.post(url, function (alldata) {
+                // var CountyName_sort = []
+                // var Household_sort = []
+                // var Households = []
+                // var Populations = []
+                // var Families = []
+                // var PopulationMin = 0
+                // var PopulationMax = 0
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                console.log(DynastyTableData);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                // myChart_Map.setOption({
+                //     series: [{
+                //         name: '朝代地图',
+                //         map: "map",
+                //         type: "map",
+                //         data: Populations
+                //     }]
+                // })
+                map_link = "/static/jsonData/dongwei.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
