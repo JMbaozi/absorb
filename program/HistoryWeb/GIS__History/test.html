@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>json读取</title>
+    <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        a =  $.ajax({
+				url: "https://baozi.run/test/json/test.json",//json文件位置，文件名
+				type: "GET",//请求方式为get
+				dataType: "json", //返回数据格式为json
+				async: false,
+				success: function(data) {//请求成功完成后要执行的方法 
+				}
+				}); 
+		aa=a.responseText	;
+        result=$.parseJSON(a["responseText"])
+        console.log(result)
+    </script>
+</head>
+</html>
