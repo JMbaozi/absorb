@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../static/asster/js/jquery.js"></script>
+    <script src="../static/asster/js/echarts.min.js"></script>
+</head>
+<body>
+<div id="relation"  style="width:1000px;height:1000px">
+
+</div>
+
+</body>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('relation'));
+    var categories = [
+    {
+        "name": "类目0",
+        'itemStyle':{
+            'normal':{
+                'color':'orange'
+            }
+        }
+    },
+    {
+        "name": "类目1",
+        'itemStyle':{
+            'normal':{
+                'color':'green'
+            }
+        }
+    },
+    {
+        "name": "类目2",
+        'itemStyle':{
+            'normal':{
+                'color':'gray'
+            }
+        }
+    },
+    ];
+    option = {
+// 图的标题
+            title: {
+            },
+// 提示框的配置
+            tooltip: {
+            },
+// 工具箱
+            toolbox: {
+            },
+            //animation: false,
+            series: [{
+                type: 'graph', // 类型:关系图
+                layout: 'force', //图的布局，类型为力导图
+                //roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+                //draggable : true,
+                edgeSymbol: ['circle', 'arrow'],
+                edgeSymbolSize: [2, 5],
+                //focusNodeAdjacency: true,
+                force: {
+                    repulsion: 1000,
+                    edgeLength: [5, 10],
+                    layoutAnimation: false
+                },
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        color: '#4b565b',
+                    }
+                },
+                edgeLabel: {
+                    normal: {
+                        show: true,
+                        formatter: function (x) {
+                            return x.data.name;
+                        },
+                        textStyle: {
+                            fontSize:10
+                        }
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        textStyle: {
+                            fontSize:10
+                        }
+                    }
+                },
+                data:
+                    {{ Nodes|tojson }},
+                links:
+                    {{ Links|tojson }},
+                categories: categories,
+            }]
+        };
+    myChart.setOption(option);
+    myChart.on('click', function (param){
+        if (param.data.category == 1) {
+            alert("点击了节点" + param.name)
+        }
+    });
+</script>
+</html>

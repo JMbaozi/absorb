@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>东夷文字发源</title>
+    <script src="../static/asster/js/ol.js"></script>
+    <link rel="stylesheet" href="../static/asster/css/ol.css">
+    <link rel="stylesheet" href="../static/asster/css/bootstrap.css">
+
+    <style type="text/css">
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            padding: 15px;
+            overflow: auto;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 45px;
+            left: -50px;
+            width: 350px;
+            height: 300px;
+        }
+
+        .ol-popup:after, .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+        }
+
+        .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+        }
+
+
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        }
+
+        .ol-popup-closer:after {
+            content: "✖";
+        }
+
+        #popup-content {
+            font-size: 14px;
+            font-family: "微软雅黑";
+        }
+
+        #popup-content.markerInfo {
+            font-weight: bold;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+        }
+
+        button {
+            background-color: #243e3e; /* Green */
+            border-radius: 25px;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        #mapCon {
+            width: 100%;
+            height: 90%;
+        }
+
+        .info_window {
+            overflow: auto;
+            background-color: white;
+            width: 20%;
+            height: 70%;
+            margin-top: 50px;
+            margin-left: 45px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            display: none;
+            position: absolute;
+            z-index: 9;
+
+        }
+
+        .con_button {
+            background-color: white;
+            margin-top: 10px;
+            margin-left: 1530px;
+            display: none;
+            position: absolute;
+            z-index: 999;
+
+        }
+
+        .img_div {
+            height: 60%;
+            width: 50%;
+        }
+
+        .img_div img {
+            width: 100%; /* ... */
+            height: 100%;
+        }
+
+        .left-info {
+            margin: 10px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+{#导航栏#}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href=" http://127.0.0.1:5000/ ">山东历史信息系统</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown"
+                aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+
+</div>
+
+<!--    地图 -->
+<div id="mapCon"></div>
+
+<!-- Popup -->
+<table class="table table-active" style="text-align: center">
+    <tr>
+        <td>遗址名称</td>
+        <td>描述</td>
+        <td>遗址出土年代</td>
+        <td>遗址地点</td>
+        <td>遗址坐标</td>
+        <td>遗址类型</td>
+
+    </tr>{% for movie in data %}
+    <tr>
+        <td>
+            <a href="{{ movie[2] }}" style="color: #0b34c9" target="_blank">{{ movie[0] }}</a>
+        </td>
+        <td>{{ movie[1] }}</td>
+        <td>{{ movie[3] }}</td>
+        <td>{{ movie[4] }}</td>
+        <td>{{ movie[5] }}</td>
+        <td>{{ movie[6] }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+
+<script>
+
+    var vector = new ol.layer.Vector({});
+    //实例化Map对象加载地图
+    var map = new ol.Map({
+        //地图容器div的ID
+        target: 'mapCon',
+        //地图容器中加载的图层
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            }),
+            vector
+        ],
+        //地图视图设置
+        view: new ol.View({
+            //地图初始中心点
+            center: ol.proj.fromLonLat([117, 36]),
+            //地图初始显示级别
+            zoom: 7
+        })
+    });
+
+    {% for i in data %}
+        var a ={{ i[5]|tojson }}
+        var p = ol.proj.transform([a.slice(0, 10), a.slice(11, 20)], 'EPSG:4326', 'EPSG:3857');
+        var createLabelStyle;
+        if (({{ i[6]|tojson }}) == "陶文发现地") {
+            //设置点1的样式信息
+            createLabelStyle = function (feature) {
+                return new ol.style.Style({
+                    /**{olx.style.IconOptions}类型*/
+                    image: new ol.style.Icon(
+                        ({
+                            anchor: [0.5, 0],
+                            anchorOrigin: 'bottom-right',
+                            anchorXUnits: 'fraction',
+                            anchorYUnits: 'pixels',
+                            offsetOrigin: 'bottom-right',
+                            //图标缩放比例
+                            scale: 0.1,
+                            //透明度
+                            opacity: 1,
+                            //图标的url
+                            src: '../static/asster/img/陶文.png'
+                        })
+                    ),
+                    text: new ol.style.Text({
+                        //位置
+                        textAlign: 'center',
+                        //基准线
+                        textBaseline: 'middle',
+                        //文字样式
+                        font: '15px 微软雅黑',
+                        //文本内容
+                        text: feature.get('name'),
+                        //文本填充样式（即文字颜色）
+                        fill: new ol.style.Fill({color: '#050505'}),
+                        stroke: new ol.style.Stroke({color: '#f8d1d1', width: 2})
+                    })
+                });
+            };
+        }
+
+
+        if (({{ i[6]|tojson }}) == "卜骨发现地") {
+            createLabelStyle = function (feature) {
+                return new ol.style.Style({
+                    /**{olx.style.IconOptions}类型*/
+                    image: new ol.style.Icon(
+                        ({
+                            anchor: [0.5, 0],
+                            anchorOrigin: 'bottom-right',
+                            anchorXUnits: 'fraction',
+                            anchorYUnits: 'pixels',
+                            offsetOrigin: 'bottom-right',
+                            //图标缩放比例
+                            scale: 0.4,
+                            //透明度
+                            opacity: 1,
+                            //图标的url
+                            src: '../static/asster/img/卜骨.png'
+                        })
+                    ),
+                    text: new ol.style.Text({
+                        //位置
+                        textAlign: 'center',
+                        //基准线
+                        textBaseline: 'middle',
+                        //文字样式
+                        font: 'normal 20px 微软雅黑',
+                        //文本内容
+                        text: feature.get('name'),
+                        //文本填充样式（即文字颜色）
+                        fill: new ol.style.Fill({color: '#050505'}),
+                        stroke: new ol.style.Stroke({color: '#f8d1d1', width: 2})
+                    })
+                });
+            };
+            //实例化Vector要素，通过矢量图层添加到地图容器中
+        }
+        if (({{ i[6]|tojson }}) == "骨刻文发现地") {
+            createLabelStyle = function (feature) {
+                return new ol.style.Style({
+                    /**{olx.style.IconOptions}类型*/
+                    image: new ol.style.Icon(
+                        ({
+                            anchor: [0.5, 0],
+                            anchorOrigin: 'bottom-right',
+                            anchorXUnits: 'fraction',
+                            anchorYUnits: 'pixels',
+                            offsetOrigin: 'bottom-right',
+                            //图标缩放比例
+                            scale: 0.4,
+                            //透明度
+                            opacity: 1,
+                            //图标的url
+                            src: '../static/asster/img/古朴.png'
+                        })
+                    ),
+                    text: new ol.style.Text({
+                        //位置
+                        textAlign: 'bottom',
+                        //基准线
+                        textBaseline: 'middle',
+                        //文字样式
+                        font: 'normal 20px 微软雅黑',
+                        //文本内容
+                        text: feature.get('name'),
+                        //文本填充样式（即文字颜色）
+                        fill: new ol.style.Fill({color: '#050505'}),
+                        stroke: new ol.style.Stroke({color: '#f8d1d1', width: 2})
+                    })
+                });
+            };
+            //实例化Vector要素，通过矢量图层添加到地图容器中
+        }
+        var iconFeature = new ol.Feature({
+            geometry: new ol.geom.Point(p),
+            name: {{ i[0]|tojson }},
+            info: {{i[1]|tojson}},
+            imgURL: "../../images/label/bj.png",
+            geo: p
+        });
+        iconFeature.setStyle(createLabelStyle(iconFeature));
+        //矢量标注的数据源
+        var vectorSource = new ol.source.Vector({
+            features: [iconFeature]
+        });
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+        });
+        map.addLayer(vectorLayer);
+
+
+
+
+    {% endfor %}
+
+
+</script>
+
+</html>

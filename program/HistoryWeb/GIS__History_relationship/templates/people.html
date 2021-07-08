@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>山东人口变化</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
+    <script type="text/javascript" src="../static/asster/js/echarts.min.js"></script>
+    <!-- <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script> -->
+    <script src="../static/asster/js/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/asster/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="../static/asster/css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="http://127.0.0.1:5000/">山东历史信息系统</a>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1">
+            <nav id="sidebarMenu" class=" d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <button id="btn_zonglan" class="nav-link " style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                总览</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link " id="btn_chunqiuxijin" style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                春秋-西晋</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link"  id="btn_liusong"  style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                刘宋
+                            </button>
+                        </li>
+                        <li class="nav-item " >
+                            <button class="nav-link" id="btn_dongwei" style=" text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                东魏
+                            </button>
+                        </li>
+                        <li class="nav-item " >
+                            <button class="nav-link" id="btn_sui" style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                隋朝
+                            </button>
+                        </li>
+                        <li class="nav-item " >
+                            <button class="nav-link"  id="btn_tang" style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                唐朝
+                            </button>
+                        </li>
+                        <li class="nav-item " >
+                            <button class="nav-link" id="btn_beisong" style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                北宋
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_jin" style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                金朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link"  id="btn_yuan" style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                元朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link"  id="btn_ming" style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                明朝
+                            </button>
+                        </li>
+                        <li class="nav-item " >
+                            <button class="nav-link" id="btn_qing"style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                清朝
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-10 col-offset-2">
+            <!-- 各朝代数据来源时间 -->
+            <br>
+            <h6 id="DynastyTime" style="display: none;"></h6>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h4>人口图表</h4>
+            </div>
+<!-- {#            <div id="all_data " style="height: 400px">#}
+{#                <img src="/static/asster/img/shandong.jpg" height="450" width="570" alt="">#}
+{#            </div>#} -->
+            <div class="row">
+                <div id="sort_hushu" style="height: 400px;width: 750px;display: none"> </div>
+                <div id="map" style="height: 400px;width: 750px;display: none"></div>
+                <div id="hushu_pie_data"  style="height: 400px;width: 640px;display: none" class="col-4"></div>
+                <div id="hukoushu_pie_data"  style="height: 400px;width: 640px;display: none" class="col-4"></div>
+                <div id="koushu_pie_data" style="height: 400px;width: 640px;display: none" class="col-4"></div>
+            </div>
+            <div id="zonglan_sort_data" style="height: 400px;width: 1500px"></div>
+            <div id="zonglan_all_data" style="height: 400px;width: 1500px"></div>
+            <div id="chunqiuxijin_data" style="display: none;">
+                <h3>春秋</h3>
+                <h4>据不完全史料记载，约400万</h4>
+                <h3>西汉</h3>
+                <h4>受反秦战争和楚汉战争所累，西汉初期，山东地区总人口损剩仅二百万。受良好政治经济制度刺激，加之良好的地理条件，人口随之迅速增长。据《汉书·地理志》记载,至汉平帝元始二年(公元2年)，山东地区人口已达一千二百多万人，为西汉初期人口的六倍左右。此时，不管是在人口密度还是人口总量上，山东地区都仅次于中原(今河南地区)地区，居全国第二位。</h4>
+                <h3>东汉</h3>
+                <h4>新莽政权期间，山东地区人口损失严重。西汉末到东汉初，二十余年间由一千二百余万人口到只剩三百余万。东汉中期，山东地区人口基本恢复到西汉末期的一千余万人。到汉朝灭亡，山东地区人口大约只剩下一百余万。</h4>
+                <h3>西晋</h3>
+                <h4>西晋时期，山东地区的总人口虽比东汉末期的一百余万有所增加，但也不过在二百万左右。</h4>
+            </div>
+            <div class="table-responsive" id="table_data" style="display: none;">
+                <h4>数据表</h4>
+                <h6>0：暂无数据</h6>
+                <table class="table table-striped table-sm" id="DynastyTable">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>郡县</th>
+                            <th>人口数</th>
+                            <th>户数</th>
+                            <th>户口数</th>
+                        </tr>
+                    </thead>
+                    <!-- <tbody id="tbody"></tbody> -->
+                </table>
+            </div>
+            <!-- 总览数据表格 单独一个，点击其他朝代隐藏此表。 -->
+            <div class="table-responsive" id="table_data_zonglan">
+                <h4>数据表</h4>
+                <h6>0：暂无数据</h6>
+                <table class="table table-striped table-sm" id="ZonglanTable">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>朝代</th>
+                            <th>人口数</th>
+                            <th>户数</th>
+                            <th>户口数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>2</th>
+                            <th>刘宋</th>
+                            <th>1310487</th>
+                            <th>228566</th>
+                            <th>5.65</th>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <th>东魏</th>
+                            <th>1751113</th>
+                            <th>573414</th>
+                            <th>2.98</th>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <th>隋代</th>
+                            <th>7513444</th>
+                            <th>1454403</th>
+                            <th>5.2</th>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <th>唐朝</th>
+                            <th>5560585</th>
+                            <th>855738</th>
+                            <th>6.47</th>
+                        </tr>
+                        <tr>
+                            <th>5</th>
+                            <th>北宋</th>
+                            <th>6293138</th>
+                            <th>142543</th>
+                            <th>4.25</th>
+                        </tr>
+                        <tr>
+                            <th>6</th>
+                            <th>金朝</th>
+                            <th>12091634</th>
+                            <th>186025</th>
+                            <th>6.5</th>
+                        </tr>
+                        <tr>
+                            <th>7</th>
+                            <th>元朝</th>
+                            <th>1258365</th>
+                            <th>388841</th>
+                            <th>3.46</th>
+                        </tr>
+                        <tr>
+                            <th>8</th>
+                            <th>明朝</th>
+                            <th>7402574</th>
+                            <th>826204</th>
+                            <th>8.97</th>
+                        </tr>
+                        <tr>
+                            <th>9</th>
+                            <th>清朝</th>
+                            <th>31445329</th>
+                            <th>0</th>
+                            <th>0</th>
+                        </tr>
+                    </tbody>
+                    <!-- <tbody id="tbody"></tbody> -->
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- 按钮点击后变色 -->
+    <!-- <script>
+        var btn  = document.getElementsByTagName("button");
+        for(var i=0;i<btn.length;i++){
+            (function(index){
+                btn[index].onclick = function(){
+                    if(btn[index].style.backgroundColor === "red"){
+                        btn[index].style.backgroundColor = "";
+                    }else{
+                        btn[index].style.backgroundColor = "red";
+                    }
+                }
+            }(i))
+        }
+    </script> -->
+
+    <!-- 郡县户数排序 -->
+    <script type="text/javascript">
+        var dom = document.getElementById("sort_hushu");
+        var myChart_Country = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '郡县户数排序',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['户数（排序后）']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: []
+            },
+        series: [
+            {
+                name: '户数（排序后）',
+                type: 'bar',
+                data: []
+            },
+        ]
+        };
+        if (option && typeof option === 'object') {
+            myChart_Country.setOption(option);
+        }
+    // <!-- 朝代地图 -->
+        var myChart_Map = echarts.init(document.getElementById('map'));
+        myChart_Map.hideLoading();
+        var option_map = {
+            title: {
+                text: '朝代地图',
+                subtext: '淡粉色：暂无数据',
+                sublink: 'https://www.baidu.com/s?wd=古代地图'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}<br/>{c} (p / km2)'
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            visualMap: {
+                min: [],
+                max: [],
+                text: ['High', 'Low'],
+                realtime: false,
+                calculable: true,
+                inRange: {
+                    color: ['lightskyblue', 'yellow', 'orangered']
+                }
+            },
+            series: [{
+                name: '朝代地图',
+                map: "map",
+                type: "map",
+                mapType: '东魏', /* // 自定义扩展图表类型 */
+                label: {
+                    show: true
+                },
+                data: [
+                    { name: '齐州', value: 269662 },
+                    { name: '济州', value: 121991 },
+                    { name: '兖州', value: 266791 },
+                    { name: '青州', value: 191775 },
+                    { name: '光州', value: 160949 },
+                    { name: '胶州', value: 60382 },
+                    { name: '司州', value: 218644 },
+                    { name: '冀州', value: 68369 },
+                    { name: '沧州', value: 153421 },
+                    { name: '南青州', value: 45322 },
+                    { name: '北徐州', value: 40125 },
+                    { name: '东徐州', value: 3308 },
+                    { name: '徐州', value: 38592 },
+                    { name: '西兖州', value: 111782 },
+                ],
+                aspectScale: 1.0,
+                selectedMode: 'single',//选择类型,
+                hoverable: true,//鼠标经过高亮
+                roam: true,//鼠标滚轮缩放
+                itemStyle: {
+                    normal: {
+                        borderWidth: 1,
+                        borderColor: '#ffffff',//区域边框色
+                        areaColor: '#FFDAB9',//区域背景色
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#6495ED',//文字颜色
+                                fontSize: 15      //文字大小
+                            }
+                        }
+                    },
+                    emphasis: {                 // 选中样式
+                        borderWidth: 1,
+                        borderColor: '#00ffff',
+                        color: '#00DAFF',
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#ff0000'
+                            }
+                        }
+                    }
+                }
+            }]
+        };
+        var map_link = "/static/jsonData/dongwei.json";
+        $.get(map_link, function (map) {
+            echarts.registerMap('map', map);
+            myChart_Map.setOption(option_map);
+        });
+    // <!-- 郡县户数饼状图 -->
+        var dom = document.getElementById("hushu_pie_data");
+        var myChart_Household = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县户数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '户数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: [],
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                    shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+                }
+            ]
+        };
+        if (option && typeof option === 'object') {
+            myChart_Household.setOption(option);
+        }
+
+    // <!-- 郡县人口数饼状图 -->
+        var dom = document.getElementById("koushu_pie_data");
+        var myChart_Population = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县人口数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '人口数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: [],
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                    shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+                }
+            ]
+        };
+        if (option && typeof option === 'object') {
+            myChart_Population.setOption(option);
+        }
+    // <!-- 郡县户口数饼状图 -->
+        var dom = document.getElementById("hukoushu_pie_data");
+        var myChart_Families = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各郡县户口数',
+                subtext: '数据来源于网络',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [
+                {
+                    name: '户口数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: [],
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                    shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+                }
+            ]
+        };
+        if (option && typeof option === 'object') {
+            myChart_Families.setOption(option);
+        }
+
+        // 按钮显示
+        // 点击各朝代，总览表格隐藏；点击总览，朝代图标隐藏。
+        function DynastyButton(){
+            $("#zonglan_all_data").hide();
+            $("#zonglan_sort_data").hide();
+            $("#chunqiuxijin_data").hide();
+            $("#sort_hushu").show();
+            $("#map").show();
+            $("#hushu_pie_data").show();
+            $("#hukoushu_pie_data").show();
+            $("#koushu_pie_data").show();
+        }
+
+        // 显示总览数据表格
+        // 总览数据单独一个表格，div-id:table_data_zonglan,table-id:ZonglanTable
+        // 点击其他朝代按钮，table_data_zonglan隐藏，点击总览按钮，table_data_zonglan显示。
+        function ShowZonglanTableData(){
+            // 展示总览数据图表
+            $("#table_data_zonglan").show();
+            $("#table_data").hide();
+        }
+        function ShowDynastyTableData(){
+            // 展示各朝代数据图表
+            $("#table_data_zonglan").hide();
+            $("#table_data").show();
+        }
+        // 显示各郡县数据表格
+        function ShowTableData(CountyName_sort,Populations,Households,Families){
+            var DynastyTableData = [];
+            for(var i=0;i<CountyName_sort.length;++i){
+                data = [];
+                data[0] = i+1;//序号
+                data[1] = Populations[i].name;//郡县名称
+                data[2] = Populations[i].value;//人口数
+                data[3] = Households[i].value;//户数
+                data[4] = Families[i].value;//户口数
+                DynastyTableData[i] = data;
+            }
+            var table = document.getElementById('DynastyTable');//这是获取表
+            // 移除上一个朝代的数据表格
+            var tbs = table.getElementsByTagName('tbody');
+            if(!tbs || tbs.length==0){
+                console.log("我进来了")
+            }else{
+                table.removeChild(tbs[0]);
+            }
+            // 添加当前郡县数据表格
+            var tbody = document.createElement("tbody")
+            table.appendChild(tbody)
+            // var tbody = document.getElementById("tbody")
+            for (var i = 0; i < DynastyTableData.length; i++) {
+                var tr = document.createElement("tr");
+                tr.innerHTML = '<td>'+ DynastyTableData[i][0]+'</td>'
+                                + '<td>'+ DynastyTableData[i][1]+'</td>'
+                                +'<td>'+ DynastyTableData[i][2]+'</td>'
+                                +'<td>'+ DynastyTableData[i][3]+'</td>'
+                                +'<td>'+ DynastyTableData[i][4]+'</td>';
+                tbody.appendChild(tr);
+            };
+        }
+        // 总览
+        $('#btn_zonglan').click(function(){
+            ShowZonglanTableData();
+            $("#zonglan_all_data").show();
+            $("#zonglan_sort_data").show();
+            $("#chunqiuxijin_data").hide();
+            $("#sort_hushu").hide();
+            $("#map").hide();
+            $("#hushu_pie_data").hide();
+            $("#hukoushu_pie_data").hide();
+            $("#koushu_pie_data").hide();
+            $("#DynastyTime").hide();
+        })
+        // 春秋-西晋
+        $('#btn_chunqiuxijin').click(function(){
+            ShowDynastyTableData();
+            $("#zonglan_all_data").hide();
+            $("#zonglan_sort_data").hide();
+            $("#sort_hushu").hide();
+            $("#map").hide();
+            $("#hushu_pie_data").hide();
+            $("#hukoushu_pie_data").hide();
+            $("#koushu_pie_data").hide();
+            $("#table_data").hide();
+            $("#chunqiuxijin_data").show();
+            $("#DynastyTime").hide();
+        })
+    // <!-- 刘宋 -->
+    $('#btn_liusong').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：刘宋 大明八年公元464年");
+            var url = '/Dynasty/liusong';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/liusong.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+        // <!-- 东魏 -->
+        $('#btn_dongwei').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：东魏 武定二年公元544年");
+            var url = '/Dynasty/dongwei';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                map_link = "/static/jsonData/dongwei.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+        // <!-- 隋 -->
+        $('#btn_sui').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：隋 大业五年公元609年");
+            var url = '/Dynasty/sui';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                map_link = "/static/jsonData/sui.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    // <!-- 唐 -->
+        $('#btn_tang').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：唐 天宝十一年公元752年");
+            var url = '/Dynasty/tang';;
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/tang.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    // <!-- 北宋 -->
+        $('#btn_beisong').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：北宋 崇宁元年公元1102年");
+            var url = '/Dynasty/beisong';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/beisong.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    // <!-- 金 -->
+        $('#btn_jin').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：金 太和七年公元1207年");
+            var url = '/Dynasty/jin';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/jin.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    // <!-- 元 -->
+        $('#btn_yuan').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：元 元二十七年公元1290年");
+            var url = '/Dynasty/yuan';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/yuan.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    // <!-- 明 -->
+        $('#btn_ming').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：明 嘉靖元年公元1522年");
+            var url = '/Dynasty/ming';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/ming.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+    // <!-- 清 -->
+        $('#btn_qing').click(function () {
+            DynastyButton();
+            ShowDynastyTableData();
+            $("#DynastyTime").show();
+            $("#DynastyTime").text("数据来源时间：清 1806年");
+            var url = '/Dynasty/qing';
+            $.post(url, function (alldata) {
+                CountyName_sort = alldata[0]
+                Household_sort = alldata[1]
+                Households = alldata[2]
+                Populations = alldata[3]
+                Families = alldata[4]
+                PopulationMin = alldata[5]
+                PopulationMax = alldata[6]
+                console.log(alldata);
+                console.log(CountyName_sort)
+                // 各郡县数据表格
+                ShowTableData(CountyName_sort,Populations,Households,Families);
+                myChart_Country.setOption({
+                    yAxis: {
+                        data: CountyName_sort
+                    },
+                    series: [{
+                        name: '户数（排序后）',
+                        data: Household_sort
+                    }]
+                })
+                myChart_Household.setOption({
+                    series: [{
+                        name: '户数',
+                        data: Households
+                    }]
+                })
+                myChart_Population.setOption({
+                    series: [{
+                        name: '人口数',
+                        data: Populations
+                    }]
+                })
+                myChart_Families.setOption({
+                    series: [{
+                        name: '户口数',
+                        data: Families
+                    }]
+                })
+                myChart_Map.setOption({
+                    series: [{
+                        name: '朝代地图',
+                        map: "map",
+                        type: "map",
+                        data: Populations
+                    }]
+                })
+                map_link = "/static/jsonData/qing.json";
+                $.get(map_link, function (map) {
+                    echarts.registerMap('map', map);
+                    myChart_Map.setOption({
+                        visualMap: {
+                            min: PopulationMin,
+                            max: PopulationMax,
+                        },
+                        series: [{
+                            name: '朝代地图',
+                            map: "map",
+                            type: "map",
+                            data: Populations
+                        }]
+                    });
+                });
+            })
+        })
+        // 总览人口排序数据
+        var dom = document.getElementById("zonglan_sort_data");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            title: {
+                text: '各朝代人数排序',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['人口总数']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: {{ Dynasty_sort | tojson }}
+            },
+        series: [
+            {
+                name: '人口总数',
+                type: 'bar',
+                data: {{ Population_sort }}
+                },
+        ]
+        };
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+        // 总览总数据
+        var dom = document.getElementById("zonglan_all_data");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            legend: {
+                data: ['总人口', '总户数', '人每户']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: {{ Dynastylabel| tojson}},
+        axisPointer: {
+            type: 'shadow'
+        }
+                }
+            ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '人数(百万人)',
+                min: 0,
+                max: 35,
+                interval: 2,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            {
+                type: 'value',
+                name: '人每户',
+                min: 0,
+                max: 10,
+                interval: 1,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            }
+        ],
+            series: [
+                {
+                    name: '总人口',
+                    type: 'bar',
+                    data: {{ Populationlabelweight }}
+                },
+                {
+                    name: '总户数',
+                    type: 'bar',
+                    data: {{ Householdlabelweight }}
+                },
+                {
+                    name: '人每户',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: {{ Familylabel }}
+                }
+            ]
+        };
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+    </script>
+
+    <script src="../static/asster/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+    <script src="/static/asster/js/dashboard.js"></script>
+</body>
+</html>

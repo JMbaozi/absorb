@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>山东历史信息系统</title>
+
+    <link rel="stylesheet" href="/static/asster/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/asster/css/ol.css">
+    <link rel="stylesheet" href="/static/asster/css/base_css.css">
+    <style>
+          button{
+            width: 50%;
+            height: 50px;
+        }
+    </style>
+</head>
+<body onload="init()">
+<div class="container-fluid" style="height: 100%">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">导航栏</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row" style="height:650px">
+        <div class="col">
+            <div id="map">
+                <div id="layerControl" class="layerControl">
+                    <div class="title"><label style="font-weight: bold">图层列表</label></div>
+                    <ul id="layerTree" class="layerTree"></ul>
+                </div>
+                <div id="popup" class="ol-popup">
+                    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                    <div id="popup-content"></div>
+                    <div id="popup-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 10px">
+        <div class="col">
+            <div id="mouse-position"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form class="form-inline">
+                <label for="select_type">Action type &nbsp;</label>
+                <select id="select_type" class="form-control">
+                    <option value="none" selected>None</option>
+                    <option value="click">Click</option>
+                    <option value="hover">Hover</option>
+                </select>
+                <span id="status"></span>
+                <label for="search_name" class="form-label">人物姓名</label>
+                <input id="search_name" class="form-control">
+                <button id="search_btn" class="btn-danger">查询</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    {#var data=eval({{ coor|tojson }})#}
+{#    console.log({{ coor|tojson }})#}
+    {#console.log(data[0])#}
+    {#console.log(data[0].name)#}
+</script>
+<script src="/static/asster/js/jquery.js"></script>
+<script src="/static/asster/js/base_js.js"></script>
+<script src="/static/asster/js/bootstrap.min.js"></script>
+<script src="/static/asster/js/ol.js"></script>
+</body>
