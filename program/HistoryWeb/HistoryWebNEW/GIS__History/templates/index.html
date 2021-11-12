@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>全山东</title>
+    <link rel="Shortcut Icon" href="/static/asster/img/homepage.ico" type="image/x-icon" />
+
+{#    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/jumbotron/">#}
+
+    <!-- Bootstrap core CSS -->
+<link href="../static/asster/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/static/asster/js/jquery.min.js">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      #float-box {
+        position: fixed;
+        right: 0;
+        bottom: 10px;
+        z-index: 100;
+        cursor: pointer;
+      }
+      .float-cube {
+          /* background-color:rgba(0,0,0,0); */
+          width: 48px;
+          height: 48px;
+          margin-top: 2px;
+          /* background: white; */
+          /* background-image: url(/static/asster/img/feedback.png); */
+          background-size: 32px 32px;
+          background-repeat: no-repeat;
+          background-position: 50%;
+          text-align: center;
+          color: #999;
+          font-size: 12px;
+          position: relative;
+      }
+      #go-comment {
+        height: 48px;
+        width: 48px;
+        /* background-image: url(/static/asster/img/comment.png); */
+      }
+      #go-email {
+        height: 48px;
+        width: 48px;
+        /* background-image: url(/static/asster/img/email.png); */
+      }
+      #go-top {
+        height: 48px;
+        width: 48px;
+        /* background-image: url(/static/asster/img/top.png); */
+      }
+      .article-img{
+        width: 100%;
+        height: 60%;
+      }
+      .article-title{
+        height: 10%;
+        line-height: 28px;
+        font-size: 18px;
+        margin: 0 16px 6px;
+        color: #333;
+        padding-left: 0;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .article-subtitle{
+        height: 30%;
+        font-size: 14px;
+        line-height: 24px;
+        color: #999;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 70px;
+        padding: 0 18px;
+        margin-bottom: 18px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+      #history-container {
+          margin: 32px 5.6%;
+          text-align: center;
+          height: 88px;
+          line-height: 88px;
+          background-image: url(https://static.allhistory.com/online/view/Index/img/history.5290.png);
+          background-size: cover;
+          color: #fff;
+          font-size: 30px;
+          border-radius: 2px;
+          transition: all .3s;
+          position: relative;
+          cursor: pointer;
+      }
+      #history-container:hover {
+        box-shadow: 5px 20px 20px #999999;
+      }
+      #article-body:hover{
+        box-shadow: 5px 20px 20px #999999;
+      }
+      .jumbotron{
+        /* background-image: url(/static/asster/img/background.png); */
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/static/asster/css/jumbotron.css" rel="stylesheet">
+  </head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">山东历史信息系统</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">主页 </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={{ url_for("diwang") }}>帝王巡视</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href={{ url_for("Dynasty") }}>人口 </a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for("time_map") }}">时间地图</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={{ url_for("wenzi") }}>东夷文字发源</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+<main role="main">
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Hello, world!</h1>
+      <p>你好，世界！</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4" id="article-body">
+        <div class="article-img">
+          <img src="//img.allhistory.com/5eba005ed7f8a70001fadc93.jpg?height=494" alt="" width="100%" height="100%">
+        </div>
+        <div class="article-title">孔子与儒家</div>
+        <div class="article-subtitle">至圣先师孔子的生平与他创建的对中国历史影响最大的思想流派。</div>
+        <form action={{url_for("article")}} method="POST" target="_blank">
+          <input type="text" value="孔子与儒家" name="name" style="display: none;"> 
+          <button class="btn btn-secondary">查看详情 &raquo;</button>
+        </form>
+      </div>
+      <div class="col-md-4" id="article-body">
+        <div class="article-img">
+          <img src="//img.allhistory.com/5f82ce38550c6f0001d33242.jpg" alt="" width="100%" height="100%">
+        </div>
+        <div class="article-title">李清照的婚姻并不完美，但赵明诚也不是渣男</div>
+        <div class="article-subtitle">李清照的一生，和丈夫赵明诚紧紧联系在一起。谈到李清照与赵明诚，一般有两种声音。一种是，两人门当户对、彼此倾慕，婚后赌书泼茶、恩爱有加。另一种，则说赵明诚是个渣男，不仅蓄养侍妾，还弃城逃亡，置李清照于不顾。这篇文章将从另一个角度出发，为“渣男”洗白。</div>
+        <form action={{url_for("article")}} method="POST" target="_blank">
+          <input type="text" value="李清照的婚姻并不完美，但赵明诚也不是渣男" name="name" style="display: none;"> 
+          <button class="btn btn-secondary">查看详情 &raquo;</button>
+        </form>
+      </div>
+      <div class="col-md-4" id="article-body">
+        <div class="article-img">
+          <img src="//pic.allhistory.com/T1PXJCB4AT1RCvBVdK.jpeg?height=494" alt="" width="100%" height="100%">
+        </div>
+        <div class="article-title">辛弃疾VS霍去病：取得那么像情侣名字，两人到底啥关系？</div>
+        <div class="article-subtitle">霍去病封狼居胥一举打败匈奴，像一颗闪耀的流星划过大汉朝的天空。而辛弃疾​​​​​​​，在懦弱的南宋朝廷下，即使有恢复中原的爱国宏愿，也只能看着岁月流逝、白发徒增，却无能为力……</div>
+        <form action={{url_for("article")}} method="POST" target="_blank">
+          <input type="text" value="辛弃疾VS霍去病：取得那么像情侣名字，两人到底啥关系？" name="name" style="display: none;"> 
+          <button class="btn btn-secondary">查看详情 &raquo;</button>
+        </form>
+      </div>
+    </div>
+    <!-- 查看更多 -->
+    <div class="col-md-12">
+      <a href={{ url_for("history") }} target="_blank" style="text-decoration: none;">
+        <div id="history-container">
+          <div class="before-click">----查看往期专题----</div>
+        </div>
+      </a>
+    </div>
+    <hr>
+  </div> <!-- /container -->
+</main>
+
+<!-- 右下角浮动框 -->
+<div id="float-box">
+  <div class="float-cube go-comment">
+    <a href={{url_for("comment")}} target="_blank"><img src="/static/asster/img/comment.png" alt="留言板" id="go-comment"></a>
+  </div>
+  <div class="float-cube go-email">
+    <a href="mailto:baozicrd@foxmail.com?subject=反馈&body=反馈意见："><img src="/static/asster/img/email.png" alt="发送邮件" id="go-email"></a>
+  </div>
+  <div class="float-cube go-top">
+    <a href="#"><img src="/static/asster/img/top.png" alt="返回顶部" id="go-top"></a>
+  </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -7,6 +7,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
     <title>山东人口变化</title>
+    <link rel="Shortcut Icon" href="/static/asster/img/people.ico" type="image/x-icon" />
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
     <script type="text/javascript" src="../static/asster/js/echarts.min.js"></script>
     <!-- <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script> -->
@@ -44,8 +45,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-1">
-            <nav id="sidebarMenu" class=" d-md-block bg-light sidebar collapse">
+        <div class="col-1" style="padding: 0px;">
+            <!-- <nav id="sidebarMenu" class=" d-md-block bg-light sidebar collapse">
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
@@ -113,9 +114,24 @@
                             </button>
                         </li>
                     </ul>
-                </div>
-            </nav>
+                </div>  
+            </nav> -->
+            <div class="btn-group-vertical" role="group" aria-label="Basic example" style="width: 100%;">
+                <button id="btn_zonglan" type="button" class="btn btn-outline-primary">总览</button>
+                <button id="btn_chunqiuxijin" type="button" class="btn btn-outline-primary">春秋-西晋</button>
+                <button id="btn_liusong" type="button" class="btn btn-outline-primary">刘宋</button>
+                <button id="btn_dongwei" type="button" class="btn btn-outline-primary">东魏</button>
+                <button id="btn_sui" type="button" class="btn btn-outline-primary">隋朝</button>
+                <button id="btn_tang" type="button" class="btn btn-outline-primary">唐朝</button>
+                <button id="btn_beisong" type="button" class="btn btn-outline-primary">北宋</button>
+                <button id="btn_jin" type="button" class="btn btn-outline-primary">金朝</button>
+                <button id="btn_yuan" type="button" class="btn btn-outline-primary">元朝</button>
+                <button id="btn_ming" type="button" class="btn btn-outline-primary">明朝</button>
+                <button id="btn_qing" type="button" class="btn btn-outline-primary">清朝</button>
+            </div>
+        
         </div>
+        
         <div class="col-10 col-offset-2">
             <!-- 各朝代数据来源时间 -->
             <br>
@@ -205,9 +221,9 @@
                             <th>6.47</th>
                         </tr>
                         <tr>
-                            <th>5</th>
-                            <th>北宋</th>
-                            <th>6293138</th>
+                            <th>5</txh>
+                            <th>北宋x</th>
+                            <th>6293x138</th>
                             <th>142543</th>
                             <th>4.25</th>
                         </tr>
@@ -313,13 +329,13 @@
         myChart_Map.hideLoading();
         var option_map = {
             title: {
-                text: '朝代地图',
+                text: '人口分布地图',
                 subtext: '淡粉色：暂无数据',
                 sublink: 'https://www.baidu.com/s?wd=古代地图'
             },
             tooltip: {
                 trigger: 'item',
-                formatter: '{b}<br/>{c} (p / km2)'
+                formatter: '{b}<br/>{c} (人/km²)'
             },
             toolbox: {
                 show: true,
@@ -1362,5 +1378,17 @@
     <script src="../static/asster/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
     <script src="/static/asster/js/dashboard.js"></script>
+    <script>
+        var  btns = document.getElementsByClassName('btn');
+        for(var i = 0;i <btns.length;i++) {
+            btns[i].addEventListener('click',function () {
+                for(var j = 0;j <btns.length;j++) {
+                    btns[j].setAttribute('class',"btn btn-outline-primary");
+                }
+                this.setAttribute('class',"btn btn-primary");
+            })
+        }
+    
+    </script>
 </body>
 </html>

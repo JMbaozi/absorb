@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>帝王</title>
+    <script src="../static/asster/js/ol.js"></script>
+    <link rel="stylesheet" href="../static/asster/css/ol.css">
+    <link rel="stylesheet" href="../static/asster/css/bootstrap.css">
+
+    <style type="text/css">
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            padding: 15px;
+             overflow: auto;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 45px;
+            left: -50px;
+            width: 350px;
+            height: 300px;
+        }
+
+        .ol-popup:after, .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+        }
+
+        .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+        }
+
+
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        }
+
+        .ol-popup-closer:after {
+            content: "✖";
+        }
+
+        #popup-content {
+            font-size: 14px;
+            font-family: "微软雅黑";
+        }
+
+        #popup-content.markerInfo {
+            font-weight: bold;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+        }
+
+        button {
+            background-color: #243e3e; /* Green */
+               border-radius: 25px;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        #mapCon {
+            width: 100%;
+            height: 90%;
+        }
+
+        .info_window {
+            overflow: auto;
+            background-color: white;
+            width: 20%;
+            height: 70%;
+            margin-top: 50px;
+            margin-left: 45px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            position: absolute;
+            z-index: 9;
+
+        }
+        .con_button{
+            background-color: white;
+            margin-top: 10px;
+            margin-left: 1530px;
+            display: none;
+            position: absolute;
+            z-index: 999;
+
+        }
+        .img_div {
+            height: 60%;
+            width: 50%;
+        }
+
+        .img_div img {
+            width: 100%; /* ... */
+            height: 100%;
+        }
+        .left-info {
+            margin: 10px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+{#导航栏#}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href=" http://127.0.0.1:5000/ ">山东历史信息系统</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown"
+                aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+
+
+<button id="lastpoint">上一个</button>
+<button id="nextpoint">下一个</button>
+  <div id="time"></div>
+<!--    信息窗口 -->
+<div id="info_window1" class="info_window ">
+    <a href="#" id="close_infowindow" class="ol-popup-closer"></a>
+    <script>
+
+        $("#close_infowindow").click(function (){
+
+            $("#info_window1").hide();
+        })
+    </script>
+    <div class="left-info ">
+        <img id="img_di" src="" alt="" height="70" width="70">
+    </div>
+    <div id="name" style="margin-top: 20px"></div>
+    <hr>
+        <img id="img_diqu" src="" alt="" height="50%" width="100%" style="display: none">
+    <div id="info"></div>
+    <hr>
+</div>
+<!--    地图 -->
+<div id="mapCon"></div>
+
+<!-- Popup -->
+
+</body>
+<script>
+
+//实例化Map对象加载地图
+var map = new ol.Map({
+    //地图容器div的ID
+    target: 'mapCon',
+    //地图容器中加载的图层
+    layers: [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+        }),
+    ],
+    //地图视图设置
+    view: new ol.View({
+        //地图初始中心点
+        center: ol.proj.fromLonLat([117, 36]),
+        //地图初始显示级别
+        zoom: 7
+    })
+});
+var all_trace=eval({{ all_trace|tojson }}) //所有时间数据
+
+//不同时间段(按钮)加载不同geoserver服务
+function changemap(string){
+
+    var wmsSource = new ol.source.ImageWMS({
+    url: 'http://localhost:8080/geoserver/History/wms',//端口号要改成自己的
+    params: {
+        tiled: true,
+        "LAYERS": string,//History--图层的名称空间，b_482--图层名称
+    },
+    serverType: 'geoserver',//服务类型geoerver
+    crossOrigin: 'anonymous',
+});
+var wmsLayer = new ol.layer.Image({
+    source: wmsSource,
+});
+  var layersArray = map.getLayers();
+  map.removeLayer(layersArray.item(2));
+  layersArray.insertAt(2,wmsLayer);
+{#map.addLayer(wmsLayer);#}
+}
+function changemap_last(string){
+    var wmsSource = new ol.source.ImageWMS({
+    url: 'http://localhost:8080/geoserver/History/wms',//端口号要改成自己的
+    params: {
+        tiled: true,
+        "LAYERS": string,//History--图层的名称空间，b_482--图层名称
+    },
+    serverType: 'geoserver',//服务类型geoerver
+    crossOrigin: 'anonymous',
+});
+var wmsLayer = new ol.layer.Image({
+    source: wmsSource,
+});
+  var layersArray = map.getLayers();
+    map.removeLayer(layersArray.item(2));
+   layersArray.insertAt(2,wmsLayer);
+
+{#map.addLayer(wmsLayer);#}
+}
+function next(){
+    if(times<all_trace.length){
+        if(all_trace[times].time=="公元前488年至前485年"){
+             var string="History:"+"b_487";
+             changemap(string);
+        }
+        if(all_trace[times].time=="公元前491年"){
+            var string="History:"+"b_491";
+             changemap(string);
+        }
+        if(all_trace[times].time=="公元前495年"){
+            var string="History:"+"b_494";
+             changemap(string);
+        }
+        if(all_trace[times].time=="公元前501年") {
+            var string = "History:" + "b_506";
+            changemap(string);
+        }
+        if(all_trace[times].time=="公元前517年"){
+            var string="History:"+"b_512";
+             changemap(string);
+        }
+        var p = ol.proj.transform([all_trace[times].lon, all_trace[times].lat], 'EPSG:4326', 'EPSG:3857');
+        $('#info').text(all_trace[times].info);
+        $('#time').text(all_trace[times].time);
+        map.getView().animate({center: p, zoom: 7});
+         var createLabelStyle = function (feature) {
+            return new ol.style.Style({
+                /**{olx.style.IconOptions}类型*/
+                image: new ol.style.Icon(
+                    ({
+                        anchor: [0.5, 0],
+                        anchorOrigin: 'bottom-right',
+                        anchorXUnits: 'fraction',
+                        anchorYUnits: 'pixels',
+                        offsetOrigin: 'bottom-right',
+                        //图标缩放比例
+                        scale: 0.2,
+                        //透明度
+                        opacity: 1,
+                        //图标的url
+                        src: '../static/asster/img/where.png'
+                    })
+                ),
+                text: new ol.style.Text({
+                    //位置
+                    textAlign: 'center',
+                    //基准线
+                    textBaseline: 'middle',
+                    //文字样式
+                    font: 'normal 30px  微软雅黑',
+                    //文本内容
+                    text: feature.get('title'),
+                    //文本填充样式（即文字颜色）
+                    fill: new ol.style.Fill({color: '#050505'}),
+                    stroke: new ol.style.Stroke({color: '#f8d1d1', width: 2})
+                })
+            });
+        };
+        //实例化Vector要素，通过矢量图层添加到地图容器中
+        var iconFeature = new ol.Feature({
+          geometry: new ol.geom.Point(p),
+            name: all_trace[times].name,
+            info: all_trace[times].info,
+            title : all_trace[times].title,
+            imgURL: "../../images/label/bj.png",
+            geo: p
+        });
+        iconFeature.setStyle(createLabelStyle(iconFeature));
+        //矢量标注的数据源
+        var vectorSource = new ol.source.Vector({
+            features: [iconFeature]
+        });
+        //矢量标注图层
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+        });
+        map.addLayer(vectorLayer);
+        if (times > 0) {
+            var plast = ol.proj.transform([all_trace[times-1].lon, all_trace[times - 1].lat], 'EPSG:4326', 'EPSG:3857');
+            var pnow = ol.proj.transform([all_trace[times].lon, all_trace[times].lat], 'EPSG:4326', 'EPSG:3857');
+            var Line = new ol.Feature({
+                geometry: new ol.geom.LineString([plast, pnow])
+            });
+            //设置线的样式
+            Line.setStyle(new ol.style.Style({
+                //填充色
+                fill: new ol.style.Fill({
+                    color: 'rgba(255, 255, 255, 0.2)'
+                }),
+                //边线颜色
+                stroke: new ol.style.Stroke({
+                    color: '#0c18d3',
+                    lineDash: [1, 9],
+                    width: 5
+                }),
+                //形状
+                image: new ol.style.Circle({
+                    radius: 7,
+
+                    fill: new ol.style.Fill({
+                        color: '#2eb1ff'
+                    })
+                })
+            }));
+            //实例化一个矢量图层Vector作为绘制层
+            var source = new ol.source.Vector({
+                features: [Line]
+            });
+            //创建一个图层
+            var vector = new ol.layer.Vector({
+                source: source
+            });
+            //将绘制层添加到地图容器中
+            map.addLayer(vector);
+        } //加轨迹线
+     times = times + 1;
+    }  //加轨迹点
+    else {
+        alert("无之后路径");
+    }
+}
+times=0;
+
+try
+{
+   if(times==0 &&all_trace[0].name=="孔子")
+{
+    var string="History:"+"b_546"
+    changemap(string);
+    next();
+}
+}
+catch(err)
+{
+   alert("数据无此人")
+}
+
+
+$("#nextpoint").click(function (){
+
+  next();
+});
+$("#lastpoint").click(function () {
+    if (times > 1) {
+        if (times < all_trace.length) {
+            if (all_trace[times].time == "公元前488年至前485年") {
+                var string = "History:" + "b_491";
+                changemap_last(string);
+            }
+            if (all_trace[times].time == "公元前491年") {
+                var string = "History:" + "b_494";
+                changemap_last(string);
+            }
+            if (all_trace[times].time == "公元前495年") {
+                var string = "History:" + "b_506";
+                changemap_last(string);
+            }
+            if (all_trace[times].time == "公元前501年") {
+                var string = "History:" + "b_512";
+                changemap_last(string);
+            }
+            if (all_trace[times].time == "公元前517年") {
+                var string = "History:" + "b_533";
+                changemap_last(string);
+            }
+            if (all_trace[times].time == "公元前549年至前535年") {
+                var string = "History:" + "b_546";
+                changemap_last(string);
+            }
+        }
+
+        var layer = map.getLayers();
+        map.removeLayer(layer.item(2 * times));
+        if (times > 1)  //移除线
+        {
+            map.removeLayer(layer.item((2 * times) - 1));
+        }
+        var p = ol.proj.transform([all_trace[times - 2].lon, all_trace[times - 2].lat], 'EPSG:4326', 'EPSG:3857');
+        $('#info').text(all_trace[times - 2].info);
+        $('#time').text(all_trace[times - 2].time);
+        map.getView().animate({center: p, zoom: 7});
+        times = times-1;
+    } else {
+        alert('无之前路径')
+    }
+
+})
+
+</script>
+
+</html>

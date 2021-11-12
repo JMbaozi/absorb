@@ -1,13 +1,14 @@
-from flask import Flask,render_template,request,jsonify
+from flask import Flask,render_template,request,jsonify,Markup
 import json
 import sqlite3
 import pandas as pd
-
+import markdown
+import os
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return render_template("index1.html")
+    return render_template("index.html")
 #人口
 
 
@@ -386,6 +387,28 @@ def RelationshipGraph():
         Links.append(link)
     return render_template('relationship.html', Nodes=Nodes, Links=Links)
 
+# 留言板
+@app.route("/comment")
+def comment():
+    return render_template('comment.html')
+
+
+# 将md转html
+def MDToHTML(filename):
+	exts = ['markdown.extensions.extra', 'markdown.extensions.codehilite','markdown.extensions.tables','markdown.extensions.toc']
+	mdcontent = ""
+	with open(filename,'r',encoding='utf-8') as f:
+		mdcontent = f.read()	
+	html = markdown.markdown(mdcontent,extensions=exts)
+	content = Markup(html)
+	return content
+@app.route("/article", methods=['POST'])
+def article():
+    article_name = str(request.form["name"])
+    root_path = str(os.path.realpath('static/asster/doc'))# 获取/static/asster/doc文件夹的真实路径
+    filepath = root_path.replace('\\','/') + '/' + article_name + '.md'
+    content = MDToHTML(filepath)  #markdown文件的路径
+    return render_template('article.html',content=content,article_name=article_name)
 
 if __name__ == '__main__':
     app.run(debug=True)

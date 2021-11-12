@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>往期专题 | 山东历史信息系统</title>
+    <link rel="Shortcut Icon" href="/static/asster/img/homepage.ico" type="image/x-icon" />
+
+    {#
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/jumbotron/">#}
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/asster/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/asster/js/jquery.min.js">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        #float-box {
+            position: fixed;
+            right: 0;
+            bottom: 10px;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .float-cube {
+            /* background-color:rgba(0,0,0,0); */
+            width: 48px;
+            height: 48px;
+            margin-top: 2px;
+            /* background: white; */
+            /* background-image: url(/static/asster/img/feedback.png); */
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            position: relative;
+        }
+
+        #go-comment {
+            height: 48px;
+            width: 48px;
+            /* background-image: url(/static/asster/img/comment.png); */
+        }
+
+        #go-email {
+            height: 48px;
+            width: 48px;
+            /* background-image: url(/static/asster/img/email.png); */
+        }
+
+        #go-top {
+            height: 48px;
+            width: 48px;
+            /* background-image: url(/static/asster/img/top.png); */
+        }
+
+        .article-img {
+            width: 100%;
+            height: 60%;
+        }
+
+        .article-title {
+            height: 10%;
+            line-height: 28px;
+            font-size: 18px;
+            margin: 0 16px 6px;
+            color: #333;
+            padding-left: 0;
+            font-weight: 700;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .article-subtitle {
+            height: 30%;
+            font-size: 14px;
+            line-height: 24px;
+            color: #999;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            height: 70px;
+            padding: 0 18px;
+            margin-bottom: 18px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        #history-container {
+            margin: 32px 5.6%;
+            text-align: center;
+            height: 88px;
+            line-height: 88px;
+            background-image: url(https://static.allhistory.com/online/view/Index/img/history.5290.png);
+            background-size: cover;
+            color: #fff;
+            font-size: 30px;
+            border-radius: 2px;
+            transition: all .3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        #history-container:hover {
+            box-shadow: 5px 20px 20px #999999;
+        }
+
+        #article-body:hover {
+            box-shadow: 5px 20px 20px #999999;
+        }
+
+        .jumbotron {
+            /* background-image: url(/static/asster/img/background.png); */
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/static/asster/css/jumbotron.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">往期文章</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <main role="main">
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+
+        <img src="/static/asster/img/background.png" alt="" width="100%">
+
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4" id="article-body">
+                    <div class="article-img">
+                        <img src="//img.allhistory.com/5f86da888513910001740899.jpg?height=494" alt="" width="100%"
+                            height="100%">
+                    </div>
+                    <div class="article-title">齐景公</div>
+                    <div class="article-subtitle">齐景公的那些事儿</div>
+                    <form action={{url_for("article")}} method="POST" target="_blank">
+                        <input type="text" value="齐景公" name="name" style="display: none;">
+                        <button class="btn btn-secondary">查看详情 &raquo;</button>
+                    </form>
+                </div>
+                <div class="col-md-4" id="article-body">
+                    <div class="article-img">
+                        <img src="//pic.allhistory.com/T17jhyB4JT1RCvBVdK.jpeg?height=494" alt="" width="100%" height="100%">
+                    </div>
+                    <div class="article-title">唐高宗治国能力怎么样？</div>
+                    <div class="article-subtitle">
+                        唐高宗李治的政治能力还是很强的，因唐太宗开创了贞观之治，使唐朝空前繁荣；后有武则天篡国。两者太引人注目了，导致唐高宗李治的存在感大大降低。
+                    </div>
+                    <form action={{url_for("article")}} method="POST" target="_blank">
+                        <input type="text" value="唐高宗治国能力怎么样？" name="name" style="display: none;">
+                        <button class="btn btn-secondary">查看详情 &raquo;</button>
+                    </form>
+                </div>
+                <div class="col-md-4" id="article-body">
+                    <div class="article-img">
+                        <img src="//pic.allhistory.com/T1E4_TBTxT1RCvBVdK.jpeg?w=1503&h=776&w=1451&h=886" alt="" width="100%"
+                            height="100%">
+                    </div>
+                    <div class="article-title">康有为的错误与伟大</div>
+                    <div class="article-subtitle">
+                        清德既衰，士人横议。康南海以旧学出新义，因客帝保孔教，一时天下耸动。而学术新新不已，政教激荡陵夷，其人其学，身后寂寞久矣。不期于清鼎革后百年，势迁运转，时贤佳构迭出，以康子为先知大哲，而非仅近代史上一过时人物也。
+                    </div>
+                    <form action={{url_for("article")}} method="POST" target="_blank">
+                        <input type="text" value="康有为的错误与伟大" name="name" style="display: none;">
+                        <button class="btn btn-secondary">查看详情 &raquo;</button>
+                    </form>
+                </div>
+            </div>
+</body>
+
+</html>

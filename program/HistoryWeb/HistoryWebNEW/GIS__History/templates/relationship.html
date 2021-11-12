@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../static/asster/js/jquery.js"></script>
+    <script src="../static/asster/js/echarts.min.js"></script>
+</head>
+ <style type="text/css">
+    .relationdiv{
+        background-color: #0a53be;
+        width:700px;
+        height:700px;
+        float: left;
+
+
+    }
+    .celebritydiv{
+        display: none;
+        width:700px;
+        height:700px;
+        float: right;
+    }
+</style>
+<body>
+<div id="relation" class="relationdiv"></div>
+<div id="celebrity_info" class="celebritydiv">
+    <div id="name"></div>
+    <div id="dynasty"></div>
+    <div id="now_where"></div>
+    <div id="info"></div>
+
+
+    <form action="rel_timemap" method="POST">
+      <input type="text" id="in_name" name="in_name" style="display: none"/>
+      <button type="submit" id="relationship">时间地图显示</button>
+    </form>
+
+
+
+</div>
+</body>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('relation'));
+    var categories = [
+    {
+        "name": "类目0",
+        'itemStyle':{
+            'normal':{
+                'color':'orange'
+            }
+        }
+    },
+    {
+        "name": "类目1",
+        'itemStyle':{
+            'normal':{
+                'color':'gray'
+            }
+        }
+    },
+    {
+        "name": "类目2",
+        'itemStyle':{
+            'normal':{
+                'color':'green'
+            }
+        }
+    },
+    ];
+    option = {
+// 图的标题
+            title: {
+            },
+// 提示框的配置
+            tooltip: {
+            },
+// 工具箱
+            toolbox: {
+            },
+            //animation: false,
+            series: [{
+                type: 'graph', // 类型:关系图
+                layout: 'force', //图的布局，类型为力导图
+                //roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+                //draggable : true,
+                edgeSymbol: ['circle', 'arrow'],
+                edgeSymbolSize: [2, 5],
+                //focusNodeAdjacency: true,
+                force: {
+                    repulsion: 1000,
+                    edgeLength: [5, 10],
+                    layoutAnimation: false
+                },
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        color: '#4b565b',
+                    }
+                },
+                edgeLabel: {
+                    normal: {
+                        show: true,
+                        formatter: function (x) {
+                            return x.data.name;
+                        },
+                        textStyle: {
+                            fontSize:10
+                        }
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        textStyle: {
+                            fontSize:10
+                        }
+                    }
+                },
+                data:
+                    {{ Nodes|tojson }},
+                links:
+                    {{ Links|tojson }},
+                categories: categories,
+            }]
+        };
+    myChart.setOption(option);
+    myChart.on('click', function (param){
+          if (param.data.category == 1) {
+              alert("数据库无" + param.name)
+        }
+          if (param.data.category == 2) {
+
+              alert("点击了节点" + param.name)
+              url="/relationship_tackle";
+              var params={};
+              params.name=param.name;
+              $.post(url,params,function (res){
+                 $("#celebrity_info").show();
+                $('#name').text(res.name);
+                $('#dynasty').text(res.dynasty);
+                $('#info').text(res.info);
+                $('#now_where').text(res.now_where);
+                $('#in_name').val(res.name)
+              })
+        }
+
+    });
+</script>
+</html>

@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>山东人物</title>
+    <link rel="Shortcut Icon" href="/static/asster/img/people.png" type="image/x-icon"/>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
+    <script type="text/javascript" src="../static/asster/js/echarts.min.js"></script>
+    <!-- <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/echarts-nightly@5.1.2-dev.20210512/dist/echarts.min.js"></script> -->
+    <script src="../static/asster/js/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/asster/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .button:hover {
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="../static/asster/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="http://127.0.0.1:5000/">山东历史信息系统</a>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1">
+            <nav id="sidebarMenu" class=" d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <button id="btn_zonglan" class="nav-link "
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                总览
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link " id="btn_chunqiu"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                春秋
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_zhanguo"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                战国
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_qin"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                秦朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_xihan"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                西汉
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_donghan"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                东汉
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_sanguo"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                三国
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_xijin"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                西晋
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_dongjin"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                东晋
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_nanbeichao"
+                                    style=" text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                南北朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_sui"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                隋朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_tang"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                唐朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_houliang"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                后梁
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_beisong"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                北宋
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_jin"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                金朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_yuan"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                元朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_ming"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                明朝
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link" id="btn_qing"
+                                    style="text-align: left; border: none;width: 100%;background-color: #f8f8fa">
+                                <span data-feather="users"></span>
+                                清朝
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-10 col-offset-2">
+            <div class="table-responsive" id="table_data" style="display: none;">
+                <h4>数据表</h4>
+                <table class="table table-striped table-sm" id="CelebrityTable">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>简介</th>
+                        <th>地点</th>
+                        <th>属性</th>
+                        <th>详情</th>
+                        <th>地图</th>
+                    </tr>
+                    </thead>
+                    <!-- <tbody id="tbody"></tbody> -->
+                </table>
+            </div>
+            <div id="table_data_zonglan">
+                <h1>建设中。。。</h1>
+                <!-- <img src="https://cdn.jsdelivr.net/gh/JMbaozi/Blogimg/Pictures/beijing.png" alt=""> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 按钮点击后变色 -->
+<script>
+    var btn = document.getElementsByTagName("button");
+    for (var i = 0; i < btn.length; i++) {
+        (function (index) {
+            btn[index].onclick = function () {
+                for (var j = 0; j < btn.length; j++) {
+                    btn[j].style.backgroundColor = "";
+                }
+                if (btn[index].style.backgroundColor === "red") {
+                    btn[index].style.backgroundColor = "";
+                } else {
+                    btn[index].style.backgroundColor = "red";
+                }
+            }
+        }(i))
+    }
+</script>
+<script>
+    function ShowZonglanTableData() {
+        // 展示总览数据图表
+        $("#table_data_zonglan").show();
+        $("#table_data").hide();
+    }
+
+    function ShowCelebrityTableData() {
+        // 展示各朝代数据图表
+        $("#table_data_zonglan").hide();
+        $("#table_data").show();
+    }
+
+    // 显示各朝代各人物信息表格
+    function ShowTableData(Names, Infos, Places, Attributes) {
+        var CelebrityTableData = [];
+        for (var i = 0; i < Names.length; ++i) {
+            data = [];
+            data[0] = i + 1;//序号
+            data[1] = Names[i];//人物姓名
+            data[2] = Infos[i];//人物信息
+            data[3] = Places[i];//人物地点
+            data[4] = Attributes[i];//人物属性
+            data[5] = 'https://baike.baidu.com/item/' + Names[i];//人物百度百科
+            CelebrityTableData[i] = data;
+        }
+        var table = document.getElementById('CelebrityTable');//这是获取表
+        // 移除上一个朝代的数据表格
+        var tbs = table.getElementsByTagName('tbody');
+        if (!tbs || tbs.length == 0) {
+            console.log("我进来了")
+        } else {
+            table.removeChild(tbs[0]);
+        }
+        // 添加当前郡县数据表格
+        var tbody = document.createElement("tbody")
+        table.appendChild(tbody)
+        // var tbody = document.getElementById("tbody")
+        for (var i = 0; i < CelebrityTableData.length; i++) {
+            var tr = document.createElement("tr");
+            tr.innerHTML = '<td>' + CelebrityTableData[i][0] + '</td>'
+                + '<td>' + CelebrityTableData[i][1] + '</td>'
+                + '<td>' + CelebrityTableData[i][2] + '</td>'
+                + '<td>' + CelebrityTableData[i][3] + '</td>'
+                + '<td>' + CelebrityTableData[i][4] + '</td>'
+                + '<td>' + '<a href=' + CelebrityTableData[i][5] + ' target="_blank">' + CelebrityTableData[i][1] + '</a>' + '</td>'
+                + '<td>' + '<button class="GoToMap" id=' + CelebrityTableData[i][1] + ' style="border-radius:12px;border:none;box-shadow: 0 3px 6px 0 rgba(0,0,0,0.1), 0 5px 10px 0 rgba(0,0,0,0.1);">' + '跳转' + '</button>' + '</td>';
+            tbody.appendChild(tr);
+        }
+    };
+
+    // 总览
+    $('#btn_zonglan').click(function () {
+        ShowZonglanTableData();
+    })
+
+    // 春秋
+    $('#btn_chunqiu').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/chunqiu_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 战国
+    $('#btn_zhanguo').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/zhanguo_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 秦朝
+    $('#btn_qin').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/qin_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 西汉
+    $('#btn_xihan').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/xihan_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 东汉
+    $('#btn_donghan').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/donghan_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 三国
+    $('#btn_sanguo').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/sanguo_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 西晋
+    $('#btn_xijin').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/xijin_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 东晋
+    $('#btn_dongjin').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/dongjin_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 南北朝
+    $('#btn_nanbeichao').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/nanbeichao_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 隋朝
+    $('#btn_sui').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/sui_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 唐朝
+    $('#btn_tang').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/tang_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 后梁
+    $('#btn_houliang').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/houliang_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 北宋
+    $('#btn_beisong').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/beisong_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 金朝
+    $('#btn_jin').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/jin_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 元朝
+    $('#btn_yuan').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/yuan_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 明朝
+    $('#btn_ming').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/ming_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+    // 清朝
+    $('#btn_qing').click(function () {
+        ShowCelebrityTableData();
+        var url = '/celebrity/qing_celebrity';
+        $.post(url, function (alldata) {
+            Names = alldata[0]
+            Infos = alldata[1]
+            Places = alldata[2]
+            Attributes = alldata[3]
+            console.log(alldata)
+            ShowTableData(Names, Infos, Places, Attributes)
+        })
+    })
+
+    $("body").on('click', '.GoToMap', function () {
+        params = {};
+        params.name = $(this).attr('id').toString();
+        {#alert(params.name);#}
+        url = '/celebrity/CelebrityGoToMap';
+        $.post(url, params, function (res) {
+            window.location.href="/form_time_map_tackle";
+        })
+        delete params;
+    });
+</script>
+
+
+<script src="../static/asster/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+<script src="/static/asster/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:padding-left="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>东夷文字发源</title>
+    <script src="../static/asster/js/ol.js"></script>
+    <link rel="stylesheet" href="../static/asster/css/ol.css">
+    <link rel="stylesheet" href="../static/asster/css/bootstrap.css">
+
+    <style type="text/css">
+
+
+        body, html {
+            height: 100%;
+            width: 100%;
+        }
+
+        .click_add {
+            background-color: #a8a8a8; /* Green */
+            border-radius: 25px;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        #mapCon {
+            width: 100%;
+            height: 90%;
+        }
+
+        .info_window {
+            overflow: auto;
+            background-color: white;
+            width: 20%;
+            height: 70%;
+            margin-top: 50px;
+            margin-left: 45px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            display: none;
+            position: absolute;
+            z-index: 9;
+
+        }
+
+        .con_button {
+            background-color: white;
+            margin-top: 10px;
+            margin-left: 1530px;
+            display: none;
+            position: absolute;
+            z-index: 999;
+
+        }
+
+        .img_div {
+            height: 60%;
+            width: 50%;
+        }
+
+        .img_div img {
+            width: 100%; /* ... */
+            height: 100%;
+        }
+
+        .left-info {
+            margin: 10px;
+            float: left;
+        }
+        .layerControl {
+            position: absolute;
+            bottom: 5px;
+            min-width: 200px;
+            max-height: 150px;
+            right: 0px;
+            top: 5px;
+            z-index: 100;
+            color: #ffffff;
+            background-color: #4c4e5a;
+            border-width: 10px;
+            border-radius: 10px;
+            border-color: #000 #000 #000 #000;
+        }
+
+        .layerControl .title {
+            font-weight: bold;
+            font-size: 15px;
+            margin: 10px;
+        }
+
+        .layerTree li {
+            list-style: none;
+            margin: 5px 10px;
+        }
+
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 280px;
+        }
+        .ol-popup:after, .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+        .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+        }
+        .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+        }
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        }
+        .ol-popup-closer:after {
+            content: "✖";
+        }
+
+        #popup-content {
+            font-family: "微软雅黑";
+        }
+
+        #popup-content .markerName {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+        #popup-content .markerTime{
+            font-size: 14px;
+            color: rgb(139, 136, 133);
+        }
+        #popup-content .markerInfo {
+            font-size: 14px;
+        }
+        #popup-content a{
+            text-decoration:none
+        }
+
+        .add_site {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+            z-index: 100;
+        }
+        .submit_form_site {
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            display: none;
+            z-index: 2;
+            background-color: rgb(255, 250, 250);
+            padding: 20px;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+
+        }
+        .submit_form_site input, textarea {
+            padding: 9px;
+            border: solid 1px #E5E5E5;
+            outline: 0;
+            font: normal 13px/100% Verdana, Tahoma, sans-serif;
+            width: 200px;
+            background: #FFFFFF  left top repeat-x;
+            background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+            background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+            box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+            -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+            -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+        }
+
+        .submit_form_site textarea {
+            width: 400px;
+            max-width: 400px;
+            height: 150px;
+            line-height: 150%;
+        }
+
+        .submit_form_site input:hover, textarea:hover, input:focus, textarea:focus {
+            border-color: #C9C9C9;
+            -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
+        }
+
+        .submit_form_site label {
+            margin-left: 10px;
+            color: #404040;
+        }
+
+        .submit_form_site  #send_data,#cancel{
+            width: auto;
+            padding: 9px 15px;
+            background: #617798;
+            border: 0;
+            font-size: 14px;
+            color: #FFFFFF;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+{#导航栏#}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href=" http://127.0.0.1:5000/ ">山东历史信息系统</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown"
+                aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+
+<!--    地图 -->
+<div id="mapCon" ></div>
+
+<div id="layerControl" class="layerControl">
+    <div class="title"><label for="">图层列表</label></div>
+    <ul id="layerTree" class="layerTree"></ul>
+  </div>
+<div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+        <div id="popup-content"></div>
+</div>
+<div class="add_site">
+    <input type="button" class="click_add" value="添加遗址" onclick="show_div()">
+</div>
+<div class="submit_form_site" id="dialogExp">
+    <div  id="forms" class="site_form">
+        <p class="site_name">
+            <input type="text" id="site_name" name="site_name" value="" />
+            <label for="site_name">遗迹名称</label>
+        </p>
+        <p class="site_time">
+            <input type="text" id="site_time" name="site_time" value="" />
+            <label for="site_time">遗迹挖掘时间</label>
+        </p>
+        <p class="site_loc">
+            <input type="text" id="site_loc" name="site_loc" value="" />
+            <label for="site_loc">遗址地点</label>
+        </p>
+        <p class="site_type">
+            <input type="text" id="site_type" name="site_type" value="" />
+            <label for="site_type">遗址类型</label>
+        </p>
+        <p class="site_info">
+            <label for="site_info">遗址简介</label><br>
+            <textarea id="site_info" name="text"></textarea>
+        </p>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="提交" id='send_data'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消" id='cancel' onclick="closeWindow()"/></span>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+    var vector = new ol.layer.Vector({});
+    //实例化Map对象加载地图
+    var map = new ol.Map({
+        //地图容器div的ID
+        target: 'mapCon',
+        //地图容器中加载的图层
+        layers: [
+            new ol.layer.Tile({
+                name: "OSM切片底图",
+                source: new ol.source.OSM(),
+            }),
+            vector
+        ],
+        //地图视图设置
+        view: new ol.View({
+            //地图初始中心点
+            center: ol.proj.fromLonLat([117, 36]),
+            //地图初始显示级别
+            zoom: 8
+        })
+    });
+    var myfeatures = [[], [], []];
+    {% for i in data %}
+        var a = {{ i[5]|tojson }};
+        var p = ol.proj.transform([a.slice(0, 10), a.slice(11, 20)], 'EPSG:4326', 'EPSG:3857');
+        var dic = {'陶文发现地': '../static/asster/img/陶文1.png',
+                   '卜骨发现地':'../static/asster/img/卜骨1.png',
+                   '骨刻文发现地': '../static/asster/img/古朴1.png'};
+        var label = {{ i[6]|tojson}};
+        var img_path = dic[label];
+        var createLabelStyle = function (feature) {
+                return new ol.style.Style({
+                    /**{olx.style.IconOptions}类型*/
+                    image: new ol.style.Icon(
+                        ({
+                            anchor: [0.5, 0],
+                            anchorOrigin: 'bottom-right',
+                            anchorXUnits: 'fraction',
+                            anchorYUnits: 'pixels',
+                            offsetOrigin: 'bottom-right',
+                            //图标缩放比例
+                            scale: 0.1,
+                            //透明度
+                            opacity: 1,
+                            //图标的url
+                            src: img_path
+                        })
+                    ),
+                    text: new ol.style.Text({
+                        //位置
+                        textAlign: 'center',
+                        //基准线
+                        textBaseline: 'middle',
+                        //文字样式
+                        font: '12px 微软雅黑',
+                        //文本内容
+                        text: feature.get('name'),
+                        //文本填充样式（即文字颜色）
+                        fill: new ol.style.Fill({color: '#050505'}),
+                        stroke: new ol.style.Stroke({color: '#f8d1d1', width: 2})
+                    })
+                });
+            };
+
+        var iconFeature = new ol.Feature({
+            geometry: new ol.geom.Point(p),
+            name: {{ i[0]|tojson }},
+            info: {{i[1]|tojson}},
+            //imgURL: "../../images/label/bj.png",
+            link:{{ i[2]|tojson }},
+            timespan:{{ i[3]|tojson }},
+            geo: p
+        });
+        iconFeature.setStyle(createLabelStyle(iconFeature));
+        //矢量标注的数据源
+        if (label == '陶文发现地'){
+            myfeatures[0].push(iconFeature)
+        }
+        else if (label == '卜骨发现地'){
+            myfeatures[1].push(iconFeature)
+        }
+        else{
+            myfeatures[2].push(iconFeature)
+        }
+    {% endfor %}
+    var layernames = ['陶文发现地', '卜骨发现地', '骨刻文发现地'];
+    for(var i=0;i<3;i++){
+        var vectorSource = new ol.source.Vector({
+            features: myfeatures[i]
+        });
+        var vectorLayer = new ol.layer.Vector({
+            name:layernames[i],
+            source: vectorSource
+        });
+        map.addLayer(vectorLayer);
+    }
+
+     // 1.创建列表数组
+    var layer = new Array(); // map的图层数组
+    var layerName = new Array(); // 图层名数组
+    var layerVisibility = new Array(); // 可见图层数组
+
+    // 2.创建加载图层列表中的数据函数
+    function loadLayersControl(map, id) {
+      var treeContent = document.getElementById(id); //获取图层列表容器对象ul
+      var layers = map.getLayers(); // 获取地图中所以图层；
+      // 2.1 遍历layers，获取图层、名字、可见性，创建li列表
+      for (var i = 0; i < layers.getLength(); i++) { // getLength()获取图层个数
+        var this_layer =  layers.item(i);
+        if (layernames.indexOf(this_layer.get('name')) == -1){
+            continue
+        }
+        layer[i] = this_layer; // 获取集合中第i个图层，循环为layer数组赋值
+        layerName[i] = this_layer.get('name'); // 获取图层名字
+        layerVisibility[i] = this_layer.getVisible(); // 获取图层可见性，返回布尔值
+        var elementLi = document.createElement('li');  // 创建li子节点
+        treeContent.appendChild(elementLi); // 添加li子节点到ul
+        // 2.2 创建复选框
+        var elementInput = document.createElement('input');
+        elementInput.type = 'checkbox';
+        elementInput.name = 'layers'; // name属性值一致才能实现复选
+        elementLi.appendChild(elementInput);
+        // 2.3 创建label元素
+        var elementLabel = document.createElement('label');
+        elementLabel.className = 'layer'; // 设置label类名，修改样式
+        // 2.3 设置图层名称
+        elementLabel.innerHTML = layerName[i]; // 把图层名添加到label
+        // 2.4 把label追加到li
+        elementLi.appendChild(elementLabel);
+        // 2.5 设置图层默认显示
+        if (layerVisibility[i]) {
+          elementInput.checked = true; // 如果图层可见，勾选复选框
+        }
+        // 2.6 为checkbox添加变更事件监听函数
+        addChangeEvent(elementInput, layer[i]);
+      }
+    }
+
+    // 3.为checkbox绑定点击事件
+    function addChangeEvent(element, layer) {
+      element.addEventListener('click', function () {
+        if (element.checked) {
+          layer.setVisible(true);
+        } else {
+          layer.setVisible(false);
+        }
+      });
+    }
+    loadLayersControl(map, 'layerTree');
+
+    var container = document.getElementById('popup');
+    var content = document.getElementById("popup-content");
+    var closer = document.getElementById("popup-closer");
+    var popup = new ol.Overlay(
+        ({
+            //要转换成overlay的HTML元素
+            element: container,
+            //当前窗口可见
+            autoPan: true,
+            //Popup放置的位置
+            positioning: 'bottom-center',
+            //是否应该停止事件传播到地图窗口
+            stopEvent: false,
+            autoPanAnimation: {
+                //当Popup超出地图边界时，为了Popup全部可见，地图移动的速度
+                duration: 250
+            }
+        }));
+    map.addOverlay(popup);
+    /**
+     * 添加关闭按钮的单击事件（隐藏popup）
+     * @return {boolean} Don't follow the href.
+     */
+    closer.onclick = function () {
+        //未定义popup位置
+
+        popup.setPosition(undefined);
+        //失去焦点
+        closer.blur();
+        return false;
+    };
+    function setInnerText(element, text) {
+        if (typeof element.textContent == "string") {
+            element.textContent = text;
+        } else {
+            element.innerText = text;
+        }
+    }
+    /**
+     * 动态创建popup的具体内容
+     * @param {string} title
+     */
+    function addFeatrueInfo(info) {
+        content.innerHTML = '';
+        closer.innerHTML = '';
+        //新增a元素
+        var elementA = document.createElement('a');
+        elementA.className = "markerName";
+        elementA.href = info.link;
+        setInnerText(elementA, info.name);
+        // 新建的div元素添加a子节点
+        content.appendChild(elementA);
+        //新增span元素
+        var elementP = document.createElement('p');
+        elementP.className = "markerTime";
+        setInnerText(elementP, "发掘时间:"+info.timespan);
+        // 新建的div元素添加a子节点
+        content.appendChild(elementP);
+        //新增div元素
+        var elementDiv = document.createElement('div');
+        elementDiv.className = "markerInfo";
+        setInnerText(elementDiv, info.info);
+        // 为content添加div子节点
+        content.appendChild(elementDiv);
+    }
+    var selectSingleClick = new ol.interaction.Select();
+    map.addInteraction(selectSingleClick);
+    selectSingleClick.on('select', function(evt) {
+        var feature=evt.selected[0];
+        var element = popup.getElement();
+        if (typeof(feature) != "undefined")
+        {
+            var property=feature.getProperties();
+            var coordinate = ol.extent.getCenter(feature.getGeometry().getExtent());
+            hdms = addFeatrueInfo(property);
+            popup.setPosition(coordinate);
+            // the keys are quoted to prevent renaming in ADVANCED mode.
+            $(element).popover({
+                'placement': 'top',
+                'animation': false,
+                'html': true,
+                'content': hdms
+            });
+            $(element).popover('show');
+
+        }
+
+    });
+
+    /**
+     * 为map添加鼠标移动事件监听，当指向标注时改变鼠标光标状态
+     */
+    map.on('pointermove', function (e) {
+        var pixel = map.getEventPixel(e.originalEvent);
+        var hit = map.hasFeatureAtPixel(pixel);
+        map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+    });
+
+    function show_div() {
+        $('#dialogExp').show();
+    }
+    $("#send_data").click(function () {
+        var site_data = {
+                name:$('#site_name').val(),
+                time:$('#site_time').val(),
+                loc:$('#site_loc').val(),
+                info:$('#site_info').val(),
+                type:$('#site_type').val(),
+            };
+        $.ajax({
+            url:"http://127.0.0.1:5000/wenzi/GetSiteData",
+            type:"POST",
+            data:site_data,
+            success:function (data) {
+                $("#send_data").css('background', '#00bfff');
+                $("#send_data").val("成功")
+            },
+            error:function () {
+                $("#send_data").css('background', '#7F7E7F');
+                $("#send_data").val("失败")
+            }
+        });
+        $('#site_name').val('');
+        $('#site_time').val('');
+        $('#site_loc').val('');
+        $('#site_info').val('');
+        $('#site_type').val('');
+    });
+
+    function closeWindow() {
+        $('#dialogExp').hide();  //隐藏弹窗
+        $('#cover').css('display','none');
+        $("#send_data").css('background', '#617798');
+        $("#send_data").val("提交")
+    }
+
+</script>
+
+</html>

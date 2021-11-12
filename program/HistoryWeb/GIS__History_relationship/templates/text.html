@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/asster/css/bootstrap.min.css">
+</head>
+<body>
+<div class="btn-group-vertical" role="group" aria-label="Basic outlined example">
+    <button id="a" type="button" class="btn btn-outline-primary">Left</button>
+    <button type="button" class="btn btn-outline-primary">Middle</button>
+    <button type="button" class="btn btn-outline-primary">Right</button>
+</div>
+<script src="/static/asster/js/bootstrap.bundle.min.js"></script>
+<script>
+    var  btns = document.getElementsByClassName('btn');
+    for(var i = 0;i <btns.length;i++) {
+        btns[i].addEventListener('click',function () {
+            for(var j = 0;j <btns.length;j++) {
+                btns[j].setAttribute('class',"btn btn-outline-primary");
+            }
+            this.setAttribute('class',"btn btn-primary");
+        })
+    }
+
+</script>
+</body>
+</html>

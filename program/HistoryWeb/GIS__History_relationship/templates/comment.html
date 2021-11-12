@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>留言板</title>
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/jumbotron/"> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <!-- Bootstrap core CSS -->
+<link href="../static/asster/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/static/asster/js/jquery.min.js">
+    <style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+        }
+    }
+
+    #vcomments{
+            margin: 0 auto;
+            width: 700px;
+            list-style-type: none;
+            padding: auto;
+            border: 1px solid #f0f0f0;
+        }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="/static/asster/css/jumbotron.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="http://127.0.0.1:5000/">山东历史信息系统</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">留言板</a>
+    </ul>
+  </div>
+</nav>
+<div id="background">
+  <img src="/static/asster/img/background.png" alt="" width="100%">
+</div>
+<div id="vcomments"></div>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'bE5uulX1rjlMYfvX3bkYxRcp-gzGzoHsz',
+        app_key: 'UyMjj3WbzaiLcFB13sICVpnW',
+        placeholder:'我是输入框，点我留言(*^_^*)',
+        visitor: true,
+        avatar:'wavatar' // (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
+    });
+</script>
+</body>
+<script type="text/javascript" src="/static/asster/js/comment.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+</html>

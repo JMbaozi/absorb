@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{article_name}}</title>
+    <link rel="Shortcut Icon" href="/static/asster/img/article.ico" type="image/x-icon" />
+    <link href="/static/asster/css/MDToHTML_default.css" rel="stylesheet">
+    <link href="/static/asster/css/MDToHTML_github.css" rel="stylesheet" type="text/css" />
+    <style>
+        .article {
+            margin: 0 auto;
+            width: 720px;
+            /* solid; */
+            text-align: left;
+            line-height: 1.9;
+            font-size: 15px;
+            word-wrap: break-word;
+        }
+        #float-box {
+        position: fixed;
+        right: 0;
+        bottom: 10px;
+        z-index: 100;
+        cursor: pointer;
+        }
+        .float-cube {
+            /* background-color:rgba(0,0,0,0); */
+            width: 48px;
+            height: 48px;
+            margin-top: 2px;
+            /* background: white; */
+            /* background-image: url(/static/asster/img/feedback.png); */
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            position: relative;
+        }
+        #go-comment {
+            height: 48px;
+            width: 48px;
+            /* background-image: url(/static/asster/img/comment.png); */
+        }
+        #go-email {
+            height: 48px;
+            width: 48px;
+            /* background-image: url(/static/asster/img/email.png); */
+        }
+        #go-top {
+            height: 48px;
+            width: 48px;
+            /* background-image: url(/static/asster/img/top.png); */
+        }
+    </style>
+</head>
+<body>
+    <div class="article"> {{ content }} </div>
+    <!-- 右下角浮动框 -->
+    <div id="float-box">
+        <div class="float-cube go-comment">
+        <a href={{url_for("comment")}} target="_blank"><img src="/static/asster/img/comment.png" alt="留言板" id="go-comment"></a>
+        </div>
+        <div class="float-cube go-email">
+        <a href="mailto:baozicrd@foxmail.com?subject=反馈&body=反馈意见："><img src="/static/asster/img/email.png" alt="发送邮件" id="go-email"></a>
+        </div>
+        <div class="float-cube go-top">
+        <a href="#"><img src="/static/asster/img/top.png" alt="返回顶部" id="go-top"></a>
+        </div>
+    </div>
+</body>
+</html>
