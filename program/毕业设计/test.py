@@ -1,29 +1,44 @@
-import cv2 as cv
+import cv2
+import copy
+import matplotlib.pyplot as plt
 import numpy as np
 
-def get_image_info(image):
-    print(type(image))
-    print(image.shape)
-    print(image.size)
-    print(image.dtype)
-    pixel_data = np.array(image)
-    print(pixel_data)
+capture = cv2.VideoCapture('test.avi')
+background_subtractor = cv2.bgsegm.createBackgroundSubtractorMOG()
+length = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
 
-def video_demo():
-    capture = cv.VideoCapture(0)
-    while(True):
-        ret,frame = capture.read()
-        frame = cv.flip(frame,1)
-        cv.imshow("video",frame)
-        c = cv.waitKey(50)
-        if c == 33:
-            break
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+width = 1920
+height = 1080
+video = cv2.VideoWriter('output.avi', fourcc, 30.0, (width, height))
 
-src = cv.imread('img1.png')
-# cv.namedWindow("input image",cv.WINDOW_AUTOSIZE)
-cv.imshow("input image",src)
-get_image_info(src)
-cv.waitKey(0)
-# video_demo()
-cv.destroyAllWindows()
-print("YES")
+for i in range(0, length-1):
+
+    ret, frame = capture.read()
+
+    if i == 0:
+
+        first_frame = copy.deepcopy(frame)
+        height, width = frame.shape[:2]
+        accum_image = np.zeros((height, width), np.uint8)
+    
+    fgmask = background_subtractor.apply(frame)
+
+    threshold = 2
+    maxValue = 2
+    ret, th1 = cv2.threshold(fgmask, threshold, maxValue, cv2.THRESH_BINARY)
+    
+    accum_image = cv2.add(accum_image, th1)
+
+    color_image_video = cv2.applyColorMap(accum_image, cv2.COLORMAP_HOT)
+
+    video.write(cv2.add(frame, color_image_video))
+
+cap = cv2.VideoCapture('output.avi')
+while 1:
+    ret, frame = cap.read()
+    cv2.imshow("cap", frame)
+    if cv2.waitKey(5) & 0xff == ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()
