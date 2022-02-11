@@ -1,6 +1,8 @@
 import cv2 as cv
 import numpy as np
 
+# 色彩空间
+
 
 def extrace_object_demo():
     capture = cv.VideoCapture("video/test.avi")

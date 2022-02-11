@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 
+# 读取
 
 def access_pixels(image):
     print(image.shape)
