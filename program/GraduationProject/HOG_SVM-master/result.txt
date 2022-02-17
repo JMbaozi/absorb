@@ -1,0 +1,8 @@
+cat.jpg cat
+chick.jpg chick
+chick2.jpg chick
+smallCat.jpg cat
+snake.jpg snack
+snake2.jpg snack
+snake3.jpg snack
+yellowCat.jpg cat

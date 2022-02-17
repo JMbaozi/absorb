@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ObjectList>
+		<Object>
+			<Rect x="2" y="17" width="33" height="81"/>
+		</Object>
+		<Object>
+			<Rect x="41" y="18" width="33" height="77"/>
+		</Object>
+		<Object>
+			<Rect x="78" y="21" width="31" height="77"/>
+		</Object>
+		<Object>
+			<Rect x="113" y="21" width="30" height="74"/>
+		</Object>
+		<Object>
+			<Rect x="142" y="22" width="28" height="73"/>
+		</Object>
+		<Object>
+			<Rect x="169" y="21" width="31" height="73"/>
+		</Object>
+		<Object>
+			<Rect x="208" y="17" width="28" height="77"/>
+		</Object>
+		<Object>
+			<Rect x="234" y="17" width="28" height="76"/>
+		</Object>
+		<Object>
+			<Rect x="263" y="17" width="27" height="76"/>
+		</Object>
+		<Object>
+			<Rect x="294" y="14" width="28" height="78"/>
+		</Object>
+		<Object>
+			<Rect x="326" y="19" width="26" height="73"/>
+		</Object>
+		<Object>
+			<Rect x="361" y="30" width="25" height="62"/>
+		</Object>
+		<Object>
+			<Rect x="394" y="15" width="22" height="76"/>
+		</Object>
+</ObjectList>

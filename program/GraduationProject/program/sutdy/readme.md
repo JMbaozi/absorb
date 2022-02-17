@@ -11,6 +11,8 @@ src = cv.imread('img/img1.jpg')#bule,green,red
 cv.namedWindow("input image",cv.WINDOW_AUTOSIZE)
 cv.imshow("input image",src)
 print(src.shape)
+
+
 cv.waitKey(0)
 
 cv.destroyAllWindows()
