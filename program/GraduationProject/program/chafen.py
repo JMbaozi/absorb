@@ -10,7 +10,7 @@ filename = "video/PETS2009.avi"
 camera = cv2.VideoCapture(filename)
 video_name=filename.split("/")[-1].split(".")[0]
 # 视频文件输出参数设置
-out_fps = 30.0  # 输出文件的帧率
+out_fps = 60.0  # 输出文件的帧率
 # fourcc = cv2.VideoWriter_fourcc('M', 'P', '4', '2')
 fourcc = cv2.VideoWriter_fourcc('I','4','2','0')  # avi
 out1 = cv2.VideoWriter(os.path.join('video/', "{}_1.avi".format(video_name)), fourcc, out_fps, (500, 500))
